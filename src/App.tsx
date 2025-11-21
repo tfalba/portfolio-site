@@ -1,15 +1,22 @@
 // src/App.tsx
-import React from "react";
-import { ProjectSection, type Project } from "./components/ProjectSection";
-import {projects} from "./data/projectData.ts";
-
-// const projects: Project[] = [/* ...your four project objects... */];
+import React, { useState } from "react";
+import { ProjectSection } from "./components/ProjectSection";
+import { projects } from "./data/projectData.ts";
 
 const App: React.FC = () => {
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const handleToggle = (id: string) => {
+    setOpenId((prev) => (prev === id ? null : id));
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-brand-black via-brand-charcoal to-brand-black text-brand-light">
-      <header className="border-b border-brand-light/10 bg-brand-black/90 text-brand-white backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-5">
+      <header
+        className="border-b border-brand-light/10 bg-gradient-to-br from-brand-green/10 via-brand-green/80 to-brand-green/80
+ text-brand-white backdrop-blur"
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5">
           <div>
             <h1 className="text-2xl font-heading tracking-tight text-brand-white">
               Your Name
@@ -33,8 +40,8 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-5xl space-y-6 px-4 py-10">
-        <section className="mb-4 max-w-3xl space-y-2">
+      <main className="mx-auto max-w-6xl space-y-8 px-4 py-10">
+        <section className="mb-4 max-w-4xl space-y-2">
           <h2 className="text-3xl font-heading text-brand-white">
             Selected Projects
           </h2>
@@ -45,9 +52,15 @@ const App: React.FC = () => {
           </p>
         </section>
 
-        <div className="space-y-6">
-          {projects.map((project) => (
-            <ProjectSection key={project.id} project={project} />
+        <div className="space-y-6 pt-4">
+          {projects.map((project, index) => (
+            <ProjectSection
+              key={project.id}
+              project={project}
+              isOpen={openId === project.id}
+              onToggle={() => handleToggle(project.id)}
+              variant={index}
+            />
           ))}
         </div>
 

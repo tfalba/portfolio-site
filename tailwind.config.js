@@ -16,6 +16,8 @@ export default {
           charcoal: "#343434",
           red: "#DD4532",
           coral: "#E86E5F",
+          blue: "#1B4965",
+          green: "#1F6F4E",
           light: "#F1F1F2",
           white: "#FEFEFE",
         },

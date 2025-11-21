@@ -72,5 +72,28 @@ export const projects: Project[] = [
       { id: 5, src: undefined, alt: undefined },
     ],
   },
+    {
+    id: "4",
+    name: "Party Games",
+    role: "design, front-end, back-end",
+    summary: "a website",
+    description: "this site does a lot",
+    liveUrl: "https://app.color-my-music.app/",
+    githubUrl: "",
+    images: [
+      { id: 1, src: "src/assets/spotify-pixabay1.png", alt: "sb-1" },
+      { id: 2, src: "/src/assets/spotify-pixabay2.png", alt: "sb-2" },
+      { id: 3, src: "/src/assets/spotify-pixabay3.png", alt: "sb-3" },
+      { id: 4, src: "/src/assets/spotify-pixabay4.png", alt: "sb-4" },
+    ],
+    imagesPhone: [
+      { id: 1, src: undefined, alt: undefined },
+      { id: 2, src: undefined, alt: undefined },
+
+      { id: 3, src: "/src/assets/spotify-pixabay3b.png", alt: "sp-3b" },
+      { id: 4, src: "/src/assets/spotify-pixabay4b.png", alt: "sp-4b" },
+      { id: 5, src: undefined, alt: undefined },
+    ],
+  },
 ];
 
