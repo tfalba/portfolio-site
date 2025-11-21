@@ -2,19 +2,19 @@
 import React, { useState } from "react";
 
 export type CarouselImage = {
-  id: number;
-  src: string | undefined;
-  alt: string | undefined;
+  id?: number | string;
+  src?: string;
+  alt?: string;
 };
 
 interface ImageCarouselProps {
   images: CarouselImage[];
-  imagesPhone: CarouselImage[];
+  imagesPhone?: CarouselImage[];
 }
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   images,
-  imagesPhone,
+  imagesPhone = [],
 }) => {
   const [index, setIndex] = useState(0);
 
@@ -41,17 +41,26 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     <div className="flex h-full flex-col gap-4">
       <div className="relative overflow-hidden rounded-xl border border-brand-light/15 bg-brand-black/70">
         <img
-          src={current.src}
-          alt={current.alt}
+          src={current?.src}
+          alt={current?.alt}
           className="h-64 w-full object-contain md:h-[22rem]"
         />
-{currentPhone?.src !== undefined && 
-        <img
-          src={currentPhone?.src}
-          alt={currentPhone?.alt}
-          className="h-32 w-full object-contain md:h-[22rem]"
-        />
-}
+
+        {currentPhone?.src && (
+          <div className="pointer-events-none absolute bottom-6 right-6 w-24 translate-y-2 rotate-2 drop-shadow-[0_18px_35px_rgba(0,0,0,0.7)] md:w-28 lg:w-32">
+            <div className="relative rounded-[1.75rem] border border-brand-light/20 bg-brand-black/80 p-2 shadow-[0_15px_35px_rgba(0,0,0,0.75)] ring-1 ring-black/30">
+              <div className="aspect-[9/19] w-full overflow-hidden rounded-[1.25rem] bg-brand-black">
+                <img
+                  src={currentPhone.src}
+                  alt={currentPhone.alt ?? "Mobile view"}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <span className="absolute left-1/2 top-3 h-1 w-8 -translate-x-1/2 rounded-full bg-brand-light/15" />
+              <span className="absolute left-1/2 bottom-3 h-1.5 w-14 -translate-x-1/2 rounded-full bg-brand-light/10" />
+            </div>
+          </div>
+        )}
 
         {/* Controls */}
         <button

@@ -43,9 +43,8 @@ export const projects: Project[] = [
     ],
     imagesPhone: [
       { id: 1, src: undefined, alt: undefined },
-
-      { id: 2, src: "/src/assets/casino-games-2b.png", alt: "cg-2b" },
-      { id: 3, src: undefined, alt: undefined },
+      { id: 2, src: undefined, alt: undefined },
+      { id: 3, src: "/src/assets/casino-games-3b.png", alt: "cg-3b" },
       { id: 4, src: undefined, alt: undefined },
       { id: 5, src: undefined, alt: undefined },
     ],
@@ -66,21 +65,12 @@ export const projects: Project[] = [
     ],
     imagesPhone: [
       { id: 1, src: undefined, alt: undefined },
+      { id: 2, src: undefined, alt: undefined },
 
-      { id: 2, src: "/src/assets/spotify-pixabay2b.png", alt: "sp-2b" },
-      { id: 3, src: undefined, alt: undefined },
+      { id: 3, src: "/src/assets/spotify-pixabay3b.png", alt: "sp-3b" },
       { id: 4, src: "/src/assets/spotify-pixabay4b.png", alt: "sp-4b" },
       { id: 5, src: undefined, alt: undefined },
     ],
   },
 ];
 
-//  id: string;
-//   name: string;
-//   role?: string;
-//   techStack?: string;
-//   summary: string;
-//   description: string;
-//   liveUrl: string;
-//   githubUrl: string;
-//   images: CarouselImage[];
