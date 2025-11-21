@@ -19,6 +19,7 @@ interface ProjectSectionProps {
   project: Project;
   isOpen: boolean;
   onToggle: () => void;
+  onOpenLive: (project: Project) => void;
   variant: number;
 }
 
@@ -33,6 +34,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   project,
   isOpen,
   onToggle,
+  onOpenLive,
   variant,
 }) => {
   const backgroundClass =
@@ -84,19 +86,18 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
 
           {/* Description + links */}
           <div className="flex flex-col justify-between gap-4">
-            <p className="text-sm leading-relaxed text-brand-light/90">
+            <p className="text-md leading-relaxed text-brand-light/90">
               {project.description}
             </p>
 
             <div className="mt-2 flex flex-wrap gap-3 text-sm">
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
+                onClick={() => onOpenLive(project)}
                 className="inline-flex items-center justify-center rounded-full bg-brand-red px-4 py-2 font-body font-medium text-brand-white transition hover:bg-brand-coral active:bg-brand-white/20"
               >
                 View live site
-              </a>
+              </button>
               <a
                 href={project.githubUrl}
                 target="_blank"

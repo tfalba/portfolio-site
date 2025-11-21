@@ -31,7 +31,8 @@ export const projects: Project[] = [
     name: "Casino Games",
     role: "design, front-end, back-end",
     summary: "a website",
-    description: "this site does a lot",
+    description:
+      "KB Massage / Top Knot Holistics: A single-page, mobile-responsive site for a massage therapy practice. I designed the service cards and content to emphasize quality, healing, and a personalized experience, then implemented the site using React and Tailwind CSS and deployed it on Vercel. The site includes a detailed services section, practitioner bio, and integrated booking via Google Calendar, so clients can choose an appointment time directly through Google’s scheduling interface.",
     liveUrl: "https://casino-games-sooty.vercel.app/",
     githubUrl: "",
     images: [
@@ -54,7 +55,8 @@ export const projects: Project[] = [
     name: "Color My Music",
     role: "design, front-end, back-end",
     summary: "a website",
-    description: "this site does a lot",
+    description:
+      "KB Massage / Top Knot Holistics: A single-page, mobile-responsive site for a massage therapy practice. I designed the service cards and content to emphasize quality, healing, and a personalized experience, then implemented the site using React and Tailwind CSS and deployed it on Vercel. The site includes a detailed services section, practitioner bio, and integrated booking via Google Calendar, so clients can choose an appointment time directly through Google’s scheduling interface.",
     liveUrl: "https://app.color-my-music.app/",
     githubUrl: "",
     images: [
@@ -77,7 +79,8 @@ export const projects: Project[] = [
     name: "Party Games",
     role: "design, front-end, back-end",
     summary: "a website",
-    description: "this site does a lot",
+    description:
+      "KB Massage / Top Knot Holistics: A single-page, mobile-responsive site for a massage therapy practice. I designed the service cards and content to emphasize quality, healing, and a personalized experience, then implemented the site using React and Tailwind CSS and deployed it on Vercel. The site includes a detailed services section, practitioner bio, and integrated booking via Google Calendar, so clients can choose an appointment time directly through Google’s scheduling interface.",
     liveUrl: "https://app.color-my-music.app/",
     githubUrl: "",
     images: [
