@@ -18,6 +18,7 @@ export default {
           coral: "#E86E5F",
           blue: "#1B4965",
           green: "#1F6F4E",
+          gold: "#C48F2D",
           light: "#F1F1F2",
           white: "#FEFEFE",
         },
@@ -26,3 +27,5 @@ export default {
   },
   plugins: [],
 };
+
+

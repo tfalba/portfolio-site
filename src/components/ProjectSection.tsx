@@ -24,8 +24,8 @@ interface ProjectSectionProps {
 }
 
 const ROW_GRADIENTS = [
-  "bg-gradient-to-br from-brand-black/90 via-brand-charcoal/60 to-brand-black/90",
-  "bg-gradient-to-br from-brand-charcoal/10 via-brand-blue/60 to-brand-black/80",
+  "bg-gradient-to-br from-brand-gold/100 via-brand-gold/55 to-brand-charcoal/85",
+  "bg-gradient-to-br from-brand-charcoal/10 via-brand-blue/60 to-brand-blue/20",
   "bg-gradient-to-br from-brand-green/10 via-brand-green/80 to-brand-green/80",
   "bg-gradient-to-br from-brand-black/85 via-brand-coral/60 to-brand-red/30",
 ];
@@ -94,7 +94,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full bg-brand-red px-4 py-2 font-body font-medium text-brand-white transition hover:bg-brand-coral active:bg-brand-white/20"
+                className="inline-flex items-center justify-center rounded-full bg-brand-black px-4 py-2 font-body font-medium text-brand-white transition hover:bg-brand-gold active:bg-brand-white/20"
               >
                 View live site
               </button>
@@ -102,7 +102,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-brand-light/30 px-4 py-2 font-body font-medium text-brand-light transition hover:border-brand-coral hover:text-brand-coral active:border-brand-red active:text-brand-red"
+                className="inline-flex items-center justify-center rounded-full border border-brand-light/30 px-4 py-2 font-body font-medium text-brand-light transition hover:border-brand-gold hover:text-brand-coral active:border-brand-red active:text-brand-red"
               >
                 View on GitHub
               </a>

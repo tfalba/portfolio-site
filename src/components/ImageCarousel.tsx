@@ -43,7 +43,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         <img
           src={current?.src}
           alt={current?.alt}
-          className="h-64 w-full object-contain md:h-[22rem]"
+          className="h-64 w-full object-contain md:h-[25rem]"
         />
 
         {currentPhone?.src && (
