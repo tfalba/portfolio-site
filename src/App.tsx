@@ -1,37 +1,76 @@
 // src/App.tsx
-import React from "react";
-import { NavLink, Route, Routes } from "react-router-dom";
-import { ProjectsPage } from "./pages/ProjectsPage.tsx";
-import { AboutPage } from "./pages/AboutPage.tsx";
+import React, { useEffect, useState } from "react";
+import { NavLink, Route, Routes, useLocation } from "react-router-dom";
+import { ProjectsPage } from "./pages/ProjectsPage";
+import { AboutPage } from "./pages/AboutPage";
+import { projects } from "./data/projectData";
+
+type Theme = "light" | "dark";
+const THEME_STORAGE_KEY = "portfolio-theme";
 
 const navButtonClass = ({
   isActive,
 }: {
   isActive: boolean;
   isPending: boolean;
+  isTransitioning?: boolean;
 }) =>
   [
-    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body transition",
+    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
     isActive
-      ? "border-brand-gold bg-brand-gold/90 text-brand-white"
-      : "border-brand-light/25 text-brand-light/70 hover:border-brand-gold hover:text-brand-white",
+      ? "border-accent bg-accent text-white shadow-lg shadow-accent/40"
+      : "border-border text-text-muted hover:border-accent hover:text-text",
   ].join(" ");
 
 const App: React.FC = () => {
+   const location = useLocation();
+  const onProjectsRoute = location.pathname === "/";
+  const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "dark";
+    const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light";
+  });
+  const [openId, setOpenId] = useState<string | null>(projects[0]?.id ?? null);
+
+  const handleToggle = (id: string) => {
+    setOpenId((prev) => (prev === id ? null : id));
+  };
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const root = document.documentElement;
+    if (theme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-brand-black via-brand-charcoal to-brand-black text-brand-light">
-      <header className="border-b border-brand-light/10 bg-gradient-to-br from-brand-green/10 via-brand-green/80 to-brand-green/80 text-brand-white backdrop-blur place-center min-h-[max(15vh,100px)]">
-        <div className="mx-auto flex max-w-6xl gap-1 px-3 py-5 justify-between md:flex-row contents-end items-end md:items-center md:justify-between">
-          <div className="flex-1">
-            <h1 className="text-2xl font-heading tracking-tight text-brand-white">
+    <div className="min-h-screen bg-surface text-text">
+      <header className="border-b border-border bg-surface-muted/90 text-text shadow-sm dark:bg-gradient-to-br dark:from-brand-green/20 dark:via-brand-black dark:to-brand-green/30">
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:justify-between">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
+              Portfolio of
+            </p>
+            <h1 className="text-3xl font-heading tracking-tight text-text">
               Tracy Falba, Ph.D.
             </h1>
-            <p className="text-sm font-body text-brand-light/70">
+            <p className="text-sm font-body text-text-muted">
               Software Engineer • Frontend / Full Stack
             </p>
           </div>
 
-          <div className="flex-1 flex flex-col gap-4 items-end md:justify-end">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-end">
             <div className="flex flex-wrap gap-2">
               <NavLink to="/" className={navButtonClass}>
                 Projects
@@ -40,17 +79,32 @@ const App: React.FC = () => {
                 About me
               </NavLink>
             </div>
+            <ThemeToggle theme={theme} onToggle={toggleTheme} />
           </div>
         </div>
+        {onProjectsRoute && (
+                  <nav className="mb-2 flex flex-wrap justify-end gap-3 text-sm font-body text-text-muted md:mb-1">
+                    {projects.map((project) => (
+                      <a
+                        key={project.id}
+                        href={`#${project.id}`}
+                        onClick={() => handleToggle(project.id)}
+                        className="rounded-full px-3 py-1 transition hover:bg-accent/10 hover:text-text"
+                      >
+                        {project.name}
+                      </a>
+                    ))}
+                  </nav>
+                )}
       </header>
 
-      <main className="mx-auto max-w-6xl space-y-8 px-4 py-4 lg:py-10">
+      <main className="mx-auto max-w-6xl space-y-8 px-4 py-6 lg:py-8">
         <Routes>
-          <Route path="/" element={<ProjectsPage />} />
+          <Route path="/" element={<ProjectsPage openId={openId} handleToggle={handleToggle}/>} />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
 
-        <footer className="mt-10 border-t border-brand-light/10 pt-6 text-sm font-body text-brand-light/70">
+        <footer className="mt-12 border-t border-border pt-6 text-sm font-body text-text-muted">
           <p>
             Built with React, TypeScript, Vite, and Tailwind CSS. Styled with
             Cardo &amp; Didact Gothic.
@@ -60,5 +114,45 @@ const App: React.FC = () => {
     </div>
   );
 };
+
+const ThemeToggle: React.FC<{ theme: Theme; onToggle: () => void }> = ({
+  theme,
+  onToggle,
+}) => {
+  const isDark = theme === "dark";
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-label={`Activate ${isDark ? "light" : "dark"} mode`}
+      className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text shadow-sm transition hover:border-accent hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+    >
+      {isDark ? <SunIcon /> : <MoonIcon />}
+      <span>{isDark ? "Light" : "Dark"} mode</span>
+    </button>
+  );
+};
+
+const SunIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    className="h-4 w-4 fill-current"
+    aria-hidden="true"
+  >
+    <path d="M12 4.25a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5A.75.75 0 0 1 12 4.25Zm-4.03 1.28a.75.75 0 0 1 1.06 0l.36.36a.75.75 0 1 1-1.06 1.06l-.36-.36a.75.75 0 0 1 0-1.06Zm-2.97 6a.75.75 0 0 1 0-1.5h.5a.75.75 0 0 1 0 1.5h-.5Zm2.97 6.03a.75.75 0 0 1 1.06 0l.36.36a.75.75 0 1 1-1.06 1.06l-.36-.36a.75.75 0 0 1 0-1.06ZM12 18.25a.75.75 0 0 1 .75.75v.5a.75.75 0 0 1-1.5 0v-.5a.75.75 0 0 1 .75-.75Zm6.03-2.97a.75.75 0 0 1 0 1.06l-.36.36a.75.75 0 1 1-1.06-1.06l.36-.36a.75.75 0 0 1 1.06 0Zm-1.06-8.48.36-.36a.75.75 0 0 1 1.06 1.06l-.36.36a.75.75 0 1 1-1.06-1.06ZM18.25 12a.75.75 0 0 1 .75-.75h.5a.75.75 0 0 1 0 1.5h-.5a.75.75 0 0 1-.75-.75ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z" />
+  </svg>
+);
+
+const MoonIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    className="h-4 w-4 fill-current"
+    aria-hidden="true"
+  >
+    <path d="M20.53 14.25a.75.75 0 0 1-.97.9 7.25 7.25 0 0 1-6.71-12.6.75.75 0 0 1 1.12.84 5.75 5.75 0 1 0 7.04 7.04.75.75 0 0 1-.48.82Z" />
+  </svg>
+);
 
 export default App;

@@ -20,14 +20,19 @@ interface ProjectSectionProps {
   isOpen: boolean;
   onToggle: () => void;
   onOpenLive: (project: Project) => void;
+  onExpandImage: (
+    projectName: string,
+    desktop?: CarouselImage,
+    phone?: CarouselImage,
+  ) => void;
   variant: number;
 }
 
 const ROW_GRADIENTS = [
-  "bg-gradient-to-br from-brand-gold/100 via-brand-gold/55 to-brand-charcoal/85",
-  "bg-gradient-to-br from-brand-charcoal/10 via-brand-blue/60 to-brand-blue/20",
-  "bg-gradient-to-br from-brand-green/10 via-brand-green/80 to-brand-green/80",
-  "bg-gradient-to-br from-brand-black/85 via-brand-coral/60 to-brand-red/30",
+  "bg-gradient-to-br from-lightMode-butter/80 via-lightMode-white to-lightMode-mist dark:from-brand-gold/80 dark:via-brand-gold/30 dark:to-brand-charcoal/85",
+  "bg-gradient-to-br from-lightMode-mint/60 via-lightMode-white to-lightMode-lavender/60 dark:from-brand-blue/60 dark:via-brand-charcoal/70 dark:to-brand-black/80",
+  "bg-gradient-to-br from-lightMode-blush/60 via-lightMode-mist to-lightMode-white dark:from-brand-coral/50 dark:via-brand-black/80 dark:to-brand-black/95",
+  "bg-gradient-to-br from-lightMode-white via-lightMode-butter/60 to-lightMode-mint/50 dark:from-brand-green/40 dark:via-brand-black/80 dark:to-brand-charcoal/90",
 ];
 
 export const ProjectSection: React.FC<ProjectSectionProps> = ({
@@ -35,6 +40,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   isOpen,
   onToggle,
   onOpenLive,
+  onExpandImage,
   variant,
 }) => {
   const backgroundClass =
@@ -43,7 +49,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   return (
     <section
       id={project.id}
-      className={`rounded-2xl border border-brand-light/10 ${backgroundClass} p-5 shadow-[0_10px_30px_rgba(0,0,0,0.45)] transition hover:border-brand-coral/60 hover:shadow-[0_15px_40px_rgba(0,0,0,0.55)]`}
+      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:border-accent-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
     >
       {/* Header row */}
       <button
@@ -52,17 +58,17 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
         className="flex w-full items-start justify-between gap-4 text-left"
       >
         <div>
-          <h2 className="text-xl font-heading text-brand-white">
+          <h2 className="text-xl font-heading text-text">
             {project.name}
           </h2>
           {project.role && (
-            <p className="mt-0.5 text-xs uppercase tracking-wide text-brand-light/60">
+            <p className="mt-0.5 text-xs uppercase tracking-wide text-text-muted">
               {project.role}
             </p>
           )}
-          <p className="mt-2 text-sm text-brand-light/80">{project.summary}</p>
+          <p className="mt-2 text-sm text-text-muted">{project.summary}</p>
           {project.techStack && (
-            <p className="mt-1 text-xs text-brand-light/60">
+            <p className="mt-1 text-xs text-text-muted">
               Tech: {project.techStack}
             </p>
           )}
@@ -70,8 +76,8 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
         <span
           className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
             isOpen
-              ? "border-brand-coral/60 bg-brand-coral/10 text-brand-coral"
-              : "border-brand-light/20 bg-brand-black/60 text-brand-light/70"
+              ? "border-accent bg-accent/10 text-accent"
+              : "border-border bg-surface-muted/60 text-text-muted"
           }`}
         >
           {isOpen ? "Hide details ▲" : "Show details ▼"}
@@ -82,11 +88,17 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
       {isOpen && (
         <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
           {/* Carousel */}
-          <ImageCarousel images={project.images} imagesPhone={project.imagesPhone} />
+          <ImageCarousel
+            images={project.images}
+            imagesPhone={project.imagesPhone}
+            onExpand={(desktop, phone) =>
+              onExpandImage(project.name, desktop, phone)
+            }
+          />
 
           {/* Description + links */}
           <div className="flex flex-col justify-between gap-4">
-            <p className="text-md leading-relaxed text-brand-light/90">
+            <p className="text-base leading-relaxed text-text">
               {project.description}
             </p>
 
@@ -94,7 +106,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full bg-brand-black px-4 py-2 font-body font-medium text-brand-white transition hover:bg-brand-gold active:bg-brand-white/20"
+                className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 font-body font-medium text-white transition hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 View live site
               </button>
@@ -102,7 +114,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-brand-light/30 px-4 py-2 font-body font-medium text-brand-light transition hover:border-brand-gold hover:text-brand-coral active:border-brand-red active:text-brand-red"
+                className="inline-flex items-center justify-center rounded-full border border-border px-4 py-2 font-body font-medium text-text transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 View on GitHub
               </a>

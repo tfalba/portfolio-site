@@ -21,9 +21,9 @@ export const projects: Project[] = [
       { id: 1, src: "/src/assets/top-knot-1b.png", alt: "tk-1b" },
 
       { id: 2, src: "/src/assets/top-knot-2b.png", alt: "tk-2b" },
-      { id: 3, src: undefined, alt: undefined },
+      { id: 3, src: "/src/assets/top-knot-3b.png", alt: "tk-3b" },
       { id: 4, src: "/src/assets/top-knot-4b.png", alt: "tk-4b" },
-      { id: 5, src: undefined, alt: undefined },
+      { id: 5, src: "/src/assets/top-knot-5b.png", alt: "tk-5b" },
     ],
   },
   {
