@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
 import { ProjectSection, type Project } from "../components/ProjectSection";
 import type { CarouselImage } from "../components/ImageCarousel";
 import { projects } from "../data/projectData";
@@ -9,21 +8,13 @@ interface ProjectProps {
   handleToggle: (openId: string) => void;
 }
 
-export const ProjectsPage: React.FC<ProjectProps> = ({openId, handleToggle}) => {
-  const location = useLocation();
-  const onProjectsRoute = location.pathname === "/";
-
-//   const [openId, setOpenId] = useState<string | null>(projects[0]?.id ?? null);
+export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) => {
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     projectName: string;
     desktop?: CarouselImage;
     phone?: CarouselImage;
   } | null>(null);
-
-//   const handleToggle = (id: string) => {
-//     setOpenId((prev) => (prev === id ? null : id));
-//   };
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -47,20 +38,6 @@ export const ProjectsPage: React.FC<ProjectProps> = ({openId, handleToggle}) => 
   return (
     <>
       <section className="mb-4 max-w-6xl space-y-4 rounded-3xl bg-surface-card/70 p-4 text-text shadow-lg ring-1 ring-border/60 dark:bg-transparent dark:shadow-none dark:ring-0">
-        {/* {onProjectsRoute && (
-          <nav className="mb-2 flex flex-wrap justify-end gap-3 text-sm font-body text-text-muted md:mb-1">
-            {projects.map((project) => (
-              <a
-                key={project.id}
-                href={`#${project.id}`}
-                onClick={() => handleToggle(project.id)}
-                className="rounded-full px-3 py-1 transition hover:bg-accent/10 hover:text-text"
-              >
-                {project.name}
-              </a>
-            ))}
-          </nav>
-        )} */}
         <h2 className="text-3xl font-heading text-text">
           Selected Projects
         </h2>

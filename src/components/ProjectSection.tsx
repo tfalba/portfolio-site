@@ -76,7 +76,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
         <span
           className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
             isOpen
-              ? "border-accent bg-accent/10 text-accent"
+              ? "border-lightMode-lavender bg-lightMode-lavender/10 dark:border-accent dark:bg-accent/10 text-lightMode-lavender dark:text-accent"
               : "border-border bg-surface-muted/60 text-text-muted"
           }`}
         >
@@ -106,7 +106,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full bg-accent px-4 py-2 font-body font-medium text-white transition hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="inline-flex items-center justify-center rounded-full bg-lightMode-lavender dark:bg-brand-red px-4 py-2 font-body font-medium text-white transition hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 View live site
               </button>

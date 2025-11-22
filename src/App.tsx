@@ -18,12 +18,12 @@ const navButtonClass = ({
   [
     "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
     isActive
-      ? "border-accent bg-accent text-white shadow-lg shadow-accent/40"
-      : "border-border text-text-muted hover:border-accent hover:text-text",
+      ? "border-lightMode-lavender dark:border-brand-red/70 bg-lightMode-lavender/80 dark:bg-brand-red/70 text-white shadow-lg shadow-lightMode-lavender/40 dark:shadow-brand-red/40"
+      : "border-border text-text-muted hover:border-lightMode-lavender dark:hover:border-brand-red/70 hover:text-text",
   ].join(" ");
 
 const App: React.FC = () => {
-   const location = useLocation();
+  const location = useLocation();
   const onProjectsRoute = location.pathname === "/";
   const [theme, setTheme] = useState<Theme>(() => {
     if (typeof window === "undefined") return "dark";
@@ -34,6 +34,7 @@ const App: React.FC = () => {
       : "light";
   });
   const [openId, setOpenId] = useState<string | null>(projects[0]?.id ?? null);
+  const [projectMenuOpen, setProjectMenuOpen] = useState(false);
 
   const handleToggle = (id: string) => {
     setOpenId((prev) => (prev === id ? null : id));
@@ -50,6 +51,10 @@ const App: React.FC = () => {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
+  useEffect(() => {
+    setProjectMenuOpen(false);
+  }, [location.pathname]);
+
   const toggleTheme = () => {
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
   };
@@ -57,8 +62,8 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-surface text-text">
       <header className="border-b border-border bg-surface-muted/90 text-text shadow-sm dark:bg-gradient-to-br dark:from-brand-green/20 dark:via-brand-black dark:to-brand-green/30">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:justify-between">
-          <div>
+        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:justify-between mt-10">
+          <div className="flex-[1.3]">
             <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
               Portfolio of
             </p>
@@ -70,7 +75,7 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-end">
+          <div className="flex flex-1 gap-3 md:flex-row items-center justify-end">
             <div className="flex flex-wrap gap-2">
               <NavLink to="/" className={navButtonClass}>
                 Projects
@@ -83,19 +88,52 @@ const App: React.FC = () => {
           </div>
         </div>
         {onProjectsRoute && (
-                  <nav className="mb-2 flex flex-wrap justify-end gap-3 text-sm font-body text-text-muted md:mb-1">
-                    {projects.map((project) => (
-                      <a
-                        key={project.id}
-                        href={`#${project.id}`}
-                        onClick={() => handleToggle(project.id)}
-                        className="rounded-full px-3 py-1 transition hover:bg-accent/10 hover:text-text"
-                      >
-                        {project.name}
-                      </a>
-                    ))}
-                  </nav>
-                )}
+          <div className="flex justify-end max-w-6xl px-4 mx-auto absolute top-[10px] right-0 py-4">
+            <div className="relative inline-block text-left">
+              <button
+                type="button"
+                onClick={() => setProjectMenuOpen((prev) => !prev)}
+                aria-haspopup="true"
+                aria-expanded={projectMenuOpen}
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-surface-muted"
+              >
+                Browse projects
+                <span
+                  className={`text-xs transition ${
+                    projectMenuOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
+              </button>
+
+              <div
+                className={`absolute right-0 mt-2 w-60 origin-top-right rounded-2xl border border-border bg-surface-card/95 shadow-2xl ring-1 ring-border/40 transition ${
+                  projectMenuOpen
+                    ? "scale-100 opacity-100"
+                    : "pointer-events-none scale-95 opacity-0"
+                }`}
+              >
+                <nav className="py-2 text-sm font-body text-text">
+                  {projects.map((project) => (
+                    <a
+                      key={project.id}
+                      href={`#${project.id}`}
+                      onClick={() => {
+                        handleToggle(project.id);
+                        setProjectMenuOpen(false);
+                      }}
+                      className="flex items-center justify-between px-4 py-2 text-text-muted transition hover:bg-accent/10 hover:text-text"
+                    >
+                      {project.name}
+                      <span className="text-xs text-text-muted">↘</span>
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </div>
+          </div>
+        )}
       </header>
 
       <main className="mx-auto max-w-6xl space-y-8 px-4 py-6 lg:py-8">
