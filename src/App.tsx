@@ -62,7 +62,7 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-surface text-text">
       <header className="border-b border-border bg-surface-muted/90 text-text shadow-sm dark:bg-gradient-to-br dark:from-brand-green/20 dark:via-brand-black dark:to-brand-green/30">
-        <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:justify-between mt-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:justify-between mt-10">
           <div className="flex-[1.3]">
             <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
               Portfolio of
@@ -88,7 +88,7 @@ const App: React.FC = () => {
           </div>
         </div>
         {onProjectsRoute && (
-          <div className="flex justify-end max-w-6xl px-4 mx-auto absolute top-[10px] right-0 py-4">
+          <div className="flex justify-end max-w-7xl px-4 mx-auto absolute top-[10px] right-0 py-4">
             <div className="relative inline-block text-left">
               <button
                 type="button"
@@ -136,7 +136,7 @@ const App: React.FC = () => {
         )}
       </header>
 
-      <main className="mx-auto max-w-6xl space-y-8 px-4 py-6 lg:py-8">
+      <main className="mx-auto max-w-7xl space-y-8 px-4 py-6">
         <Routes>
           <Route path="/" element={<ProjectsPage openId={openId} handleToggle={handleToggle}/>} />
           <Route path="/about" element={<AboutPage />} />

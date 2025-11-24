@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 const resumePdf = new URL(
-  "../assets/Tracy Falba Resume Oct 2025.pdf",
+  "../assets/Tracy-Falba-Resume-Oct-2025.pdf",
   import.meta.url,
 ).href;
 

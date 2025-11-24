@@ -1,0 +1,100 @@
+import type { CarouselImage } from "../components/ImageCarousel";
+
+import topKnot1 from "../assets/top-knot-1.png";
+import topKnot2 from "../assets/top-knot-2.png";
+import topKnot3 from "../assets/top-knot-3.png";
+import topKnot4 from "../assets/top-knot-4.png";
+import topKnot5 from "../assets/top-knot-5.png";
+import topKnot1b from "../assets/top-knot-1b.png";
+import topKnot2b from "../assets/top-knot-2b.png";
+import topKnot3b from "../assets/top-knot-3b.png";
+import topKnot4b from "../assets/top-knot-4b.png";
+import topKnot5b from "../assets/top-knot-5b.png";
+
+import spotify1 from "../assets/spotify-pixabay3.png";
+import spotify2 from "../assets/spotify-pixabay2.png";
+import spotify3 from "../assets/spotify-pixabay1.png";
+import spotify4 from "../assets/spotify-pixabay4.png";
+import spotify1b from "../assets/spotify-pixabay3b.png";
+import spotify2b from "../assets/spotify-pixabay2b.png";
+import spotify3b from "../assets/spotify-pixabay1b.png";
+import spotify4b from "../assets/spotify-pixabay4b.png";
+
+import casino1 from "../assets/casino-games-1.png";
+import casino2 from "../assets/casino-games-2.png";
+import casino3 from "../assets/casino-games-3.png";
+import casino4 from "../assets/casino-games-4.png";
+import casino5 from "../assets/casino-games-5.png";
+import casino3b from "../assets/casino-games-3b.png";
+
+import puzzle1 from "../assets/puzzle-quest-1.png";
+import puzzle2 from "../assets/puzzle-quest-2.png";
+import puzzle3 from "../assets/puzzle-quest-3.png";
+import puzzle4 from "../assets/puzzle-quest-4.png";
+import puzzle1b from "../assets/puzzle-quest-1b.png";
+import puzzle2b from "../assets/puzzle-quest-2b.png";
+import puzzle3b from "../assets/puzzle-quest-3b.png";
+import puzzle4b from "../assets/puzzle-quest-4b.png";
+
+type AltFormatter = (index: number) => string | undefined;
+
+const createImageList = (
+  sources: Array<string | undefined>,
+  formatAlt: AltFormatter,
+): CarouselImage[] =>
+  sources.map((src, index) => ({
+    id: index + 1,
+    src,
+    alt: src ? formatAlt(index + 1) : undefined,
+  }));
+
+const normalizeLength = (
+  desiredLength: number,
+  values: Array<string | undefined> = [],
+) => Array.from({ length: desiredLength }, (_, index) => values[index]);
+
+const createImageSet = ({
+  desktop,
+  phone,
+  prefix,
+}: {
+  desktop: Array<string | undefined>;
+  phone?: Array<string | undefined>;
+  prefix: string;
+}) => {
+  const normalizedPhone = normalizeLength(desktop.length, phone);
+  return {
+    desktop: createImageList(desktop, (index) => `${prefix}-${index}`),
+    phone: createImageList(normalizedPhone, (index) => `${prefix}-${index}b`),
+  };
+};
+
+export const imageSets = {
+  topKnot: createImageSet({
+    prefix: "tk",
+    desktop: [topKnot1, topKnot2, topKnot3, topKnot4, topKnot5],
+    phone: [topKnot1b, topKnot2b, topKnot3b, topKnot4b, topKnot5b],
+  }),
+  colorMyMusic: createImageSet({
+    prefix: "sp",
+    desktop: [spotify1, spotify2, spotify3, spotify4],
+    phone: [spotify1b, spotify2b, spotify3b, spotify4b],
+  }),
+  casinoGames: createImageSet({
+    prefix: "cg",
+    desktop: [casino1, casino2, casino3, casino4, casino5],
+    phone: [undefined, undefined, casino3b, undefined, undefined],
+  }),
+  puzzleQuest: createImageSet({
+    prefix: "pq",
+    desktop: [puzzle1, puzzle2, puzzle3, puzzle4],
+    phone: [puzzle1b, puzzle2b, puzzle3b, puzzle4b],
+  }),
+  partyGames: createImageSet({
+    prefix: "pg",
+    desktop: [spotify1, spotify2, spotify3, spotify4],
+    phone: [spotify1b, spotify2b, spotify3b, spotify4b],
+  }),
+} as const;
+
+export type ProjectImageSet = typeof imageSets[keyof typeof imageSets];

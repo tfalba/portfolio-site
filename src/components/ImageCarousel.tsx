@@ -102,7 +102,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             className={`h-2.5 w-2.5 rounded-full transition ${
               i === index
                 ? "bg-accent"
-                : "bg-border hover:bg-accent/60"
+                : "bg-accent/50 hover:bg-accent/80"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

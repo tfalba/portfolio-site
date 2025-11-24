@@ -37,7 +37,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
   return (
     <>
-      <section className="mb-4 max-w-6xl space-y-4 rounded-3xl bg-surface-card/70 p-4 text-text shadow-lg ring-1 ring-border/60 dark:bg-transparent dark:shadow-none dark:ring-0">
+      <section className="max-w-7xl space-y-4 rounded-3xl bg-surface-card/70 p-4 text-text shadow-lg ring-1 ring-border/60 dark:bg-transparent dark:shadow-none dark:ring-0">
         <h2 className="text-3xl font-heading text-text">
           Selected Projects
         </h2>
@@ -48,7 +48,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
         </p>
       </section>
 
-      <div className="space-y-6 pt-4">
+      <div className="space-y-6">
         {projects.map((project, index) => (
           <ProjectSection
             key={project.id}
@@ -71,7 +71,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
           onClick={handleCloseLive}
         >
           <div
-            className="relative flex h-full w-full max-w-6xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/80 dark:text-brand-light"
+            className="relative flex h-full w-full max-w-7xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/80 dark:text-brand-light"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-4">
@@ -120,7 +120,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
           onClick={handleCloseImagePreview}
         >
           <div
-            className="relative flex h-full w-full max-w-6xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/85 dark:text-brand-light"
+            className="relative flex h-full w-full max-w-7xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/85 dark:text-brand-light"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">

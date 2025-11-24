@@ -1,6 +1,17 @@
 // src/components/ProjectSection.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ImageCarousel, type CarouselImage } from "./ImageCarousel";
+
+type ProjectDescription = {
+  overview: string;
+  steps: string[];
+};
+
+type ProjectDetails = {
+  summary: string;
+  keyFeatures: string[];
+  howBuilt: string[];
+};
 
 export type Project = {
   id: string;
@@ -8,7 +19,8 @@ export type Project = {
   role?: string;
   techStack?: string;
   summary: string;
-  description: string;
+  description: ProjectDescription;
+  details: ProjectDetails;
   liveUrl: string;
   githubUrl: string;
   images: CarouselImage[];
@@ -43,8 +55,17 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   onExpandImage,
   variant,
 }) => {
+  const [activeTab, setActiveTab] = useState<"description" | "details">(
+    "description",
+  );
   const backgroundClass =
     ROW_GRADIENTS[variant % ROW_GRADIENTS.length] ?? ROW_GRADIENTS[0];
+
+  useEffect(() => {
+    if (!isOpen && activeTab !== "description") {
+      setActiveTab("description");
+    }
+  }, [isOpen, activeTab]);
 
   return (
     <section
@@ -55,13 +76,25 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full items-start justify-between gap-4 text-left"
+        className="flex flex-col w-full items-start justify-between text-left"
       >
-        <div>
+        <div className="flex justify-between w-full">
           <h2 className="text-xl font-heading text-text">
             {project.name}
           </h2>
-          {project.role && (
+       
+        
+        <span
+          className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
+            isOpen
+              ? "border-lightMode-lavender bg-lightMode-lavender/10 dark:border-accent dark:bg-accent/10 text-lightMode-lavender dark:text-accent"
+              : "border-border bg-surface-muted/60 text-text-muted"
+          }`}
+        >
+          {isOpen ? "Hide details ▲" : "Show details ▼"}
+        </span>
+        </div>
+           {project.role && (
             <p className="mt-0.5 text-xs uppercase tracking-wide text-text-muted">
               {project.role}
             </p>
@@ -72,21 +105,11 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               Tech: {project.techStack}
             </p>
           )}
-        </div>
-        <span
-          className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
-            isOpen
-              ? "border-lightMode-lavender bg-lightMode-lavender/10 dark:border-accent dark:bg-accent/10 text-lightMode-lavender dark:text-accent"
-              : "border-border bg-surface-muted/60 text-text-muted"
-          }`}
-        >
-          {isOpen ? "Hide details ▲" : "Show details ▼"}
-        </span>
       </button>
 
       {/* Expandable content */}
       {isOpen && (
-        <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.5fr)_minmax(0,1fr)]">
+        <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
           {/* Carousel */}
           <ImageCarousel
             images={project.images}
@@ -98,9 +121,90 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
 
           {/* Description + links */}
           <div className="flex flex-col justify-between gap-4">
-            <p className="text-base leading-relaxed text-text">
-              {project.description}
-            </p>
+            <div className="rounded-2xl border border-border/60 bg-surface-elevated/60 p-4 shadow-sm dark:bg-surface/40">
+              <div
+                role="tablist"
+                aria-label={`${project.name} content tabs`}
+                className="flex gap-2"
+              >
+                {[
+                  { id: "description", label: "Description" },
+                  { id: "details", label: "Details & Frameworks" },
+                ].map((tab) => {
+                  const isActive = activeTab === tab.id;
+                  return (
+                    <button
+                      key={tab.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      onClick={() =>
+                        setActiveTab(tab.id as "description" | "details")
+                      }
+                      className={`flex-1 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
+                        isActive
+                          ? "border-lightMode-lavender bg-lightMode-lavender/10 text-lightMode-lavender dark:border-accent dark:bg-accent/10 dark:text-accent"
+                          : "border-transparent bg-transparent text-text-muted hover:border-border hover:bg-surface-muted/40"
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="mt-4 text-base leading-relaxed text-text">
+                {activeTab === "description" ? (
+                  <div className="space-y-3">
+                    <p>{project.description.overview}</p>
+                    {project.description.steps.length > 0 && (
+                      <ol className="list-decimal space-y-2 pl-5 text-sm leading-relaxed text-text">
+                        {project.description.steps.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ol>
+                    )}
+                  </div>
+                ) : (
+                  <div className="space-y-4 text-sm leading-relaxed text-text">
+                    <p>{project.details.summary}</p>
+                    {project.details.keyFeatures.length > 0 && (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+                          Key Features
+                        </p>
+                        <ul className="mt-2 list-disc space-y-1 pl-5 text-base">
+                          {project.details.keyFeatures.map((feature) => (
+                            <li key={feature}>{feature}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {project.details.howBuilt.length > 0 && (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+                          How It Was Built
+                        </p>
+                        <ul className="mt-2 list-disc space-y-1 pl-5 text-base">
+                          {project.details.howBuilt.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                    {project.techStack && (
+                      <div>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
+                          Frameworks & Tools
+                        </p>
+                        <p className="mt-1 text-base text-text">
+                          {project.techStack}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
 
             <div className="mt-2 flex flex-wrap gap-3 text-sm">
               <button
