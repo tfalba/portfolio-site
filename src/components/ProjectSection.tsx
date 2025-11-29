@@ -41,10 +41,10 @@ interface ProjectSectionProps {
 }
 
 const ROW_GRADIENTS = [
-  "bg-gradient-to-br from-lightMode-butter/80 via-lightMode-white to-lightMode-mist dark:from-brand-gold/80 dark:via-brand-gold/30 dark:to-brand-charcoal/85",
-  "bg-gradient-to-br from-lightMode-mint/60 via-lightMode-white to-lightMode-lavender/60 dark:from-brand-blue/60 dark:via-brand-charcoal/70 dark:to-brand-black/80",
-  "bg-gradient-to-br from-lightMode-blush/60 via-lightMode-mist to-lightMode-white dark:from-brand-coral/50 dark:via-brand-black/80 dark:to-brand-black/95",
-  "bg-gradient-to-br from-lightMode-white via-lightMode-butter/60 to-lightMode-mint/50 dark:from-brand-green/40 dark:via-brand-black/80 dark:to-brand-charcoal/90",
+  "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-white dark:from-brand-gold dark:via-brand-coral/80 dark:to-brand-red/70",
+  "bg-gradient-to-br from-lightMode-mint/30 via-lightMode-mint/20 to-lightMode-white dark:from-brand-blue dark:via-brand-green/80 dark:to-brand-gold/70",
+  "bg-gradient-to-br from-lightMode-blush/30 via-lightMode-blush/20 to-lightMode-white dark:from-brand-coral dark:via-brand-red/80 dark:to-brand-gold/60",
+  "bg-gradient-to-br from-lightMode-lavender/20 via-lightMode-mint/20 to-lightMode-butter/50 dark:from-brand-green dark:via-brand-blue/80 dark:to-brand-charcoal/70",
 ];
 
 export const ProjectSection: React.FC<ProjectSectionProps> = ({
@@ -70,7 +70,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   return (
     <section
       id={project.id}
-      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:border-accent-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
+      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
     >
       {/* Header row */}
       <button
@@ -79,7 +79,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
         className="flex flex-col w-full items-start justify-between text-left"
       >
         <div className="flex justify-between w-full">
-          <h2 className="text-xl font-heading text-text">
+          <h2 className="text-xl font-heading text-text uppercase">
             {project.name}
           </h2>
        
@@ -87,21 +87,21 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
         <span
           className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
             isOpen
-              ? "border-lightMode-lavender bg-lightMode-lavender/10 dark:border-accent dark:bg-accent/10 text-lightMode-lavender dark:text-accent"
+              ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 dark:border-light dark:bg-brand-light/10 text-lightMode-lavender dark:text-brand-light"
               : "border-border bg-surface-muted/60 text-text-muted"
           }`}
         >
           {isOpen ? "Hide details ▲" : "Show details ▼"}
         </span>
         </div>
-           {project.role && (
+           {/* {project.role && (
             <p className="mt-0.5 text-xs uppercase tracking-wide text-text-muted">
               {project.role}
             </p>
-          )}
-          <p className="mt-2 text-sm text-text-muted">{project.summary}</p>
+          )} */}
+          <p className="mt-0.5 text-sm text-text-muted tracking-wide">{project.summary}</p>
           {project.techStack && (
-            <p className="mt-1 text-xs text-text-muted">
+            <p className="mt-1 text-xs text-text-muted uppercase">
               Tech: {project.techStack}
             </p>
           )}
@@ -121,7 +121,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
 
           {/* Description + links */}
           <div className="flex flex-col justify-between gap-4">
-            <div className="rounded-2xl border border-border/60 bg-surface-elevated/60 p-4 shadow-sm dark:bg-surface/40">
+            <div className="rounded-2xl border border-border/60 bg-white p-4 shadow-sm dark:bg-surface/40">
               <div
                 role="tablist"
                 aria-label={`${project.name} content tabs`}
@@ -143,7 +143,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                       }
                       className={`flex-1 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
                         isActive
-                          ? "border-lightMode-lavender bg-lightMode-lavender/10 text-lightMode-lavender dark:border-accent dark:bg-accent/10 dark:text-accent"
+                          ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 text-lightMode-lavender dark:border-light dark:bg-brand-light/10 dark:text-brand-light"
                           : "border-transparent bg-transparent text-text-muted hover:border-border hover:bg-surface-muted/40"
                       }`}
                     >
@@ -210,7 +210,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full bg-lightMode-lavender dark:bg-brand-red px-4 py-2 font-body font-medium text-white transition hover:bg-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="inline-flex items-center justify-center rounded-full bg-brand-lightMode-lavender dark:bg-brand-red px-4 py-2 font-body font-medium text-white transition hover:bg-brand-light-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
               >
                 View live site
               </button>
@@ -218,7 +218,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-border px-4 py-2 font-body font-medium text-text transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+                className="inline-flex items-center justify-center rounded-full border border-border px-4 py-2 font-body font-medium text-text transition hover:border-light hover:text-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
               >
                 View on GitHub
               </a>

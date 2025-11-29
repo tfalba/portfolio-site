@@ -145,7 +145,7 @@ export const AboutPage: React.FC = () => {
                 href="https://github.com/tfalba"
                 target="_blank"
                 rel="noreferrer"
-                className="text-accent hover:text-accent-soft"
+                className="text-light hover:text-light-soft"
               >
                 @tfalba
               </a>
@@ -156,7 +156,7 @@ export const AboutPage: React.FC = () => {
                 href="https://www.linkedin.com/in/tracy-falba"
                 target="_blank"
                 rel="noreferrer"
-                className="text-accent hover:text-accent-soft"
+                className="text-light hover:text-light-soft"
               >
                 /in/tracy-falba
               </a>
@@ -165,7 +165,7 @@ export const AboutPage: React.FC = () => {
               Email:{" "}
               <a
                 href="mailto:tfalba@mac.com"
-                className="text-accent hover:text-accent-soft"
+                className="text-light hover:text-light-soft"
               >
                 tfalba@mac.com
               </a>
@@ -179,7 +179,7 @@ export const AboutPage: React.FC = () => {
       <button
         type="button"
         onClick={() => setShowResume(true)}
-        className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2 text-sm font-medium text-text transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2 text-sm font-medium text-text transition hover:border-light hover:text-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
       >
         <span className="text-base">📄</span>
         View résumé (full screen)
@@ -207,14 +207,14 @@ export const AboutPage: React.FC = () => {
             <a
               href={resumePdf}
               download
-              className="rounded-full border border-border px-4 py-2 text-text transition hover:border-accent hover:text-accent"
+              className="rounded-full border border-border px-4 py-2 text-text transition hover:border-light hover:text-light"
             >
               Download PDF
             </a>
             <button
               type="button"
               onClick={() => setShowResume(false)}
-              className="rounded-full border border-border px-3 py-2 text-xs uppercase tracking-wide text-text-muted transition hover:border-accent hover:text-accent"
+              className="rounded-full border border-border px-3 py-2 text-xs uppercase tracking-wide text-text-muted transition hover:border-light hover:text-light"
             >
               Close
             </button>
@@ -241,7 +241,7 @@ const InfoBlock = ({ title, items }: { title: string; items: string[] }) => (
     </h4>
     <ul className="mt-3 space-y-1 text-sm text-text">
       {items.map((item) => (
-        <li key={item} className="pl-4 text-text-muted before:-ml-4 before:inline-block before:w-4 before:text-accent before:content-['•']">
+        <li key={item} className="pl-4 text-text-muted before:-ml-4 before:inline-block before:w-4 before:text-light before:content-['•']">
           {item}
         </li>
       ))}

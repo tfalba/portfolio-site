@@ -16,7 +16,7 @@ const navButtonClass = ({
   isTransitioning?: boolean;
 }) =>
   [
-    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent",
+    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light",
     isActive
       ? "border-lightMode-lavender dark:border-brand-red/70 bg-lightMode-lavender/80 dark:bg-brand-red/70 text-white shadow-lg shadow-lightMode-lavender/40 dark:shadow-brand-red/40"
       : "border-border text-text-muted hover:border-lightMode-lavender dark:hover:border-brand-red/70 hover:text-text",
@@ -61,8 +61,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-surface text-text">
-      <header className="border-b border-border bg-surface-muted/90 text-text shadow-sm dark:bg-gradient-to-br dark:from-brand-green/20 dark:via-brand-black dark:to-brand-green/30">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-5 md:flex-row md:items-center md:justify-between mt-10">
+      <header className="border-b border-border bg-surface-muted/90 text-text shadow-sm bg-gradient-to-br from-lightMode-butter/80 via-lightsMode-butter/60 to-lightMode-white dark:bg-gradient-to-br dark:from-brand-green/70 dark:via-brand-green/80 dark:to-brand-green/30">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 md:flex-row md:items-center md:justify-between mt-10">
           <div className="flex-[1.3]">
             <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
               Portfolio of
@@ -88,14 +88,14 @@ const App: React.FC = () => {
           </div>
         </div>
         {onProjectsRoute && (
-          <div className="flex justify-end max-w-7xl px-4 mx-auto absolute top-[10px] right-0 py-4">
+          <div className="flex justify-end max-w-7xl px-4 mx-auto absolute top-[30px] right-0 py-4">
             <div className="relative inline-block text-left">
               <button
                 type="button"
                 onClick={() => setProjectMenuOpen((prev) => !prev)}
                 aria-haspopup="true"
                 aria-expanded={projectMenuOpen}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text transition hover:border-accent hover:text-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent dark:bg-surface-muted"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text transition hover:border-brand-light hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light dark:bg-surface-muted"
               >
                 Browse projects
                 <span
@@ -123,7 +123,7 @@ const App: React.FC = () => {
                         handleToggle(project.id);
                         setProjectMenuOpen(false);
                       }}
-                      className="flex items-center justify-between px-4 py-2 text-text-muted transition hover:bg-accent/10 hover:text-text"
+                      className="flex items-center justify-between px-4 py-2 text-text-muted transition hover:bg-light/10 hover:text-text"
                     >
                       {project.name}
                       <span className="text-xs text-text-muted">↘</span>
@@ -136,7 +136,7 @@ const App: React.FC = () => {
         )}
       </header>
 
-      <main className="mx-auto max-w-7xl space-y-8 px-4 py-6">
+      <main className="mx-auto max-w-7xl space-y-6 px-4 py-6">
         <Routes>
           <Route path="/" element={<ProjectsPage openId={openId} handleToggle={handleToggle}/>} />
           <Route path="/about" element={<AboutPage />} />
@@ -163,7 +163,7 @@ const ThemeToggle: React.FC<{ theme: Theme; onToggle: () => void }> = ({
       type="button"
       onClick={onToggle}
       aria-label={`Activate ${isDark ? "light" : "dark"} mode`}
-      className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text shadow-sm transition hover:border-accent hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text shadow-sm transition hover:border-brand-light hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
     >
       {isDark ? <SunIcon /> : <MoonIcon />}
       <span>{isDark ? "Light" : "Dark"} mode</span>

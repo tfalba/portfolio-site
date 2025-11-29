@@ -37,8 +37,8 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
   return (
     <>
-      <section className="max-w-7xl space-y-4 rounded-3xl bg-surface-card/70 p-4 text-text shadow-lg ring-1 ring-border/60 dark:bg-transparent dark:shadow-none dark:ring-0">
-        <h2 className="text-3xl font-heading text-text">
+      <section className="max-w-7xl space-y-4 rounded-3xl p-2 text-text dark:bg-transparent dark:shadow-none dark:ring-0">
+        <h2 className="text-3xl font-heading text-text uppercase ">
           Selected Projects
         </h2>
         <p className="text-sm font-body text-text-muted">
@@ -48,7 +48,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
         </p>
       </section>
 
-      <div className="space-y-6">
+      <div className="space-y-3">
         {projects.map((project, index) => (
           <ProjectSection
             key={project.id}
@@ -85,7 +85,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
                     href={liveProject.liveUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="rounded-full border border-border px-4 py-2 text-text transition hover:border-accent hover:text-accent"
+                    className="rounded-full border border-border px-4 py-2 text-text transition hover:border-light hover:text-light"
                   >
                     Open in new tab
                   </a>
@@ -93,7 +93,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
                 <button
                   type="button"
                   onClick={handleCloseLive}
-                  className="rounded-full border border-border px-3 py-2 text-xs uppercase tracking-wide text-text-muted transition hover:border-accent hover:text-accent"
+                  className="rounded-full border border-border px-3 py-2 text-xs uppercase tracking-wide text-text-muted transition hover:border-light hover:text-light"
                 >
                   Close
                 </button>
@@ -135,7 +135,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
               <button
                 type="button"
                 onClick={handleCloseImagePreview}
-                className="rounded-full border border-border px-4 py-2 text-xs uppercase tracking-wide text-text-muted transition hover:border-accent hover:text-accent"
+                className="rounded-full border border-border px-4 py-2 text-xs uppercase tracking-wide text-text-muted transition hover:border-light hover:text-light"
               >
                 Close
               </button>
