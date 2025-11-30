@@ -168,14 +168,14 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
       <button
         type="button"
         onClick={onToggle}
-        className="flex flex-col w-full items-start justify-between text-left"
+        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/85 px-4 py-3 text-left backdrop-blur-sm transition dark:border-border/60 dark:bg-brand-black/60"
       >
-        <div className="flex justify-between w-full">
+        <div className="flex w-full items-start justify-between gap-4">
           <h2 className="text-xl font-heading text-text uppercase">
             {project.name}
           </h2>
        
-        
+       
         <span
           className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
             isOpen
@@ -191,7 +191,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               {project.role}
             </p>
           )} */}
-          <p className="mt-0.5 text-sm text-text-muted tracking-wide">
+          <p className="mt-0.5 text-sm text-text tracking-wide">
             {project.summary}
           </p>
           <TechTagList tags={techTags} className="mt-3" />

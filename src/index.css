@@ -17,16 +17,16 @@
   }
 
   .dark {
-    --color-surface: 8 10 16;
-    --color-surface-muted: 16 18 26;
-    --color-surface-card: 28 30 42;
-    --color-surface-elevated: 40 42 56;
-    --color-text: 241 241 242;
-    --color-text-muted: 187 188 196;
-    --color-border: 64 65 78;
-    --color-accent: 232 110 95;
-    --color-accent-soft: 221 69 50;
-    --color-accent-strong: 196 143 45;
+    --color-surface: 42 46 48;
+    --color-surface-muted: 52 92 114;
+    --color-surface-card: 52 92 114;
+    --color-surface-elevated: 212 237 244;
+    --color-text: 255 255 255;
+    --color-text-muted: 212 237 244;
+    --color-border: 212 237 244;
+    --color-accent: 244 101 48;
+    --color-accent-soft: 255 158 122;
+    --color-accent-strong: 52 92 114;
   }
 
   body {

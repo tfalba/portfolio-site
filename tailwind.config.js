@@ -25,18 +25,15 @@ export default {
         "accent-soft": withOpacityValue("--color-accent-soft"),
         "accent-strong": withOpacityValue("--color-accent-strong"),
         brand: {
-          black: "#000000",
-          charcoal: "#343434",
-          // red: "#DD4532",
-          red: "#673AB7",
-          // coral: "#E86E5F",
-          coral: "#3f51b5",
-          blue: "#1B4965",
-          green: "#1F6F4E",
-          // gold: "#C48F2D",
-          gold: "#673ab7",
-          light: "#F1F1F2",
-          white: "#FEFEFE",
+          black: "#2a2e30",
+          charcoal: "#345c72",
+          red: "#f46530",
+          coral: "#ff9e7a",
+          blue: "#345c72",
+          green: "#d4edf4",
+          gold: "#ff9e7a",
+          light: "#ffffff",
+          white: "#ffffff",
         },
         lightMode: {
           lavender: "#857BAC",
@@ -52,4 +49,3 @@ export default {
   },
   plugins: [],
 };
-
