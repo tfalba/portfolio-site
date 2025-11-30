@@ -10,7 +10,7 @@ export const projects: Project[] = [
     name: "Top Knot Holistics",
     role: "design, front-end, back-end",
     techStack: "React, TypeScript, Tailwind CSS, Vercel, Google Calendar",
-    summary: "a website",
+    summary: "A mobile-first React site for a massage therapist featuring service cards, a practitioner story, and embedded scheduling—crafted to feel calming, credible, and effortless to book.",
     description: {
       overview:
         "KB Massage / Top Knot Holistics is a single-page, mobile-responsive site created to showcase a private massage therapy practice with a calm, trustworthy voice.",
@@ -45,7 +45,7 @@ export const projects: Project[] = [
     name: "Color My Music",
     role: "design, front-end, back-end",
     techStack: "React, TypeScript, Tailwind CSS, Spotify API, Pixabay API",
-    summary: "a website",
+    summary: "A React app that transforms Spotify playlists into color palettes and pairs them with matching Pixabay artwork for sharable visual “music stories.",
     description: {
       overview:
         "Color My Music pairs Spotify listening data with Pixabay imagery so playlists become sharable color stories.",
@@ -80,7 +80,7 @@ export const projects: Project[] = [
     name: "Casino Games",
     role: "design, front-end, back-end",
     techStack: "React, TypeScript, Tailwind CSS, Zustand, Vercel",
-    summary: "a website",
+    summary: "A React + TypeScript project featuring Blackjack and War, powered by a Python backend for game logic and a unified front-end design system for cards, chips, and tables.",
     description: {
       overview:
         "Casino Games is a playground of mini experiences—Blackjack, Roulette, and arcade-influenced parlor games—designed to test component composability.",
@@ -100,7 +100,8 @@ export const projects: Project[] = [
         "A coaching overlay that surfaces hints such as optimal Blackjack decisions based on the deck state.",
       ],
       howBuilt: [
-        "React + TypeScript components wrapped in Zustand for cross-game state and derived selectors.",
+        "React + TypeScript front end with modular components for cards, chips, tables, and HUD elements.",
+        "Python backend handles game logic endpoints such as shuffling, wheel spins, bankroll math, and probability helpers, providing deterministic or randomized results based on mode.",
         "Custom hooks encapsulate timers, probability helpers, and keyboard shortcuts.",
         "Tailwind theme tokens drive casino-inspired gradients, neon glows, and motion-safe animations.",
       ],
@@ -116,7 +117,7 @@ export const projects: Project[] = [
     role: "design, front-end, back-end",
     techStack: "React 18, TypeScript, Tailwind CSS, Zustand, Pixabay API, Vercel",
     summary:
-      "Create a personal sliding puzzle from any Pixabay photo, play it directly in the browser, and celebrate when every tile clicks into place.",
+      "Create a personal sliding puzzle from any Pixabay photo, play it directly in the browser, and celebrate when puzzle is complete.",
     description: {
       overview:
         "PuzzleQuest Studio turns image hunting and puzzle solving into a single, highly tactile experience.",
@@ -154,7 +155,7 @@ export const projects: Project[] = [
     name: "Party Games",
     role: "design, front-end, back-end",
     techStack: "React, TypeScript, Node.js, Tailwind CSS, Socket.IO",
-    summary: "a website",
+    summary: "A charades generator for multiple players in a simple group or on teams for categories including movies, books, songs, people, places, and things.",
     description: {
       overview:
         "Party Games is a lightweight Jackbox-style suite that lets remote friends jump into trivia, doodling, and voting matches with a single room code.",

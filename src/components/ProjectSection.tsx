@@ -47,6 +47,97 @@ const ROW_GRADIENTS = [
   "bg-gradient-to-br from-lightMode-lavender/20 via-lightMode-mint/20 to-lightMode-butter/50 dark:from-brand-green dark:via-brand-blue/80 dark:to-brand-charcoal/70",
 ];
 
+type TechCategory =
+  | "frontend"
+  | "language"
+  | "styling"
+  | "state"
+  | "infrastructure"
+  | "integration"
+  | "backend"
+  | "realtime"
+  | "default";
+
+type TechTag = {
+  label: string;
+  category: TechCategory;
+};
+
+const TECH_CATEGORY_STYLES: Record<TechCategory, string> = {
+  frontend:
+    "border-lightMode-lavender/60 bg-lightMode-lavender/15 text-lightMode-lavender dark:border-brand-red/60 dark:bg-brand-red/20 dark:text-brand-light",
+  language:
+    "border-brand-blue/50 bg-brand-blue/10 text-brand-blue dark:border-brand-blue/70 dark:bg-brand-blue/25 dark:text-brand-light",
+  styling:
+    "border-lightMode-mint/60 bg-lightMode-mint/20 text-brand-green dark:border-brand-green/60 dark:bg-brand-green/20 dark:text-brand-light",
+  state:
+    "border-lightMode-blush/60 bg-lightMode-blush/20 text-brand-coral dark:border-brand-coral/60 dark:bg-brand-coral/20 dark:text-brand-light",
+  infrastructure:
+    "border-brand-gold/50 bg-brand-gold/10 text-brand-gold dark:border-brand-gold/70 dark:bg-brand-gold/20 dark:text-brand-light",
+  integration:
+    "border-brand-green/50 bg-brand-green/10 text-brand-green dark:border-brand-green/60 dark:bg-brand-green/20 dark:text-brand-light",
+  backend:
+    "border-brand-blue/50 bg-brand-blue/10 text-brand-blue dark:border-brand-blue/70 dark:bg-brand-blue/25 dark:text-brand-light",
+  realtime:
+    "border-brand-coral/60 bg-brand-coral/15 text-brand-coral dark:border-brand-coral/60 dark:bg-brand-coral/20 dark:text-brand-light",
+  default:
+    "border-border/70 bg-surface-muted/60 text-text-muted dark:text-brand-light",
+};
+
+const TECH_CATEGORY_MAP: Record<string, TechCategory> = {
+  react: "frontend",
+  "react 18": "frontend",
+  typescript: "language",
+  "tailwind css": "styling",
+  zustand: "state",
+  vercel: "infrastructure",
+  "google calendar": "integration",
+  "spotify api": "integration",
+  "pixabay api": "integration",
+  "node.js": "backend",
+  "socket.io": "realtime",
+};
+
+const getTechTags = (techStack?: string): TechTag[] => {
+  if (!techStack) {
+    return [];
+  }
+
+  return techStack
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .map((label) => {
+      const normalized = label.toLowerCase();
+      const category =
+        TECH_CATEGORY_MAP[normalized] ??
+        (normalized.includes("api") ? "integration" : "default");
+      return { label, category };
+    });
+};
+
+const TechTagList: React.FC<{
+  tags: TechTag[];
+  className?: string;
+}> = ({ tags, className = "" }) => {
+  if (tags.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className={`flex flex-wrap gap-2 ${className}`}>
+      {tags.map((tag, index) => (
+        <span
+          key={`${tag.label}-${index}`}
+          className={`rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wide ${TECH_CATEGORY_STYLES[tag.category]}`}
+        >
+          {tag.label}
+        </span>
+      ))}
+    </div>
+  );
+};
+
 export const ProjectSection: React.FC<ProjectSectionProps> = ({
   project,
   isOpen,
@@ -60,6 +151,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   );
   const backgroundClass =
     ROW_GRADIENTS[variant % ROW_GRADIENTS.length] ?? ROW_GRADIENTS[0];
+  const techTags = getTechTags(project.techStack);
 
   useEffect(() => {
     if (!isOpen && activeTab !== "description") {
@@ -99,12 +191,10 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               {project.role}
             </p>
           )} */}
-          <p className="mt-0.5 text-sm text-text-muted tracking-wide">{project.summary}</p>
-          {project.techStack && (
-            <p className="mt-1 text-xs text-text-muted uppercase">
-              Tech: {project.techStack}
-            </p>
-          )}
+          <p className="mt-0.5 text-sm text-text-muted tracking-wide">
+            {project.summary}
+          </p>
+          <TechTagList tags={techTags} className="mt-3" />
       </button>
 
       {/* Expandable content */}
@@ -191,14 +281,12 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                         </ul>
                       </div>
                     )}
-                    {project.techStack && (
+                    {techTags.length > 0 && (
                       <div>
                         <p className="text-xs font-semibold uppercase tracking-wide text-text-muted">
                           Frameworks & Tools
                         </p>
-                        <p className="mt-1 text-base text-text">
-                          {project.techStack}
-                        </p>
+                        <TechTagList tags={techTags} className="mt-2" />
                       </div>
                     )}
                   </div>

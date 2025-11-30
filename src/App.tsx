@@ -18,7 +18,7 @@ const navButtonClass = ({
   [
     "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light",
     isActive
-      ? "border-lightMode-lavender dark:border-brand-red/70 bg-lightMode-lavender/80 dark:bg-brand-red/70 text-white shadow-lg shadow-lightMode-lavender/40 dark:shadow-brand-red/40"
+      ? "border-lightMode-lavender/80 dark:border-brand-red/70 bg-white dark:bg-brand-red/70 text-text shadow-lg shadow-lightMode-lavender/40 dark:shadow-brand-red/40"
       : "border-border text-text-muted hover:border-lightMode-lavender dark:hover:border-brand-red/70 hover:text-text",
   ].join(" ");
 
