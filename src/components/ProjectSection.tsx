@@ -35,16 +35,16 @@ interface ProjectSectionProps {
   onExpandImage: (
     projectName: string,
     desktop?: CarouselImage,
-    phone?: CarouselImage,
+    phone?: CarouselImage
   ) => void;
   variant: number;
 }
 
 const ROW_GRADIENTS = [
-  "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-white dark:from-brand-gold dark:via-brand-coral/80 dark:to-brand-red/70",
-  "bg-gradient-to-br from-lightMode-mint/30 via-lightMode-mint/20 to-lightMode-white dark:from-brand-blue dark:via-brand-green/80 dark:to-brand-gold/70",
-  "bg-gradient-to-br from-lightMode-blush/30 via-lightMode-blush/20 to-lightMode-white dark:from-brand-coral dark:via-brand-red/80 dark:to-brand-gold/60",
-  "bg-gradient-to-br from-lightMode-lavender/20 via-lightMode-mint/20 to-lightMode-butter/50 dark:from-brand-green dark:via-brand-blue/80 dark:to-brand-charcoal/70",
+  "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-butter/20 dark:from-brand-gold dark:via-brand-coral/80 dark:to-brand-red/70",
+  "bg-gradient-to-br from-lightMode-mint/40 via-lightMode-mint/30 to-lightMode-mint/20 dark:from-brand-blue dark:via-brand-green/80 dark:to-brand-gold/70",
+  "bg-gradient-to-br from-lightMode-blush/40 via-lightMode-blush/30 to-lightMode-blush/20 dark:from-brand-coral dark:via-brand-red/80 dark:to-brand-gold/60",
+  "bg-gradient-to-br from-lightMode-lavender/40 via-lightMode-labender/30 to-lightMode-lavender/20 dark:from-brand-green dark:via-brand-blue/80 dark:to-brand-charcoal/70",
 ];
 
 type TechCategory =
@@ -65,23 +65,23 @@ type TechTag = {
 
 const TECH_CATEGORY_STYLES: Record<TechCategory, string> = {
   frontend:
-    "border-lightMode-lavender/60 bg-lightMode-lavender/15 text-lightMode-lavender dark:border-brand-red/60 dark:bg-brand-red/20 dark:text-brand-light",
+    "border-brand-charcoal/40 bg-brand-charcoal/15 text-brand-charcoal dark:border-brand-charcoal/60 dark:bg-brand-charcoal/25 dark:text-brand-light",
   language:
-    "border-brand-blue/50 bg-brand-blue/10 text-brand-blue dark:border-brand-blue/70 dark:bg-brand-blue/25 dark:text-brand-light",
+    "border-brand-blue/40 bg-brand-blue/15 text-brand-blue dark:border-brand-blue/60 dark:bg-brand-blue/25 dark:text-brand-light",
   styling:
-    "border-lightMode-mint/60 bg-lightMode-mint/20 text-brand-green dark:border-brand-green/60 dark:bg-brand-green/20 dark:text-brand-light",
+    "border-lightMode-mint/80 bg-lightMode-mint/35 text-brand-charcoal dark:border-brand-green/60 dark:bg-brand-green/20 dark:text-brand-light",
   state:
-    "border-lightMode-blush/60 bg-lightMode-blush/20 text-brand-coral dark:border-brand-coral/60 dark:bg-brand-coral/20 dark:text-brand-light",
+    "border-lightMode-blush/80 bg-lightMode-blush/35 text-brand-charcoal dark:border-brand-coral/60 dark:bg-brand-coral/20 dark:text-brand-light",
   infrastructure:
-    "border-brand-gold/50 bg-brand-gold/10 text-brand-gold dark:border-brand-gold/70 dark:bg-brand-gold/20 dark:text-brand-light",
+    "border-brand-gold/60 bg-brand-gold/20 text-brand-charcoal dark:border-brand-gold/70 dark:bg-brand-gold/25 dark:text-brand-light",
   integration:
-    "border-brand-green/50 bg-brand-green/10 text-brand-green dark:border-brand-green/60 dark:bg-brand-green/20 dark:text-brand-light",
+    "border-brand-green/60 bg-brand-green/25 text-brand-charcoal dark:border-brand-green/60 dark:bg-brand-green/25 dark:text-brand-light",
   backend:
-    "border-brand-blue/50 bg-brand-blue/10 text-brand-blue dark:border-brand-blue/70 dark:bg-brand-blue/25 dark:text-brand-light",
+    "border-brand-blue/50 bg-brand-blue/20 text-brand-charcoal dark:border-brand-blue/70 dark:bg-brand-blue/25 dark:text-brand-light",
   realtime:
-    "border-brand-coral/60 bg-brand-coral/15 text-brand-coral dark:border-brand-coral/60 dark:bg-brand-coral/20 dark:text-brand-light",
+    "border-brand-coral/60 bg-brand-coral/25 text-brand-charcoal dark:border-brand-coral/60 dark:bg-brand-coral/25 dark:text-brand-light",
   default:
-    "border-border/70 bg-surface-muted/60 text-text-muted dark:text-brand-light",
+    "border-border/70 bg-surface-card/70 text-brand-charcoal dark:border-border/60 dark:bg-brand-black/40 dark:text-brand-light",
 };
 
 const TECH_CATEGORY_MAP: Record<string, TechCategory> = {
@@ -129,7 +129,9 @@ const TechTagList: React.FC<{
       {tags.map((tag, index) => (
         <span
           key={`${tag.label}-${index}`}
-          className={`rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wide ${TECH_CATEGORY_STYLES[tag.category]}`}
+          className={`rounded-full border px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-wide ${
+            TECH_CATEGORY_STYLES[tag.category]
+          }`}
         >
           {tag.label}
         </span>
@@ -147,7 +149,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   variant,
 }) => {
   const [activeTab, setActiveTab] = useState<"description" | "details">(
-    "description",
+    "description"
   );
   const backgroundClass =
     ROW_GRADIENTS[variant % ROW_GRADIENTS.length] ?? ROW_GRADIENTS[0];
@@ -162,39 +164,34 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   return (
     <section
       id={project.id}
-      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
+      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-3 text-text shadow-xl transition hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
     >
       {/* Header row */}
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/85 px-4 py-3 text-left backdrop-blur-sm transition dark:border-border/60 dark:bg-brand-black/60"
+        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/50 px-4 py-3 text-left backdrop-blur-sm transition dark:border-border/60 dark:bg-brand-black/40"
       >
         <div className="flex w-full items-start justify-between gap-4">
           <h2 className="text-xl font-heading text-text uppercase">
             {project.name}
           </h2>
-       
-       
-        <span
-          className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
-            isOpen
-              ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 dark:border-light dark:bg-brand-light/10 text-lightMode-lavender dark:text-brand-light"
-              : "border-border bg-surface-muted/60 text-text-muted"
-          }`}
-        >
-          {isOpen ? "Hide details ▲" : "Show details ▼"}
-        </span>
+
+          <span
+            className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
+              isOpen
+                ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 dark:border-light dark:bg-brand-light/10 text-lightMode-lavender dark:text-brand-light"
+                : "border-border bg-surface-muted/60 text-text-muted"
+            }`}
+          >
+            {isOpen ? "Hide details ▲" : "Show details ▼"}
+          </span>
         </div>
-           {/* {project.role && (
-            <p className="mt-0.5 text-xs uppercase tracking-wide text-text-muted">
-              {project.role}
-            </p>
-          )} */}
-          <p className="mt-0.5 text-sm text-text tracking-wide">
-            {project.summary}
-          </p>
-          <TechTagList tags={techTags} className="mt-3" />
+
+        <p className="mt-0.5 text-sm text-text tracking-wide">
+          {project.summary}
+        </p>
+        <TechTagList tags={techTags} className="mt-3" />
       </button>
 
       {/* Expandable content */}
@@ -298,7 +295,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full bg-brand-lightMode-lavender dark:bg-brand-red px-4 py-2 font-body font-medium text-white transition hover:bg-brand-light-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
+                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-brand-light transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal dark:border-brand-black dark:bg-brand-black dark:text-brand-light"
               >
                 View live site
               </button>

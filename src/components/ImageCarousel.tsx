@@ -62,7 +62,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             className="absolute bottom-6 right-6 w-24 translate-y-2 rotate-2 drop-shadow-[0_18px_35px_rgba(0,0,0,0.35)] transition hover:scale-105 md:w-28 lg:w-32"
             aria-label="Expand mobile screenshot"
           >
-            <div className="relative rounded-[1.75rem] border border-border bg-surface-card/90 p-1 shadow-[0_15px_35px_rgba(0,0,0,0.35)] ring-1 ring-border/70 dark:bg-brand-black/80">
+            <div className="relative rounded-[1.25rem] border border-border bg-surface-card/90 p-1 shadow-[0_15px_35px_rgba(0,0,0,0.35)] ring-1 ring-border/70 dark:bg-brand-black/80">
               <div className="aspect-[9/19] w-full overflow-hidden rounded-[1.25rem] bg-surface-muted dark:bg-brand-black">
                 <img
                   src={currentPhone.src}

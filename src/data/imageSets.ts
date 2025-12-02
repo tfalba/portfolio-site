@@ -36,6 +36,29 @@ import puzzle2b from "../assets/puzzle-quest-2b.png";
 import puzzle3b from "../assets/puzzle-quest-3b.png";
 import puzzle4b from "../assets/puzzle-quest-4b.png";
 
+import charades1 from "../assets/charades-1.png";
+import charades2 from "../assets/charades-2.png";
+import charades3 from "../assets/charades-3.png";
+import charades4 from "../assets/charades-4.png";
+import charades1b from "../assets/charades-1b.png";
+import charades2b from "../assets/charades-2b.png";
+import charades3b from "../assets/charades-3b.png";
+import charades4b from "../assets/charades-4b.png";
+
+import castlesHearts1 from "../assets/castles-hearts1.png";
+import castlesHearts2 from "../assets/castles-hearts2.png";
+
+import castlesHearts3 from "../assets/castles-hearts3.png";
+
+import castlesHearts4 from "../assets/castles-hearts4.png";
+import castlesHearts5 from "../assets/castles-hearts5.png";
+import castlesHearts1b from "../assets/castles-hearts1b.png";
+import castlesHearts2b from "../assets/castles-hearts2b.png";
+import castlesHearts3b from "../assets/castles-hearts3b.png";
+import castlesHearts4b from "../assets/castles-hearts4b.png";
+import castlesHearts5b from "../assets/castles-hearts5b.png";
+
+
 type AltFormatter = (index: number) => string | undefined;
 
 const createImageList = (
@@ -91,10 +114,15 @@ export const imageSets = {
     phone: [puzzle1b, puzzle2b, puzzle3b, puzzle4b],
   }),
   partyGames: createImageSet({
-    prefix: "pg",
-    desktop: [spotify1, spotify2, spotify3, spotify4],
-    phone: [spotify1b, spotify2b, spotify3b, spotify4b],
+    prefix: "ch",
+    desktop: [charades1, charades2, charades3, charades4],
+    phone: [charades1b, charades2b, charades3b, charades4b],
   }),
+  castlesHearts: createImageSet({
+    prefix: "c-h",
+    desktop: [castlesHearts1, castlesHearts2, castlesHearts3, castlesHearts4, castlesHearts5],
+    phone: [castlesHearts1b, castlesHearts2b, castlesHearts3b, castlesHearts4b, castlesHearts5b],
+  })
 } as const;
 
 export type ProjectImageSet = typeof imageSets[keyof typeof imageSets];

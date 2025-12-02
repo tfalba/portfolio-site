@@ -4,9 +4,9 @@
 
 @layer base {
   :root {
-    --color-surface: 244 242 243;
-    --color-surface-muted: 250 248 249;
-    --color-surface-card: 255 255 255;
+    --color-surface: 255 255 255;
+    --color-surface-muted: 253 248 221;
+    --color-surface-card: 244 242 243;
     --color-surface-elevated: 235 232 220;
     --color-text: 29 28 33;
     --color-text-muted: 103 104 112;

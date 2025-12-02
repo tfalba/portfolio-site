@@ -1,7 +1,7 @@
 import type { Project } from "../components/ProjectSection";
 import { imageSets } from "./imageSets";
 
-const { topKnot, colorMyMusic, casinoGames, puzzleQuest, partyGames } =
+const { topKnot, colorMyMusic, casinoGames, puzzleQuest, partyGames, castlesHearts } =
   imageSets;
 
 export const projects: Project[] = [
@@ -154,35 +154,74 @@ export const projects: Project[] = [
     id: "5",
     name: "Party Games",
     role: "design, front-end, back-end",
-    techStack: "React, TypeScript, Node.js, Tailwind CSS, Socket.IO",
-    summary: "A charades generator for multiple players in a simple group or on teams for categories including movies, books, songs, people, places, and things.",
+    techStack:
+      "React 18, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",
+    summary:
+      "Spin a neon wheel to pick the next actor, fetch OpenAI-crafted prompts, and run five-round charades matches with timers and scoreboards in one browser tab.",
     description: {
       overview:
-        "Party Games is a lightweight Jackbox-style suite that lets remote friends jump into trivia, doodling, and voting matches with a single room code.",
+        "Charades Game Night Hub keeps team setup, wheel spins, prompt delivery, timers, and scoring in sync so hosts can run party-length matches without juggling multiple tools.",
       steps: [
-        "A host spins up a lobby and shares the room code; everyone else joins from their phone browser.",
-        "Each mini game (trivia, drawing prompts, meme battles) swaps in its own controls while keeping shared chat and scoreboards persistent.",
-        "Server timers drive question pacing, give players enough time to answer, and keep the group in sync.",
-        "Completion screens celebrate winners and offer instant rematch or lobby reset options.",
+        "Build teams through the slide-out player drawer, assign colors, and persist the roster via localStorage for future sessions.",
+        "Spin the SVG prize wheel to pick the next actor, then choose topic and difficulty to recolor the table and fetch five fresh prompts.",
+        "Kick off the five-minute countdown; each actor can burn 30 seconds for an alternate hint before logging Got It or Surrender.",
+        "Track ✓/✕ results across five rounds in the scoreboard and flash celebratory overlays when turns end.",
       ],
     },
     details: {
       summary:
-        "Hosts trivia, drawing, and voting mini games with room codes so friends can play remotely. Real-time state sync is handled through Socket.IO, timers run on the server to keep everyone honest, and admin-only controls make it easy to reset lobbies.",
+        "GameContext orchestrates players, prompts, timers, wheel spins, and scoreboard updates so the UI stays synchronized across every section of the board.",
       keyFeatures: [
-        "Cross-device lobby that works on desktop streaming to a TV plus phones as controllers.",
-        "Custom avatars, quick reactions, and profanity filtering keep games playful but safe.",
-        "Admin console lets the host skip rounds, pause timers, or boot trolls without stopping play.",
+        "OpenAI-backed prompt generation with duplicate avoidance and per-topic history stored in `apps/api/data/challenge-history.json`.",
+        "Topic-driven themes that swap logos, accent colors, and badges whenever a new category is selected.",
+        "Alternate prompt penalty system that subtracts 30 seconds, forcing teams to weigh hint requests mid-turn.",
       ],
       howBuilt: [
-        "React + TypeScript front end powered by Tailwind for layout and per-game theme variants.",
-        "Node/Express backend with Socket.IO namespaces to isolate rooms and broadcast updates efficiently.",
-        "Server-authoritative timers and validation to prevent cheating or double submissions.",
+        "React 18 + Vite + TypeScript frontend paired with an Express + TypeScript API, both sharing Topic/Difficulty types via workspace aliases.",
+        "GameContext centralizes prompts, countdown timers, wheel spins, and scoreboard logic for predictable state updates.",
+        "API route `apps/api/src/routes.ts` calls `gpt-4o-mini` with strict difficulty rules and deduped history files before returning prompts.",
       ],
     },
     liveUrl: "https://app.color-my-music.app/",
     githubUrl: "",
     images: partyGames.desktop,
     imagesPhone: partyGames.phone,
+  },
+   {
+    id: "6",
+    name: "Castles & Heaerts",
+    role: "design, front-end, back-end",
+    techStack:
+      "React 18, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",
+    summary:
+      "Spin a neon wheel to pick the next actor, fetch OpenAI-crafted prompts, and run five-round charades matches with timers and scoreboards in one browser tab.",
+    description: {
+      overview:
+        "Charades Game Night Hub keeps team setup, wheel spins, prompt delivery, timers, and scoring in sync so hosts can run party-length matches without juggling multiple tools.",
+      steps: [
+        "Build teams through the slide-out player drawer, assign colors, and persist the roster via localStorage for future sessions.",
+        "Spin the SVG prize wheel to pick the next actor, then choose topic and difficulty to recolor the table and fetch five fresh prompts.",
+        "Kick off the five-minute countdown; each actor can burn 30 seconds for an alternate hint before logging Got It or Surrender.",
+        "Track ✓/✕ results across five rounds in the scoreboard and flash celebratory overlays when turns end.",
+      ],
+    },
+    details: {
+      summary:
+        "GameContext orchestrates players, prompts, timers, wheel spins, and scoreboard updates so the UI stays synchronized across every section of the board.",
+      keyFeatures: [
+        "OpenAI-backed prompt generation with duplicate avoidance and per-topic history stored in `apps/api/data/challenge-history.json`.",
+        "Topic-driven themes that swap logos, accent colors, and badges whenever a new category is selected.",
+        "Alternate prompt penalty system that subtracts 30 seconds, forcing teams to weigh hint requests mid-turn.",
+      ],
+      howBuilt: [
+        "React 18 + Vite + TypeScript frontend paired with an Express + TypeScript API, both sharing Topic/Difficulty types via workspace aliases.",
+        "GameContext centralizes prompts, countdown timers, wheel spins, and scoreboard logic for predictable state updates.",
+        "API route `apps/api/src/routes.ts` calls `gpt-4o-mini` with strict difficulty rules and deduped history files before returning prompts.",
+      ],
+    },
+    liveUrl: "https://app.color-my-music.app/",
+    githubUrl: "",
+    images: castlesHearts.desktop,
+    imagesPhone: castlesHearts.phone,
   },
 ];

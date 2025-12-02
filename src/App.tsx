@@ -61,8 +61,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-surface text-text">
-      <header className="border-b border-border bg-surface-muted/90 text-text shadow-sm bg-gradient-to-br from-lightMode-butter/80 via-lightsMode-butter/60 to-lightMode-white dark:bg-gradient-to-br dark:from-brand-green/70 dark:via-brand-green/80 dark:to-brand-green/30">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 md:flex-row md:items-center md:justify-between mt-10">
+      <header className="border-b border-border bg-surface-muted/30 text-text shadow-sm bg-gradient-to-br from-lightMode-butter/80 via-lightsMode-butter/60 to-lightMode-white dark:bg-gradient-to-br dark:from-brand-blue/10 dark:via-brand-blue/80 dark:to-brand-blue/30">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 pb-8 pt-10 md:flex-row md:items-end md:justify-between mt-10">
           <div className="flex-[1.3]">
             <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
               Portfolio of
@@ -75,7 +75,7 @@ const App: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex flex-1 gap-3 md:flex-row items-center justify-end">
+          <div className="flex flex-2 gap-3 md:flex-row items-center justify-end">
             <div className="flex flex-wrap gap-2">
               <NavLink to="/" className={navButtonClass}>
                 Projects
@@ -88,7 +88,7 @@ const App: React.FC = () => {
           </div>
         </div>
         {onProjectsRoute && (
-          <div className="flex justify-end max-w-7xl px-4 mx-auto absolute top-[30px] right-0 py-4">
+          <div className="flex justify-end max-w-7xl px-4 mx-auto absolute top-[35px] right-0 py-4">
             <div className="relative inline-block text-left">
               <button
                 type="button"
@@ -136,7 +136,7 @@ const App: React.FC = () => {
         )}
       </header>
 
-      <main className="mx-auto max-w-7xl space-y-6 px-4 py-6">
+      <main className="mx-auto max-w-7xl space-y-8 px-5 py-8">
         <Routes>
           <Route path="/" element={<ProjectsPage openId={openId} handleToggle={handleToggle}/>} />
           <Route path="/about" element={<AboutPage />} />

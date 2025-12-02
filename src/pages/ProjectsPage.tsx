@@ -48,7 +48,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
         </p>
       </section>
 
-      <div className="space-y-3">
+      <div className="space-y-8">
         {projects.map((project, index) => (
           <ProjectSection
             key={project.id}
