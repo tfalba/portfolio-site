@@ -11,7 +11,7 @@ export const AboutPage: React.FC = () => {
 
   return (
     <>
-  <section className="space-y-8 rounded-3xl border border-border bg-surface-card/95 p-6 text-text shadow-xl dark:bg-surface-card">
+  <section className="space-y-8 rounded-3xl border border-border bg-surface/95 p-6 text-text shadow-xl dark:bg-surface-card">
     <header className="space-y-3">
       <p className="text-xs uppercase tracking-[0.3em] text-text-muted">
         About me

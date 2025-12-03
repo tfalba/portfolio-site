@@ -37,18 +37,18 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
   return (
     <>
-      <section className="max-w-7xl space-y-4 rounded-3xl p-2 text-text dark:bg-transparent dark:shadow-none dark:ring-0">
+      <section className="max-w-7xl space-y-2 rounded-3xl p-2 text-text dark:bg-transparent dark:shadow-none dark:ring-0">
         <h2 className="text-3xl font-heading text-text uppercase ">
           Selected Projects
         </h2>
-        <p className="text-sm font-body text-text-muted">
+        <p className="font-body text-text-muted">
           A snapshot of the products and experiments I’ve built. Click any
           project to expand the full story, see screenshots, and jump directly
           into the live experience or source code.
         </p>
       </section>
 
-      <div className="space-y-8">
+      <div className="space-y-4">
         {projects.map((project, index) => (
           <ProjectSection
             key={project.id}

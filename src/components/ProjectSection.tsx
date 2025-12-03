@@ -164,13 +164,13 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   return (
     <section
       id={project.id}
-      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-3 text-text shadow-xl transition hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
+      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-3 text-text shadow-xl transition hover:-translate-y-1 hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
     >
       {/* Header row */}
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/50 px-4 py-3 text-left backdrop-blur-sm transition dark:border-border/60 dark:bg-brand-black/40"
+        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/20 px-4 py-3 text-left backdrop-blur-sm transition dark:border-border/60 dark:bg-brand-black/20"
       >
         <div className="flex w-full items-start justify-between gap-4">
           <h2 className="text-xl font-heading text-text uppercase">

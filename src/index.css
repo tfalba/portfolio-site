@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @layer base {
+  /* ---------- LIGHT THEME (default) ---------- */
   :root {
     --color-surface: 255 255 255;
     --color-surface-muted: 253 248 221;
@@ -16,6 +17,7 @@
     --color-accent-strong: 196 143 45;
   }
 
+  /* ---------- DARK THEME (manual .dark class) ---------- */
   .dark {
     --color-surface: 42 46 48;
     --color-surface-muted: 52 92 114;
@@ -29,8 +31,47 @@
     --color-accent-strong: 52 92 114;
   }
 
+  /* ---------- SYSTEM DARK THEME (when no .light/.dark set) ---------- */
+  @media (prefers-color-scheme: dark) {
+    :root:not(.light):not(.dark) {
+      --color-surface: 42 46 48;
+      --color-surface-muted: 52 92 114;
+      --color-surface-card: 52 92 114;
+      --color-surface-elevated: 212 237 244;
+      --color-text: 255 255 255;
+      --color-text-muted: 212 237 244;
+      --color-border: 212 237 244;
+      --color-accent: 244 101 48;
+      --color-accent-soft: 255 158 122;
+      --color-accent-strong: 52 92 114;
+    }
+  }
+
+  /* ---------- BODY BASE STYLES (LIGHT BG BY DEFAULT) ---------- */
   body {
     @apply min-h-screen bg-surface font-body text-text antialiased;
+    margin: 0;
+    padding: 0;
+    background-image: url("./assets/pngtree-pastel-watercolor-background-with-mint-green-and-blush-pink-tones-picture-image_background.jpg"); /* ← light-mode image */
+    background-size: cover;
+    /* background-repeat: no-repeat; */
+    background-position: center;
+  }
+
+  /* System dark background when no manual theme override */
+  @media (prefers-color-scheme: dark) {
+    html:not(.light):not(.dark) body {
+      background-image: url("./assets/dark-background-image.jpg"); /* ← dark-mode image */
+    }
+  }
+
+  /* Manual overrides via class on <html> */
+  .dark body {
+    background-image: url("./assets/dark-background-image.jpg");
+  }
+
+  .light body {
+    background-image: url("./assets/pngtree-pastel-watercolor-background-with-mint-green-and-blush-pink-tones-picture-image_background.jpg");
   }
 
   #root {

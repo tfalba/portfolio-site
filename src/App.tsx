@@ -4,6 +4,8 @@ import { NavLink, Route, Routes, useLocation } from "react-router-dom";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { AboutPage } from "./pages/AboutPage";
 import { projects } from "./data/projectData";
+// ❌ remove this:
+// import { toggleTheme } from "./theme";
 
 type Theme = "light" | "dark";
 const THEME_STORAGE_KEY = "portfolio-theme";
@@ -29,38 +31,100 @@ const App: React.FC = () => {
     if (typeof window === "undefined") return "dark";
     const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
     if (stored === "light" || stored === "dark") return stored;
+
+    // no stored preference → use system
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   });
+
   const [openId, setOpenId] = useState<string | null>(projects[0]?.id ?? null);
   const [projectMenuOpen, setProjectMenuOpen] = useState(false);
 
   const handleToggle = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id));
+    setOpenId((prev) => {
+      const next = prev === id ? null : id;
+
+      if (
+        next &&
+        next !== projects[0]?.id &&
+        typeof window !== "undefined" &&
+        typeof document !== "undefined"
+      ) {
+        requestAnimationFrame(() => {
+          const target = document.getElementById(next);
+          if (!target) return;
+          const { top } = target.getBoundingClientRect();
+          const targetTop = window.scrollY + top - 24;
+          window.scrollTo({
+            top: targetTop > 0 ? targetTop : 0,
+            behavior: "smooth",
+          });
+        });
+      }
+
+      return next;
+    });
   };
 
+  // 🔁 Sync <html class="dark"> + localStorage with React state
+  // useEffect(() => {
+  //   if (typeof document === "undefined") return;
+  //   const root = document.documentElement;
+
+  //   if (theme === "dark") {
+  //     root.classList.add("dark");
+  //     // optional: clear "light" if you ever add it
+  //     root.classList.remove("light");
+  //   } else {
+  //     root.classList.remove("dark");
+  //     root.classList.add("light");
+  //   }
+
+  //   window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  // }, [theme]);
+
   useEffect(() => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
-    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
-  }, [theme]);
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+
+  if (theme === "dark") {
+    root.classList.add("dark");
+  } else {
+    root.classList.remove("dark");
+  }
+
+  window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+}, [theme]);
+
+  // (Optional) react to system changes ONLY if user hasn't chosen a theme yet
+  // useEffect(() => {
+  //   if (typeof window === "undefined") return;
+
+  //   const media = window.matchMedia("(prefers-color-scheme: dark)");
+  //   const stored = window.localStorage.getItem(THEME_STORAGE_KEY);
+
+  //   if (stored === "light" || stored === "dark") return; // manual override exists
+
+  //   const listener = (event: MediaQueryListEvent) => {
+  //     setTheme(event.matches ? "dark" : "light");
+  //   };
+
+  //   media.addEventListener("change", listener);
+  //   return () => media.removeEventListener("change", listener);
+  // }, []);
+
+  // ✅ local manual toggle
+  const handleThemeToggle = () => {
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  };
 
   useEffect(() => {
     setProjectMenuOpen(false);
   }, [location.pathname]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
   return (
-    <div className="min-h-screen bg-surface text-text">
+    <div className="min-h-screen bg-surface/50 text-text">
       <header className="border-b border-border bg-surface-muted/30 text-text shadow-sm bg-gradient-to-br from-lightMode-butter/80 via-lightsMode-butter/60 to-lightMode-white dark:bg-gradient-to-br dark:from-brand-blue/10 dark:via-brand-blue/80 dark:to-brand-blue/30">
         <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 pb-8 pt-10 md:flex-row md:items-end md:justify-between mt-10">
           <div className="flex-[1.3]">
@@ -70,7 +134,7 @@ const App: React.FC = () => {
             <h1 className="text-3xl font-heading tracking-tight text-text">
               Tracy Falba, Ph.D.
             </h1>
-            <p className="text-sm font-body text-text-muted">
+            <p className="font-body text-text-muted">
               Software Engineer • Frontend / Full Stack
             </p>
           </div>
@@ -84,7 +148,8 @@ const App: React.FC = () => {
                 About me
               </NavLink>
             </div>
-            <ThemeToggle theme={theme} onToggle={toggleTheme} />
+            {/* use local toggle */}
+            <ThemeToggle theme={theme} onToggle={handleThemeToggle} />
           </div>
         </div>
         {onProjectsRoute && (
@@ -95,7 +160,7 @@ const App: React.FC = () => {
                 onClick={() => setProjectMenuOpen((prev) => !prev)}
                 aria-haspopup="true"
                 aria-expanded={projectMenuOpen}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text transition hover:border-brand-light hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light dark:bg-surface-muted"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition hover:border-brand-light hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light dark:bg-surface-muted"
               >
                 Browse projects
                 <span
@@ -136,9 +201,14 @@ const App: React.FC = () => {
         )}
       </header>
 
-      <main className="mx-auto max-w-7xl space-y-8 px-5 py-8">
+      <main className="mx-auto max-w-7xl space-y-6 px-5 py-6">
         <Routes>
-          <Route path="/" element={<ProjectsPage openId={openId} handleToggle={handleToggle}/>} />
+          <Route
+            path="/"
+            element={
+              <ProjectsPage openId={openId} handleToggle={handleToggle} />
+            }
+          />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
 
@@ -163,7 +233,7 @@ const ThemeToggle: React.FC<{ theme: Theme; onToggle: () => void }> = ({
       type="button"
       onClick={onToggle}
       aria-label={`Activate ${isDark ? "light" : "dark"} mode`}
-      className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card px-4 py-2 text-sm font-medium text-text shadow-sm transition hover:border-brand-light hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
+      className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-text shadow-sm transition hover:border-brand-light hover:text-text focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
     >
       {isDark ? <SunIcon /> : <MoonIcon />}
       <span>{isDark ? "Light" : "Dark"} mode</span>
