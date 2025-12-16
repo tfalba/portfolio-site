@@ -11,7 +11,7 @@ export const AboutPage: React.FC = () => {
 
   return (
     <>
-  <section className="space-y-8 rounded-3xl border border-border bg-surface/95 p-6 text-text shadow-xl dark:bg-surface-card">
+  <section className="space-y-8 rounded-3xl border border-border bg-surface/95 p-6 text-text shadow-xl">
     <header className="space-y-3">
       <p className="text-xs uppercase tracking-[0.3em] text-text-muted">
         About me
@@ -74,9 +74,9 @@ export const AboutPage: React.FC = () => {
         </p>
       </article>
 
-      <aside className="space-y-6 rounded-3xl border border-border bg-surface-muted/80 p-5 shadow-lg shadow-black/5 dark:bg-brand-black/60">
+      <aside className="space-y-6 rounded-3xl border border-border bg-surface-muted/80 p-5 shadow-lg shadow-black/5">
         <div className="flex flex-col items-center text-center">
-          <div className="h-40 w-40 overflow-hidden rounded-full border-4 border-surface-card shadow-md shadow-black/10 dark:border-brand-charcoal">
+          <div className="h-40 w-40 overflow-hidden rounded-full border-4 border-surface-card shadow-md shadow-black/10">
             <img
               src="/src/assets/headshot.jpeg"
               alt="Tracy Falba headshot"
@@ -189,18 +189,18 @@ export const AboutPage: React.FC = () => {
 
   {showResume && (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-muted/95 px-4 py-6 backdrop-blur-sm dark:bg-black/80"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-surface-muted/95 px-4 py-6 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-label="Tracy Falba résumé"
       onClick={() => setShowResume(false)}
     >
       <div
-        className="relative flex h-full w-full max-w-5xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/80 dark:text-brand-light"
+        className="relative flex h-full w-full max-w-5xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between gap-3 text-sm">
-          <h3 className="text-lg font-heading text-text dark:text-brand-light">
+          <h3 className="text-lg font-heading text-text">
             Tracy Falba Résumé
           </h3>
           <div className="flex items-center gap-2">
@@ -220,7 +220,7 @@ export const AboutPage: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="flex-1 overflow-hidden rounded-2xl border border-border bg-white/90 dark:bg-black">
+        <div className="flex-1 overflow-hidden rounded-2xl border border-border bg-white/90">
           <iframe
             title="Tracy Falba Résumé PDF"
             src={resumePdf}

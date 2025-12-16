@@ -41,10 +41,12 @@ interface ProjectSectionProps {
 }
 
 const ROW_GRADIENTS = [
-  "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-butter/20 dark:from-brand-gold dark:via-brand-coral/80 dark:to-brand-red/70",
-  "bg-gradient-to-br from-lightMode-mint/40 via-lightMode-mint/30 to-lightMode-mint/20 dark:from-brand-blue dark:via-brand-green/80 dark:to-brand-gold/70",
-  "bg-gradient-to-br from-lightMode-blush/40 via-lightMode-blush/30 to-lightMode-blush/20 dark:from-brand-coral dark:via-brand-red/80 dark:to-brand-gold/60",
-  "bg-gradient-to-br from-lightMode-lavender/40 via-lightMode-labender/30 to-lightMode-lavender/20 dark:from-brand-green dark:via-brand-blue/80 dark:to-brand-charcoal/70",
+  "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-butter/20",
+  "bg-gradient-to-br from-project-teal/90 via-project-teal/40 to-project-teal/90",
+  "bg-gradient-to-br from-project-green/80 via-project-green/40 to-project-green/90",
+  "bg-gradient-to-br from-project-taupe/80 via-project-taupe/40 to-project-taupe/90",
+  "bg-gradient-to-br from-project-orange/80 via-project-orange/40 to-project-orange/90",
+  "bg-gradient-to-br from-project-pink/80 via-project-pink/40 to-project-pink/90",
 ];
 
 type TechCategory =
@@ -64,24 +66,15 @@ type TechTag = {
 };
 
 const TECH_CATEGORY_STYLES: Record<TechCategory, string> = {
-  frontend:
-    "border-brand-charcoal/40 bg-brand-charcoal/15 text-brand-charcoal dark:border-brand-charcoal/60 dark:bg-brand-charcoal/25 dark:text-brand-light",
-  language:
-    "border-brand-blue/40 bg-brand-blue/15 text-brand-blue dark:border-brand-blue/60 dark:bg-brand-blue/25 dark:text-brand-light",
-  styling:
-    "border-lightMode-mint/80 bg-lightMode-mint/35 text-brand-charcoal dark:border-brand-green/60 dark:bg-brand-green/20 dark:text-brand-light",
-  state:
-    "border-lightMode-blush/80 bg-lightMode-blush/35 text-brand-charcoal dark:border-brand-coral/60 dark:bg-brand-coral/20 dark:text-brand-light",
-  infrastructure:
-    "border-brand-gold/60 bg-brand-gold/20 text-brand-charcoal dark:border-brand-gold/70 dark:bg-brand-gold/25 dark:text-brand-light",
-  integration:
-    "border-brand-green/60 bg-brand-green/25 text-brand-charcoal dark:border-brand-green/60 dark:bg-brand-green/25 dark:text-brand-light",
-  backend:
-    "border-brand-blue/50 bg-brand-blue/20 text-brand-charcoal dark:border-brand-blue/70 dark:bg-brand-blue/25 dark:text-brand-light",
-  realtime:
-    "border-brand-coral/60 bg-brand-coral/25 text-brand-charcoal dark:border-brand-coral/60 dark:bg-brand-coral/25 dark:text-brand-light",
-  default:
-    "border-border/70 bg-surface-card/70 text-brand-charcoal dark:border-border/60 dark:bg-brand-black/40 dark:text-brand-light",
+  frontend: "border-brand-charcoal/40 bg-brand-charcoal/15 text-brand-charcoal",
+  language: "border-brand-blue/40 bg-brand-blue/15 text-brand-blue",
+  styling: "border-lightMode-mint/80 bg-lightMode-mint/35 text-brand-charcoal",
+  state: "border-lightMode-blush/80 bg-lightMode-blush/35 text-brand-charcoal",
+  infrastructure: "border-brand-gold/60 bg-brand-gold/20 text-brand-charcoal",
+  integration: "border-brand-green/60 bg-brand-green/25 text-brand-charcoal",
+  backend: "border-brand-blue/50 bg-brand-blue/20 text-brand-charcoal",
+  realtime: "border-brand-coral/60 bg-brand-coral/25 text-brand-charcoal",
+  default: "border-border/70 bg-surface-card/70 text-brand-charcoal",
 };
 
 const TECH_CATEGORY_MAP: Record<string, TechCategory> = {
@@ -164,13 +157,13 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   return (
     <section
       id={project.id}
-      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-3 text-text shadow-xl transition hover:-translate-y-1 hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)] dark:bg-surface-card`}
+      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:-translate-y-1 hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)]`}
     >
       {/* Header row */}
       <button
         type="button"
         onClick={onToggle}
-        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/20 px-4 py-3 text-left backdrop-blur-sm transition dark:border-border/60 dark:bg-brand-black/20"
+        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/20 px-4 py-3 text-left backdrop-blur-sm transition"
       >
         <div className="flex w-full items-start justify-between gap-4">
           <h2 className="text-xl font-heading text-text uppercase">
@@ -180,7 +173,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
           <span
             className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
               isOpen
-                ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 dark:border-light dark:bg-brand-light/10 text-lightMode-lavender dark:text-brand-light"
+                ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 text-lightMode-lavender"
                 : "border-border bg-surface-muted/60 text-text-muted"
             }`}
           >
@@ -208,7 +201,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
 
           {/* Description + links */}
           <div className="flex flex-col justify-between gap-4">
-            <div className="rounded-2xl border border-border/60 bg-white p-4 shadow-sm dark:bg-surface/40">
+            <div className="rounded-2xl border border-border/60 bg-white p-4 shadow-sm">
               <div
                 role="tablist"
                 aria-label={`${project.name} content tabs`}
@@ -230,7 +223,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                       }
                       className={`flex-1 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
                         isActive
-                          ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 text-lightMode-lavender dark:border-light dark:bg-brand-light/10 dark:text-brand-light"
+                          ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 text-lightMode-lavender"
                           : "border-transparent bg-transparent text-text-muted hover:border-border hover:bg-surface-muted/40"
                       }`}
                     >
@@ -295,7 +288,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-brand-light transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal dark:border-brand-black dark:bg-brand-black dark:text-brand-light"
+                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-brand-light transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
               >
                 View live site
               </button>

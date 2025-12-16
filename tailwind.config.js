@@ -35,6 +35,13 @@ export default {
           light: "#ffffff",
           white: "#ffffff",
         },
+        project: {
+          teal: "#2abbab",
+          orange: "#f97216",
+          green: "#92d858",
+          pink: "#d48e8e",
+          taupe: "#d1c8b4",
+        },
         lightMode: {
           lavender: "#857BAC",
           mint: "#96D0CF",

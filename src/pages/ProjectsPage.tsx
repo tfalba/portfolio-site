@@ -4,11 +4,14 @@ import type { CarouselImage } from "../components/ImageCarousel";
 import { projects } from "../data/projectData";
 
 interface ProjectProps {
-  openId: string | null;
+  openProjects: Record<string, boolean>;
   handleToggle: (openId: string) => void;
 }
 
-export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) => {
+export const ProjectsPage: React.FC<ProjectProps> = ({
+  openProjects,
+  handleToggle,
+}) => {
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     projectName: string;
@@ -37,7 +40,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
   return (
     <>
-      <section className="max-w-7xl space-y-2 rounded-3xl p-2 text-text dark:bg-transparent dark:shadow-none dark:ring-0">
+      <section className="max-w-[90rem] space-y-2 rounded-3xl p-2 text-text">
         <h2 className="text-3xl font-heading text-text uppercase ">
           Selected Projects
         </h2>
@@ -48,12 +51,12 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
         </p>
       </section>
 
-      <div className="space-y-4">
+      <div className="space-y-8">
         {projects.map((project, index) => (
           <ProjectSection
             key={project.id}
             project={project}
-            isOpen={openId === project.id}
+            isOpen={!!openProjects[project.id]}
             onToggle={() => handleToggle(project.id)}
             onOpenLive={handleOpenLive}
             onExpandImage={handleImagePreview}
@@ -64,14 +67,14 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
       {liveProject && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-surface-muted/95 px-4 py-6 backdrop-blur-sm dark:bg-black/80"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-surface-muted/95 px-4 py-6 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label={`Preview of ${liveProject.name}`}
           onClick={handleCloseLive}
         >
           <div
-            className="relative flex h-full w-full max-w-7xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/80 dark:text-brand-light"
+            className="relative flex h-full w-full max-w-[90rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-4">
@@ -99,7 +102,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
                 </button>
               </div>
             </div>
-            <div className="flex-1 overflow-hidden rounded-xl border border-border bg-surface-elevated/40 dark:bg-black/60">
+            <div className="flex-1 overflow-hidden rounded-xl border border-border bg-surface-elevated/40">
               <iframe
                 title={`${liveProject.name} live preview`}
                 src={liveProject.liveUrl}
@@ -113,14 +116,14 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
       {imagePreview && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-surface-muted/95 px-4 py-6 backdrop-blur-sm dark:bg-black/90"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-surface-muted/95 px-4 py-6 backdrop-blur-sm"
           role="dialog"
           aria-modal="true"
           aria-label={`Screenshot preview of ${imagePreview.projectName}`}
           onClick={handleCloseImagePreview}
         >
           <div
-            className="relative flex h-full w-full max-w-7xl flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)] dark:border-border/60 dark:bg-brand-black/85 dark:text-brand-light"
+            className="relative flex h-full w-full max-w-[90rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -143,7 +146,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
 
             <div className="flex flex-1 flex-col gap-6 overflow-y-auto md:flex-row">
               {imagePreview.desktop && (
-                <div className="flex-1 overflow-hidden rounded-xl border border-border bg-surface-elevated/40 dark:bg-black/60">
+                <div className="flex-1 overflow-hidden rounded-xl border border-border bg-surface-elevated/40">
                   <img
                     src={imagePreview.desktop.src}
                     alt={imagePreview.desktop.alt ?? "Desktop screenshot"}
@@ -152,8 +155,8 @@ export const ProjectsPage: React.FC<ProjectProps> = ({ openId, handleToggle }) =
                 </div>
               )}
               {imagePreview.phone && (
-                <div className="w-full max-w-sm self-center rounded-3xl border border-border bg-surface-elevated/40 p-4 md:self-start dark:bg-black/60">
-                  <div className="rounded-2xl bg-white/80 p-2 dark:bg-black">
+                <div className="w-full max-w-sm self-center rounded-3xl border border-border bg-surface-elevated/40 p-4 md:self-start">
+                  <div className="rounded-2xl bg-white/80 p-2">
                     <img
                       src={imagePreview.phone.src}
                       alt={imagePreview.phone.alt ?? "Mobile screenshot"}
