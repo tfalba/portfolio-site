@@ -40,7 +40,7 @@ interface ProjectSectionProps {
   variant: number;
 }
 
-const ROW_GRADIENTS = [
+export const ROW_GRADIENTS = [
   "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-butter/20",
   "bg-gradient-to-br from-project-teal/90 via-project-teal/40 to-project-teal/90",
   "bg-gradient-to-br from-project-green/80 via-project-green/40 to-project-green/90",
@@ -66,15 +66,17 @@ type TechTag = {
 };
 
 const TECH_CATEGORY_STYLES: Record<TechCategory, string> = {
-  frontend: "border-brand-charcoal/40 bg-brand-charcoal/15 text-brand-charcoal",
-  language: "border-brand-blue/40 bg-brand-blue/15 text-brand-blue",
-  styling: "border-lightMode-mint/80 bg-lightMode-mint/35 text-brand-charcoal",
-  state: "border-lightMode-blush/80 bg-lightMode-blush/35 text-brand-charcoal",
-  infrastructure: "border-brand-gold/60 bg-brand-gold/20 text-brand-charcoal",
-  integration: "border-brand-green/60 bg-brand-green/25 text-brand-charcoal",
-  backend: "border-brand-blue/50 bg-brand-blue/20 text-brand-charcoal",
-  realtime: "border-brand-coral/60 bg-brand-coral/25 text-brand-charcoal",
-  default: "border-border/70 bg-surface-card/70 text-brand-charcoal",
+  frontend: "border-project-teal/60 bg-project-teal/15 text-project-teal",
+  language: "border-project-taupe/60 bg-project-taupe/20 text-project-taupe",
+  styling: "border-project-pink/60 bg-project-pink/20 text-project-pink",
+  state: "border-project-green/60 bg-project-green/20 text-project-green",
+  infrastructure: "border-project-orange/60 bg-project-orange/20 text-project-orange",
+  integration: "border-project-teal/50 bg-project-teal/10 text-project-teal",
+  backend: "border-project-taupe/70 bg-project-taupe/15 text-project-taupe",
+  realtime: "border-project-orange/70 bg-project-orange/15 text-project-orange",
+   default: "border-project-green/60 bg-white/60 text-project-green",
+
+  // default: "border-project-taupe/40 bg-surface-card/70 text-project-taupe",
 };
 
 const TECH_CATEGORY_MAP: Record<string, TechCategory> = {

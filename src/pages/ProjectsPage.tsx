@@ -1,16 +1,27 @@
-import { useState } from "react";
-import { ProjectSection, type Project } from "../components/ProjectSection";
+import { useRef, useState } from "react";
+import { ProjectSection, ROW_GRADIENTS, type Project } from "../components/ProjectSection";
 import type { CarouselImage } from "../components/ImageCarousel";
 import { projects } from "../data/projectData";
 
 interface ProjectProps {
   openProjects: Record<string, boolean>;
   handleToggle: (openId: string) => void;
+  handleOpenProject: (openId: string) => void;
 }
+
+type HeroSlide = CarouselImage & {
+  projectId: string;
+  projectName: string;
+  thumbnails: CarouselImage[];
+  accentClass: string;
+};
+
+const HERO_PREVIEW_ENABLED = false;
 
 export const ProjectsPage: React.FC<ProjectProps> = ({
   openProjects,
   handleToggle,
+  handleOpenProject,
 }) => {
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
@@ -18,6 +29,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
     desktop?: CarouselImage;
     phone?: CarouselImage;
   } | null>(null);
+  const [projectMenuOpen, setProjectMenuOpen] = useState(false);
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -38,18 +50,92 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
 
   const handleCloseImagePreview = () => setImagePreview(null);
 
+  const heroSlides = projects.reduce<HeroSlide[]>((acc, project) => {
+    if (acc.length >= 6) return acc;
+
+    const [primaryImage, ...rest] = project.images ?? [];
+    const thumbnails = rest
+      .filter((image): image is CarouselImage => Boolean(image?.src))
+      .slice(0, 3)
+      .map((thumb, index) => ({
+        ...thumb,
+        alt: thumb.alt ?? `${project.name} detail ${index + 1}`,
+      }));
+
+    if (primaryImage?.src) {
+      const accentClass =
+        ROW_GRADIENTS[acc.length % ROW_GRADIENTS.length] ?? ROW_GRADIENTS[0];
+      acc.push({
+        ...primaryImage,
+        alt: primaryImage.alt ?? `${project.name} preview`,
+        projectId: project.id,
+        projectName: project.name,
+        thumbnails,
+        accentClass,
+      });
+    }
+    return acc;
+  }, []);
+
   return (
     <>
       <section className="max-w-[90rem] space-y-2 rounded-3xl p-2 text-text">
-        <h2 className="text-3xl font-heading text-text uppercase ">
-          Selected Projects
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <h2 className="text-3xl font-heading text-text uppercase">
+            Selected Projects
+          </h2>
+         <div className="relative">
+            <button
+              type="button"
+              onClick={() => setProjectMenuOpen((prev) => !prev)}
+              aria-haspopup="true"
+              aria-expanded={projectMenuOpen}
+              className="inline-flex items-center gap-2 rounded-full border border-brand-charcoal/40 bg-white/90 px-4 py-2 text-sm font-medium text-brand-charcoal shadow-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
+            >
+              Browse projects
+              <span
+                className={`text-xs transition ${
+                  projectMenuOpen ? "rotate-180" : ""
+                }`}
+              >
+                ▼
+              </span>
+            </button>
+            <div
+              className={`absolute right-0 z-10 mt-3 w-60 origin-top-right rounded-2xl border border-border bg-white/95 shadow-2xl ring-1 ring-border/40 transition ${
+                projectMenuOpen
+                  ? "scale-100 opacity-100"
+                  : "pointer-events-none scale-95 opacity-0"
+              }`}
+            >
+              <nav className="py-2 text-sm font-body text-brand-charcoal">
+                {projects.map((project) => (
+                  <a
+                    key={project.id}
+                    href={`#${project.id}`}
+                    onClick={() => {
+                      handleToggle(project.id);
+                      setProjectMenuOpen(false);
+                    }}
+                    className="flex items-center justify-between px-4 py-2 text-brand-charcoal/70 transition hover:bg-brand-light/20 hover:text-brand-charcoal"
+                  >
+                    {project.name}
+                    <span className="text-xs text-brand-charcoal/60">↘</span>
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </div>
+        </div>
         <p className="font-body text-text-muted">
           A snapshot of the products and experiments I’ve built. Click any
           project to expand the full story, see screenshots, and jump directly
           into the live experience or source code.
         </p>
+         
       </section>
+      <HeroBanner images={heroSlides} onSelect={handleOpenProject} />
+     
 
       <div className="space-y-8">
         {projects.map((project, index) => (
@@ -170,5 +256,117 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
         </div>
       )}
     </>
+  );
+};
+
+const HeroBanner: React.FC<{
+  images: HeroSlide[];
+  onSelect: (id: string) => void;
+}> = ({ images, onSelect }) => {
+  const [preview, setPreview] = useState<{
+    slide: HeroSlide;
+    left: number;
+    top: number;
+  } | null>(null);
+  const heroRef = useRef<HTMLElement | null>(null);
+
+  if (images.length === 0) return null;
+
+  const previewEnabled = HERO_PREVIEW_ENABLED;
+
+  const openPreview = (slide: HeroSlide, target: HTMLElement | null) => {
+    if (
+      !previewEnabled ||
+      !target ||
+      !heroRef.current ||
+      slide.thumbnails.length === 0
+    ) {
+      setPreview(null);
+      return;
+    }
+
+    const tileRect = target.getBoundingClientRect();
+    const containerRect = heroRef.current.getBoundingClientRect();
+    const left = tileRect.left - containerRect.left + tileRect.width / 2;
+    const top = tileRect.bottom - containerRect.top;
+
+    setPreview({
+      slide,
+      left,
+      top,
+    });
+  };
+
+  const closePreview = () => setPreview(null);
+
+  return (
+    <section
+      ref={heroRef}
+      className="relative mb-6 border border-border bg-surface-card/80 shadow-[0_45px_95px_rgba(0,0,0,0.15)]"
+    >
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+        {images.map((image, index) => (
+            <div
+                            onClick={() => onSelect(image.projectId)}
+
+              style={{ animationDelay: `${index * 0.45}s` }}
+              className={`flex flex-col items-center p-3 opacity-0 animate-hero-slide transition hover:-translate-y-2 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light ${image.accentClass}`}
+              key={`${image.projectId}-container`}
+            >
+               <span className="pointer-events-none rounded-2xl bg-white/15 p-1 text-xs uppercase tracking-[0.15em] text-brand-charcoal truncate transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
+                  {image.projectName}
+                </span>
+              <button
+                type="button"
+                onMouseEnter={(event) =>
+                  previewEnabled ? openPreview(image, event.currentTarget) : null
+                }
+                onFocus={(event) =>
+                  previewEnabled ? openPreview(image, event.currentTarget) : null
+                }
+                onMouseLeave={closePreview}
+                onBlur={closePreview}
+                disabled={!previewEnabled}
+                className="group relative w-full overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat aspect-[8/5]"
+                style={{
+                  backgroundImage: `url(${image.src})`,
+                }}
+                aria-label={image.alt ?? `View ${image.projectId}`}
+              >
+               
+                <span className="sr-only">
+                  {image.alt ?? `View ${image.projectId}`}
+                </span>
+              </button>
+            </div>
+        ))}
+      </div>
+      {previewEnabled && preview && (
+        <div className="pointer-events-none absolute left-0 top-0 z-20 w-full px-4">
+          <div
+            className={`absolute w-fit max-w-md -translate-x-1/2 rounded-3xl border border-border p-3 text-text shadow-[0_35px_90px_rgba(0,0,0,0.25)] animate-hero-popover ${preview.slide.accentClass} bg-opacity-95`}
+            style={{
+              left: preview.left,
+              top: preview.top + 12,
+            }}
+          >
+            <div className="mx-auto flex max-w-sm flex-col items-center gap-3">
+              {preview.slide.thumbnails.map((thumb, thumbIndex) => (
+                <div
+                  key={`${preview.slide.projectId}-${thumb.src}-${thumbIndex}`}
+                  className="h-32 w-48 overflow-hidden rounded-2xl border border-border bg-surface-card"
+                >
+                  <img
+                    src={thumb.src}
+                    alt={thumb.alt ?? `${preview.slide.projectName} detail`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
   );
 };

@@ -1,9 +1,11 @@
 // src/App.tsx
-import React, { useEffect, useState } from "react";
-import { NavLink, Route, Routes, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { NavLink, Route, Routes } from "react-router-dom";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { AboutPage } from "./pages/AboutPage";
-import { projects } from "./data/projectData";
+
+const HEADER_GRADIENT =
+  "linear-gradient(120deg,#FDF4C3 0%,#2abbab 18%,#92d858 36%,#d1c8b4 54%,#f97216 72%,#d48e8e 100%)";
 
 const navButtonClass = ({
   isActive,
@@ -13,60 +15,71 @@ const navButtonClass = ({
   isTransitioning?: boolean;
 }) =>
   [
-    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light",
+    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
     isActive
-      ? "border-lightMode-lavender/80 bg-white text-text shadow-lg shadow-lightMode-lavender/40"
-      : "border-border text-text-muted hover:border-lightMode-lavender hover:text-text",
+      ? "border-white/80 bg-white/90 text-brand-charcoal shadow-lg shadow-white/40"
+      : "border-white/60 text-white/90 hover:bg-white/10 hover:text-white",
   ].join(" ");
 
 const App: React.FC = () => {
-  const location = useLocation();
-  const onProjectsRoute = location.pathname === "/";
   const [openProjects, setOpenProjects] = useState<Record<string, boolean>>({});
-  const [projectMenuOpen, setProjectMenuOpen] = useState(false);
+
+  const scrollToProject = (id: string) => {
+    if (typeof window === "undefined" || typeof document === "undefined") return;
+
+    requestAnimationFrame(() => {
+      const target = document.getElementById(id);
+      if (!target) return;
+      const { top } = target.getBoundingClientRect();
+      const targetTop = window.scrollY + top - 24;
+      window.scrollTo({
+        top: targetTop > 0 ? targetTop : 0,
+        behavior: "smooth",
+      });
+    });
+  };
 
   const handleToggle = (id: string) => {
     setOpenProjects((prev) => {
       const isCurrentlyOpen = !!prev[id];
       const next = { ...prev, [id]: !isCurrentlyOpen };
 
-      if (
-        !isCurrentlyOpen &&
-        typeof window !== "undefined" &&
-        typeof document !== "undefined"
-      ) {
-        requestAnimationFrame(() => {
-          const target = document.getElementById(id);
-          if (!target) return;
-          const { top } = target.getBoundingClientRect();
-          const targetTop = window.scrollY + top - 24;
-          window.scrollTo({
-            top: targetTop > 0 ? targetTop : 0,
-            behavior: "smooth",
-          });
-        });
+      if (!isCurrentlyOpen) {
+        scrollToProject(id);
       }
 
       return next;
     });
   };
 
-  useEffect(() => {
-    setProjectMenuOpen(false);
-  }, [location.pathname]);
+  const handleOpenProject = (id: string) => {
+    setOpenProjects((prev) => {
+      if (prev[id]) {
+        scrollToProject(id);
+        return prev;
+      }
+
+      const next = { ...prev, [id]: true };
+      scrollToProject(id);
+      return next;
+    });
+  };
 
   return (
     <div className="min-h-screen bg-surface/50 text-text">
-      <header className="border-b border-border bg-surface-muted/30 text-text shadow-sm bg-gradient-to-br from-lightMode-butter/80 via-lightsMode-butter/60 to-lightMode-white">
-        <div className="mx-auto flex max-w-[90rem] flex-col gap-4 px-4 pb-8 pt-10 md:flex-row md:items-end md:justify-between mt-10">
+      <header
+        className="border-b border-border text-brand-charcoal shadow-sm"
+        style={{ background: HEADER_GRADIENT }}
+      >
+        <div className="mx-auto flex max-w-[90rem] flex-col gap-4 px-4 pb-8 pt-10 md:flex-row md:items-end md:justify-between">
           <div className="flex-[1.3]">
-            <p className="text-xs uppercase tracking-[0.2em] text-text-muted">
+            <p className="text-xs uppercase tracking-[0.2em] text-brand-charcoal/80">
               Portfolio of
             </p>
-            <h1 className="text-3xl font-heading tracking-tight text-text">
+            <h1 className="text-3xl font-heading tracking-tight text-brand-charcoal">
               Tracy Falba, Ph.D.
             </h1>
-            <p className="font-body text-text-muted">
+            <p className="font-body text-brand-charcoal/80">
               Software Engineer • Frontend / Full Stack
             </p>
           </div>
@@ -82,53 +95,6 @@ const App: React.FC = () => {
             </div>
           </div>
         </div>
-        {onProjectsRoute && (
-          <div className="flex justify-end max-w-[90rem] px-4 mx-auto absolute top-[35px] right-0 py-4">
-            <div className="relative inline-block text-left">
-              <button
-                type="button"
-                onClick={() => setProjectMenuOpen((prev) => !prev)}
-                aria-haspopup="true"
-                aria-expanded={projectMenuOpen}
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-sm font-medium text-text transition hover:border-brand-light hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light"
-              >
-                Browse projects
-                <span
-                  className={`text-xs transition ${
-                    projectMenuOpen ? "rotate-180" : ""
-                  }`}
-                >
-                  ▼
-                </span>
-              </button>
-
-              <div
-                className={`absolute right-0 mt-2 w-60 origin-top-right rounded-2xl border border-border bg-surface-card/95 shadow-2xl ring-1 ring-border/40 transition ${
-                  projectMenuOpen
-                    ? "scale-100 opacity-100"
-                    : "pointer-events-none scale-95 opacity-0"
-                }`}
-              >
-                <nav className="py-2 text-sm font-body text-text">
-                  {projects.map((project) => (
-                    <a
-                      key={project.id}
-                      href={`#${project.id}`}
-                      onClick={() => {
-                        handleToggle(project.id);
-                        setProjectMenuOpen(false);
-                      }}
-                      className="flex items-center justify-between px-4 py-2 text-text-muted transition hover:bg-light/10 hover:text-text"
-                    >
-                      {project.name}
-                      <span className="text-xs text-text-muted">↘</span>
-                    </a>
-                  ))}
-                </nav>
-              </div>
-            </div>
-          </div>
-        )}
       </header>
 
       <main className="mx-auto max-w-[90rem] space-y-6 px-5 py-6">
@@ -139,6 +105,7 @@ const App: React.FC = () => {
               <ProjectsPage
                 openProjects={openProjects}
                 handleToggle={handleToggle}
+                handleOpenProject={handleOpenProject}
               />
             }
           />

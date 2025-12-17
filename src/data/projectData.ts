@@ -152,7 +152,7 @@ export const projects: Project[] = [
   },
   {
     id: "5",
-    name: "Charades Party Game",
+    name: "Charades",
     role: "design, front-end, back-end",
     techStack:
       "React 18, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",

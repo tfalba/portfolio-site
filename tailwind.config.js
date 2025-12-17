@@ -51,6 +51,20 @@ export default {
           white: "#FEFEFE",
         }
       },
+      keyframes: {
+        "hero-slide": {
+          "0%": { opacity: "0", transform: "translateX(60px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        "hero-popover": {
+          "0%": { opacity: "0", transform: "translateY(20px) scale(0.96)" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
+        },
+      },
+      animation: {
+        "hero-slide": "hero-slide 0.8s ease forwards",
+        "hero-popover": "hero-popover 0.4s ease forwards",
+      },
 
     },
   },
