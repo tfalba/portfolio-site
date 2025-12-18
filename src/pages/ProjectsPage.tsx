@@ -1,13 +1,11 @@
 import { useRef, useState } from "react";
-import { ProjectSection, ROW_GRADIENTS, type Project } from "../components/ProjectSection";
+import {
+  ProjectSection,
+  ROW_GRADIENTS,
+  type Project,
+} from "../components/ProjectSection";
 import type { CarouselImage } from "../components/ImageCarousel";
 import { projects } from "../data/projectData";
-
-interface ProjectProps {
-  openProjects: Record<string, boolean>;
-  handleToggle: (openId: string) => void;
-  handleOpenProject: (openId: string) => void;
-}
 
 type HeroSlide = CarouselImage & {
   projectId: string;
@@ -18,11 +16,7 @@ type HeroSlide = CarouselImage & {
 
 const HERO_PREVIEW_ENABLED = false;
 
-export const ProjectsPage: React.FC<ProjectProps> = ({
-  openProjects,
-  handleToggle,
-  handleOpenProject,
-}) => {
+export const ProjectsPage: React.FC = () => {
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     projectName: string;
@@ -30,6 +24,10 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
     phone?: CarouselImage;
   } | null>(null);
   const [projectMenuOpen, setProjectMenuOpen] = useState(false);
+  const [isProjectOpen, setIsProjectOpen] = useState(true);
+  const [activeProjectId, setActiveProjectId] = useState<string>(
+    projects[0]?.id ?? ""
+  );
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -42,7 +40,7 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
   const handleImagePreview = (
     projectName: string,
     desktop?: CarouselImage,
-    phone?: CarouselImage,
+    phone?: CarouselImage
   ) => {
     if (!desktop && !phone) return;
     setImagePreview({ projectName, desktop, phone });
@@ -77,79 +75,90 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
     return acc;
   }, []);
 
+  const activeProject = projects.find(
+    (project) => project.id === activeProjectId
+  );
+
   return (
     <>
-      <section className="max-w-[90rem] space-y-2 rounded-3xl p-2 text-text">
-        <div className="flex flex-wrap items-center justify-between gap-4">
-          <h2 className="text-3xl font-heading text-text uppercase">
-            Selected Projects
-          </h2>
-         <div className="relative">
-            <button
-              type="button"
-              onClick={() => setProjectMenuOpen((prev) => !prev)}
-              aria-haspopup="true"
-              aria-expanded={projectMenuOpen}
-              className="inline-flex items-center gap-2 rounded-full border border-brand-charcoal/40 bg-white/90 px-4 py-2 text-sm font-medium text-brand-charcoal shadow-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
-            >
-              Browse projects
-              <span
-                className={`text-xs transition ${
-                  projectMenuOpen ? "rotate-180" : ""
+      <section className="mx-auto max-w-[90rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
+        <div className="space-y-2 border-b border-border/50 p-5">
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <h2 className="text-3xl font-heading uppercase">
+              Selected Projects
+            </h2>
+            <div className="relative">
+              <button
+                type="button"
+                onClick={() => setProjectMenuOpen((prev) => !prev)}
+                aria-haspopup="true"
+                aria-expanded={projectMenuOpen}
+                className="inline-flex items-center gap-2 rounded-full border border-brand-charcoal/40 bg-white/90 px-4 py-2 text-sm font-medium text-brand-charcoal shadow-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
+              >
+                Browse projects
+                <span
+                  className={`text-xs transition ${
+                    projectMenuOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
+              </button>
+              <div
+                className={`absolute right-0 z-20 mt-3 w-60 origin-top-right rounded-2xl border border-border bg-white/95 shadow-2xl ring-1 ring-border/40 transition ${
+                  projectMenuOpen
+                    ? "scale-100 opacity-100"
+                    : "pointer-events-none scale-95 opacity-0"
                 }`}
               >
-                ▼
-              </span>
-            </button>
-            <div
-              className={`absolute right-0 z-10 mt-3 w-60 origin-top-right rounded-2xl border border-border bg-white/95 shadow-2xl ring-1 ring-border/40 transition ${
-                projectMenuOpen
-                  ? "scale-100 opacity-100"
-                  : "pointer-events-none scale-95 opacity-0"
-              }`}
-            >
-              <nav className="py-2 text-sm font-body text-brand-charcoal">
-                {projects.map((project) => (
-                  <a
-                    key={project.id}
-                    href={`#${project.id}`}
-                    onClick={() => {
-                      handleToggle(project.id);
-                      setProjectMenuOpen(false);
-                    }}
-                    className="flex items-center justify-between px-4 py-2 text-brand-charcoal/70 transition hover:bg-brand-light/20 hover:text-brand-charcoal"
-                  >
-                    {project.name}
-                    <span className="text-xs text-brand-charcoal/60">↘</span>
-                  </a>
-                ))}
-              </nav>
+                <nav className="py-2 text-sm font-body text-brand-charcoal">
+                  {projects.map((project) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      onClick={() => {
+                        setActiveProjectId(project.id);
+                        setProjectMenuOpen(false);
+                      }}
+                      className="flex w-full items-center justify-between px-4 py-2 text-left text-brand-charcoal/70 transition hover:bg-brand-light/20 hover:text-brand-charcoal"
+                    >
+                      {project.name}
+                      <span className="text-xs text-brand-charcoal/60">↘</span>
+                    </button>
+                  ))}
+                </nav>
+              </div>
             </div>
           </div>
+          <p className="font-body text-text-muted">
+            A snapshot of the products and experiments I’ve built. Click or
+            hover over any project tile to load its story, screenshots, and live
+            preview below.
+          </p>
         </div>
-        <p className="font-body text-text-muted">
-          A snapshot of the products and experiments I’ve built. Click any
-          project to expand the full story, see screenshots, and jump directly
-          into the live experience or source code.
-        </p>
-         
-      </section>
-      <HeroBanner images={heroSlides} onSelect={handleOpenProject} />
-     
 
-      <div className="space-y-8">
-        {projects.map((project, index) => (
-          <ProjectSection
-            key={project.id}
-            project={project}
-            isOpen={!!openProjects[project.id]}
-            onToggle={() => handleToggle(project.id)}
-            onOpenLive={handleOpenLive}
-            onExpandImage={handleImagePreview}
-            variant={index}
-          />
-        ))}
-      </div>
+        <HeroBanner
+          images={heroSlides}
+          onSelect={(id) => { setActiveProjectId(id); setIsProjectOpen(true); }}
+          activeId={activeProjectId}
+        />
+
+        <div className=" bg-white/95 p-4 pt-0">
+          {activeProject && (
+            <ProjectSection
+              key={activeProject.id}
+              project={activeProject}
+              isOpen={isProjectOpen}
+              attached
+              // onToggle={() => setActiveProjectId(activeProject.id)}
+              onToggle={() => setIsProjectOpen((prev) => !prev)}
+              onOpenLive={handleOpenLive}
+              onExpandImage={handleImagePreview}
+              variant={projects.findIndex(({ id }) => id === activeProject.id)}
+            />
+          )}
+        </div>
+      </section>
 
       {liveProject && (
         <div
@@ -165,8 +174,12 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
           >
             <div className="flex items-center justify-between gap-4">
               <div>
-                <p className="text-xs uppercase text-text-muted">Live preview</p>
-                <h3 className="text-xl font-heading text-text">{liveProject.name}</h3>
+                <p className="text-xs uppercase text-text-muted">
+                  Live preview
+                </p>
+                <h3 className="text-xl font-heading text-text">
+                  {liveProject.name}
+                </h3>
               </div>
               <div className="flex items-center gap-3 text-sm">
                 {liveProject.liveUrl && (
@@ -262,13 +275,14 @@ export const ProjectsPage: React.FC<ProjectProps> = ({
 const HeroBanner: React.FC<{
   images: HeroSlide[];
   onSelect: (id: string) => void;
-}> = ({ images, onSelect }) => {
+  activeId: string;
+}> = ({ images, onSelect, activeId }) => {
   const [preview, setPreview] = useState<{
     slide: HeroSlide;
     left: number;
     top: number;
   } | null>(null);
-  const heroRef = useRef<HTMLElement | null>(null);
+  const heroRef = useRef<HTMLDivElement | null>(null);
 
   if (images.length === 0) return null;
 
@@ -300,46 +314,51 @@ const HeroBanner: React.FC<{
   const closePreview = () => setPreview(null);
 
   return (
-    <section
-      ref={heroRef}
-      className="relative mb-6 border border-border bg-surface-card/80 shadow-[0_45px_95px_rgba(0,0,0,0.15)]"
-    >
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
-        {images.map((image, index) => (
-            <div
-                            onClick={() => onSelect(image.projectId)}
-
+    <div ref={heroRef} className="relative bg-white/60 px-4 py-6">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+        {images.map((image, index) => {
+          const isActive = image.projectId === activeId;
+          return (
+            <button
+              type="button"
+              onClick={() => onSelect(image.projectId)}
+              onMouseEnter={(event) => {
+                onSelect(image.projectId);
+                previewEnabled && openPreview(image, event.currentTarget);
+              }}
+              onFocus={(event) => {
+                onSelect(image.projectId);
+                previewEnabled && openPreview(image, event.currentTarget);
+              }}
+              onMouseLeave={closePreview}
+              onBlur={closePreview}
               style={{ animationDelay: `${index * 0.45}s` }}
-              className={`flex flex-col items-center p-3 opacity-0 animate-hero-slide transition hover:-translate-y-2 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light ${image.accentClass}`}
+              aria-pressed={isActive}
+              className={`flex flex-col items-center gap-2 p-3 opacity-0 animate-hero-slide transition ${
+                image.accentClass
+              } ${isActive ? "h-[calc(100%+1.5rem)] pt-6 shadow translate-y-2" : "h-full "}`}
               key={`${image.projectId}-container`}
             >
-               <span className="pointer-events-none rounded-2xl bg-white/15 p-1 text-xs uppercase tracking-[0.15em] text-brand-charcoal truncate transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100">
-                  {image.projectName}
-                </span>
-              <button
-                type="button"
-                onMouseEnter={(event) =>
-                  previewEnabled ? openPreview(image, event.currentTarget) : null
-                }
-                onFocus={(event) =>
-                  previewEnabled ? openPreview(image, event.currentTarget) : null
-                }
-                onMouseLeave={closePreview}
-                onBlur={closePreview}
-                disabled={!previewEnabled}
-                className="group relative w-full overflow-hidden rounded-2xl bg-cover bg-center bg-no-repeat aspect-[8/5]"
+              <div
+                className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light`}
                 style={{
                   backgroundImage: `url(${image.src})`,
                 }}
                 aria-label={image.alt ?? `View ${image.projectId}`}
+              />
+              <p
+                className={`w-full truncate rounded-full px-3 py-1 text-center text-xs uppercase tracking-[0.2em] transition ${
+                  isActive
+                    ? "bg-brand-charcoal text-white"
+                    : "bg-white/80 text-brand-charcoal/80"
+                }`}
+                title={image.projectName}
               >
-               
-                <span className="sr-only">
-                  {image.alt ?? `View ${image.projectId}`}
-                </span>
-              </button>
-            </div>
-        ))}
+                {image.projectName}
+              </p>
+            </button>
+          );
+        })}
       </div>
       {previewEnabled && preview && (
         <div className="pointer-events-none absolute left-0 top-0 z-20 w-full px-4">
@@ -367,6 +386,6 @@ const HeroBanner: React.FC<{
           </div>
         </div>
       )}
-    </section>
+    </div>
   );
 };

@@ -38,6 +38,7 @@ interface ProjectSectionProps {
     phone?: CarouselImage
   ) => void;
   variant: number;
+  attached?: boolean;
 }
 
 export const ROW_GRADIENTS = [
@@ -142,6 +143,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   onOpenLive,
   onExpandImage,
   variant,
+  attached = false,
 }) => {
   const [activeTab, setActiveTab] = useState<"description" | "details">(
     "description"
@@ -156,11 +158,12 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
     }
   }, [isOpen, activeTab]);
 
+  const containerClass = attached
+    ? `${backgroundClass} rounded-b-[2.75rem] border-0 bg-transparent p-6 text-text`
+    : `rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:-translate-y-1 hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)]`;
+
   return (
-    <section
-      id={project.id}
-      className={`rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:-translate-y-1 hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)]`}
-    >
+    <section id={project.id} className={containerClass}>
       {/* Header row */}
       <button
         type="button"

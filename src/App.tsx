@@ -1,5 +1,5 @@
 // src/App.tsx
-import React, { useState } from "react";
+import React from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 import { ProjectsPage } from "./pages/ProjectsPage";
 import { AboutPage } from "./pages/AboutPage";
@@ -22,49 +22,6 @@ const navButtonClass = ({
   ].join(" ");
 
 const App: React.FC = () => {
-  const [openProjects, setOpenProjects] = useState<Record<string, boolean>>({});
-
-  const scrollToProject = (id: string) => {
-    if (typeof window === "undefined" || typeof document === "undefined") return;
-
-    requestAnimationFrame(() => {
-      const target = document.getElementById(id);
-      if (!target) return;
-      const { top } = target.getBoundingClientRect();
-      const targetTop = window.scrollY + top - 24;
-      window.scrollTo({
-        top: targetTop > 0 ? targetTop : 0,
-        behavior: "smooth",
-      });
-    });
-  };
-
-  const handleToggle = (id: string) => {
-    setOpenProjects((prev) => {
-      const isCurrentlyOpen = !!prev[id];
-      const next = { ...prev, [id]: !isCurrentlyOpen };
-
-      if (!isCurrentlyOpen) {
-        scrollToProject(id);
-      }
-
-      return next;
-    });
-  };
-
-  const handleOpenProject = (id: string) => {
-    setOpenProjects((prev) => {
-      if (prev[id]) {
-        scrollToProject(id);
-        return prev;
-      }
-
-      const next = { ...prev, [id]: true };
-      scrollToProject(id);
-      return next;
-    });
-  };
-
   return (
     <div className="min-h-screen bg-surface/50 text-text">
       <header
@@ -101,13 +58,7 @@ const App: React.FC = () => {
         <Routes>
           <Route
             path="/"
-            element={
-              <ProjectsPage
-                openProjects={openProjects}
-                handleToggle={handleToggle}
-                handleOpenProject={handleOpenProject}
-              />
-            }
+            element={<ProjectsPage />}
           />
           <Route path="/about" element={<AboutPage />} />
         </Routes>
