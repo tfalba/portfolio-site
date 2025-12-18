@@ -80,14 +80,14 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
         <button
           type="button"
           onClick={handlePrev}
-          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-surface-card/80 px-3 py-1 text-sm text-text shadow hover:bg-brand-brand-light/80 hover:text-white"
+          className="absolute left-2 top-1/2 -translate-y-1/2 rounded-full bg-surface-card/80 px-3 py-1 text-sm text-text shadow hover:bg-white/30 hover:text-white"
         >
           ‹
         </button>
         <button
           type="button"
           onClick={handleNext}
-          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-surface-card/80 px-3 py-1 text-sm text-text shadow hover:bg-brand-brand-light/80 hover:text-white"
+          className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-surface-card/80 px-3 py-1 text-sm text-text shadow hover:bg-white/30 hover:text-white"
         >
           ›
         </button>
@@ -102,7 +102,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             className={`h-2.5 w-2.5 rounded-full transition ${
               i === index
                 ? "bg-brand-light"
-                : "bg-brand-brand-light/50 hover:bg-brand-brand-light/80"
+                : "bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Go to slide ${i + 1}`}
           />

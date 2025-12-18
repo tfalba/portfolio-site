@@ -36,6 +36,7 @@ export default {
           white: "#ffffff",
         },
         project: {
+          gold: "#ffeb3b",
           teal: "#2abbab",
           orange: "#f97216",
           green: "#92d858",
@@ -47,7 +48,7 @@ export default {
           mint: "#96D0CF",
           blush: "#EABBB9",
           mist: "#F4F2F3",
-          butter: "#FDF4C3",
+          butter: "#f1cf11",
           white: "#FEFEFE",
         }
       },

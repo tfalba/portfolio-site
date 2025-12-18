@@ -42,12 +42,12 @@ interface ProjectSectionProps {
 }
 
 export const ROW_GRADIENTS = [
-  "bg-gradient-to-br from-lightMode-butter via-lightMode-butter/50 to-lightMode-butter/20",
-  "bg-gradient-to-br from-project-teal/90 via-project-teal/40 to-project-teal/90",
-  "bg-gradient-to-br from-project-green/80 via-project-green/40 to-project-green/90",
-  "bg-gradient-to-br from-project-taupe/80 via-project-taupe/40 to-project-taupe/90",
-  "bg-gradient-to-br from-project-orange/80 via-project-orange/40 to-project-orange/90",
-  "bg-gradient-to-br from-project-pink/80 via-project-pink/40 to-project-pink/90",
+  "bg-gradient-to-br from-project-gold/90 via-project-gold/40 to-project-gold/70",
+  "bg-gradient-to-br from-project-teal/90 via-project-teal/60 to-project-teal/80",
+  "bg-gradient-to-br from-project-green/80 via-project-green/50 to-project-green/80",
+  "bg-gradient-to-br from-project-taupe/90 via-project-taupe/60 to-project-taupe/50",
+  "bg-gradient-to-br from-project-orange/90 via-project-orange/50 to-project-orange/90",
+  "bg-gradient-to-br from-project-pink/80 via-project-pink/40 to-project-pink/70",
 ];
 
 type TechCategory =
@@ -178,7 +178,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
           <span
             className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
               isOpen
-                ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 text-lightMode-lavender"
+                ? "border-lightMode-lavender bg-lightMode-lavender/10 text-lightMode-lavender"
                 : "border-border bg-surface-muted/60 text-text-muted"
             }`}
           >
@@ -228,7 +228,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                       }
                       className={`flex-1 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
                         isActive
-                          ? "border-lightMode-lavender bg-brand-lightMode-lavender/10 text-lightMode-lavender"
+                          ? "border-lightMode-lavender bg-lightMode-lavender/10 text-lightMode-lavender"
                           : "border-transparent bg-transparent text-text-muted hover:border-border hover:bg-surface-muted/40"
                       }`}
                     >
@@ -293,7 +293,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-brand-light transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
+                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-white transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
               >
                 View live site
               </button>

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ProjectSection,
   ROW_GRADIENTS,
@@ -14,9 +14,11 @@ type HeroSlide = CarouselImage & {
   accentClass: string;
 };
 
-const HERO_PREVIEW_ENABLED = false;
+const HERO_REVEAL_DELAY_MS = 3200;
+const PANE_TRANSITION_MS = 250;
 
 export const ProjectsPage: React.FC = () => {
+  const initialProjectId = projects[0]?.id ?? "";
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     projectName: string;
@@ -24,10 +26,16 @@ export const ProjectsPage: React.FC = () => {
     phone?: CarouselImage;
   } | null>(null);
   const [projectMenuOpen, setProjectMenuOpen] = useState(false);
-  const [isProjectOpen, setIsProjectOpen] = useState(true);
   const [activeProjectId, setActiveProjectId] = useState<string>(
-    projects[0]?.id ?? ""
+    initialProjectId
   );
+  const [renderedProjectId, setRenderedProjectId] =
+    useState<string>(initialProjectId);
+  const [contentReady, setContentReady] = useState(false);
+  const [paneState, setPaneState] = useState<
+    "hidden" | "entering" | "exiting" | "idle"
+  >("hidden");
+  const [nextProjectId, setNextProjectId] = useState<string | null>(null);
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -47,6 +55,31 @@ export const ProjectsPage: React.FC = () => {
   };
 
   const handleCloseImagePreview = () => setImagePreview(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setContentReady(true);
+      setPaneState("entering");
+    }, HERO_REVEAL_DELAY_MS);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (paneState === "exiting") {
+      const timer = setTimeout(() => {
+        setRenderedProjectId(nextProjectId ?? activeProjectId);
+        setNextProjectId(null);
+        setPaneState("entering");
+      }, PANE_TRANSITION_MS);
+      return () => clearTimeout(timer);
+    }
+    if (paneState === "entering") {
+      const timer = setTimeout(() => {
+        setPaneState(contentReady ? "idle" : "hidden");
+      }, PANE_TRANSITION_MS);
+      return () => clearTimeout(timer);
+    }
+  }, [paneState, nextProjectId, activeProjectId, contentReady]);
 
   const heroSlides = projects.reduce<HeroSlide[]>((acc, project) => {
     if (acc.length >= 6) return acc;
@@ -75,13 +108,24 @@ export const ProjectsPage: React.FC = () => {
     return acc;
   }, []);
 
+  const handleProjectChange = (id: string) => {
+    if (!id || id === activeProjectId) return;
+    setActiveProjectId(id);
+    if (!contentReady) {
+      setRenderedProjectId(id);
+      return;
+    }
+    setNextProjectId(id);
+    setPaneState("exiting");
+  };
+
   const activeProject = projects.find(
-    (project) => project.id === activeProjectId
+    (project) => project.id === renderedProjectId
   );
 
   return (
     <>
-      <section className="mx-auto max-w-[90rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
+      <section className="mx-auto max-w-[95rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
         <div className="space-y-2 border-b border-border/50 p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <h2 className="text-3xl font-heading uppercase">
@@ -111,19 +155,19 @@ export const ProjectsPage: React.FC = () => {
                     : "pointer-events-none scale-95 opacity-0"
                 }`}
               >
-                <nav className="py-2 text-sm font-body text-brand-charcoal">
+                <nav className="py-2 text-sm font-body text-brand-black/70">
                   {projects.map((project) => (
                     <button
                       key={project.id}
                       type="button"
                       onClick={() => {
-                        setActiveProjectId(project.id);
+                        handleProjectChange(project.id);
                         setProjectMenuOpen(false);
                       }}
-                      className="flex w-full items-center justify-between px-4 py-2 text-left text-brand-charcoal/70 transition hover:bg-brand-light/20 hover:text-brand-charcoal"
+                      className="flex w-full items-center justify-between px-4 py-2 text-left text-brand-black/70 transition hover:bg-brand-charcoal/20 hover:text-brand-black/90"
                     >
                       {project.name}
-                      <span className="text-xs text-brand-charcoal/60">↘</span>
+                      <span className="text-xs text-brand-black/60">↘</span>
                     </button>
                   ))}
                 </nav>
@@ -139,24 +183,35 @@ export const ProjectsPage: React.FC = () => {
 
         <HeroBanner
           images={heroSlides}
-          onSelect={(id) => { setActiveProjectId(id); setIsProjectOpen(true); }}
+          onSelect={handleProjectChange}
           activeId={activeProjectId}
         />
 
-        <div className=" bg-white/95 p-4 pt-0">
-          {activeProject && (
-            <ProjectSection
-              key={activeProject.id}
-              project={activeProject}
-              isOpen={isProjectOpen}
-              attached
-              // onToggle={() => setActiveProjectId(activeProject.id)}
-              onToggle={() => setIsProjectOpen((prev) => !prev)}
-              onOpenLive={handleOpenLive}
-              onExpandImage={handleImagePreview}
-              variant={projects.findIndex(({ id }) => id === activeProject.id)}
-            />
-          )}
+        <div className="bg-white/95 p-4 pt-0 min-h-[400px]">
+          <div
+            className={`transition-all duration-300 ease-out ${
+              !contentReady || paneState === "hidden"
+                ? "translate-y-[-120px] opacity-0 pointer-events-none"
+                : paneState === "entering"
+                  ? "translate-y-[-120px] opacity-0"
+                  : paneState === "exiting"
+                    ? "opacity-0 pointer-events-none"
+                    : "translate-y-0 opacity-100"
+            }`}
+          >
+            {activeProject && (
+              <ProjectSection
+                key={activeProject.id}
+                project={activeProject}
+                isOpen
+                attached
+                onToggle={() => handleProjectChange(activeProject.id)}
+                onOpenLive={handleOpenLive}
+                onExpandImage={handleImagePreview}
+                variant={projects.findIndex(({ id }) => id === activeProject.id)}
+              />
+            )}
+          </div>
         </div>
       </section>
 
@@ -169,7 +224,7 @@ export const ProjectsPage: React.FC = () => {
           onClick={handleCloseLive}
         >
           <div
-            className="relative flex h-full w-full max-w-[90rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
+            className="relative flex h-full w-full max-w-[95rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-4">
@@ -222,7 +277,7 @@ export const ProjectsPage: React.FC = () => {
           onClick={handleCloseImagePreview}
         >
           <div
-            className="relative flex h-full w-full max-w-[90rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
+            className="relative flex h-full w-full max-w-[95rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -277,115 +332,53 @@ const HeroBanner: React.FC<{
   onSelect: (id: string) => void;
   activeId: string;
 }> = ({ images, onSelect, activeId }) => {
-  const [preview, setPreview] = useState<{
-    slide: HeroSlide;
-    left: number;
-    top: number;
-  } | null>(null);
   const heroRef = useRef<HTMLDivElement | null>(null);
 
   if (images.length === 0) return null;
 
-  const previewEnabled = HERO_PREVIEW_ENABLED;
-
-  const openPreview = (slide: HeroSlide, target: HTMLElement | null) => {
-    if (
-      !previewEnabled ||
-      !target ||
-      !heroRef.current ||
-      slide.thumbnails.length === 0
-    ) {
-      setPreview(null);
-      return;
-    }
-
-    const tileRect = target.getBoundingClientRect();
-    const containerRect = heroRef.current.getBoundingClientRect();
-    const left = tileRect.left - containerRect.left + tileRect.width / 2;
-    const top = tileRect.bottom - containerRect.top;
-
-    setPreview({
-      slide,
-      left,
-      top,
-    });
-  };
-
-  const closePreview = () => setPreview(null);
-
   return (
-    <div ref={heroRef} className="relative bg-white/60 px-4 py-6">
+    <div ref={heroRef} className="relative bg-white/60 px-4 pt-10 pb-0">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         {images.map((image, index) => {
           const isActive = image.projectId === activeId;
           return (
-            <button
-              type="button"
-              onClick={() => onSelect(image.projectId)}
-              onMouseEnter={(event) => {
-                onSelect(image.projectId);
-                previewEnabled && openPreview(image, event.currentTarget);
-              }}
-              onFocus={(event) => {
-                onSelect(image.projectId);
-                previewEnabled && openPreview(image, event.currentTarget);
-              }}
-              onMouseLeave={closePreview}
-              onBlur={closePreview}
+            <div
               style={{ animationDelay: `${index * 0.45}s` }}
-              aria-pressed={isActive}
-              className={`flex flex-col items-center gap-2 p-3 opacity-0 animate-hero-slide transition ${
-                image.accentClass
-              } ${isActive ? "h-[calc(100%+1.5rem)] pt-6 shadow translate-y-2" : "h-full "}`}
+              className={`flex flex-col items-center opacity-0 animate-hero-slide transition rounded-t-[1.5rem] ${image.accentClass} ${
+                isActive
+                  ? "mt-[-1.75rem] gap-5 p-3 pt-6 shadow"
+                  : "p-3 gap-2"
+              }`}
               key={`${image.projectId}-container`}
             >
-              <div
-                className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light`}
+              <button
+                type="button"
+                onClick={() => onSelect(image.projectId)}
+                className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light ${
+                  isActive
+                    ? "ring-4 ring-white/80 shadow-lg scale-[1.01]"
+                    : " hover:-translate-y-1 hover:shadow-xl"
+                }`}
                 style={{
                   backgroundImage: `url(${image.src})`,
                 }}
                 aria-label={image.alt ?? `View ${image.projectId}`}
+                aria-pressed={isActive}
               />
               <p
                 className={`w-full truncate rounded-full px-3 py-1 text-center text-xs uppercase tracking-[0.2em] transition ${
                   isActive
-                    ? "bg-brand-charcoal text-white"
+                    ? "bg-brand-charcoal text-white translate-y-1"
                     : "bg-white/80 text-brand-charcoal/80"
                 }`}
                 title={image.projectName}
               >
                 {image.projectName}
               </p>
-            </button>
+            </div>
           );
         })}
       </div>
-      {previewEnabled && preview && (
-        <div className="pointer-events-none absolute left-0 top-0 z-20 w-full px-4">
-          <div
-            className={`absolute w-fit max-w-md -translate-x-1/2 rounded-3xl border border-border p-3 text-text shadow-[0_35px_90px_rgba(0,0,0,0.25)] animate-hero-popover ${preview.slide.accentClass} bg-opacity-95`}
-            style={{
-              left: preview.left,
-              top: preview.top + 12,
-            }}
-          >
-            <div className="mx-auto flex max-w-sm flex-col items-center gap-3">
-              {preview.slide.thumbnails.map((thumb, thumbIndex) => (
-                <div
-                  key={`${preview.slide.projectId}-${thumb.src}-${thumbIndex}`}
-                  className="h-32 w-48 overflow-hidden rounded-2xl border border-border bg-surface-card"
-                >
-                  <img
-                    src={thumb.src}
-                    alt={thumb.alt ?? `${preview.slide.projectName} detail`}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
