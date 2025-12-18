@@ -27,12 +27,6 @@ export default {
         brand: {
           black: "#2a2e30",
           charcoal: "#345c72",
-          red: "#f46530",
-          coral: "#ff9e7a",
-          blue: "#345c72",
-          green: "#d4edf4",
-          gold: "#ff9e7a",
-          light: "#ffffff",
           white: "#ffffff",
         },
         project: {
@@ -42,14 +36,6 @@ export default {
           green: "#92d858",
           pink: "#d48e8e",
           taupe: "#d1c8b4",
-        },
-        lightMode: {
-          lavender: "#857BAC",
-          mint: "#96D0CF",
-          blush: "#EABBB9",
-          mist: "#F4F2F3",
-          butter: "#f1cf11",
-          white: "#FEFEFE",
         }
       },
       keyframes: {

@@ -101,7 +101,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
             onClick={() => setIndex(i)}
             className={`h-2.5 w-2.5 rounded-full transition ${
               i === index
-                ? "bg-brand-light"
+                ? "bg-brand-white"
                 : "bg-white/50 hover:bg-white/80"
             }`}
             aria-label={`Go to slide ${i + 1}`}

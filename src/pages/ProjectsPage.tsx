@@ -205,7 +205,6 @@ export const ProjectsPage: React.FC = () => {
                 project={activeProject}
                 isOpen
                 attached
-                onToggle={() => handleProjectChange(activeProject.id)}
                 onOpenLive={handleOpenLive}
                 onExpandImage={handleImagePreview}
                 variant={projects.findIndex(({ id }) => id === activeProject.id)}
@@ -354,7 +353,7 @@ const HeroBanner: React.FC<{
               <button
                 type="button"
                 onClick={() => onSelect(image.projectId)}
-                className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-light ${
+                className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
                   isActive
                     ? "ring-4 ring-white/80 shadow-lg scale-[1.01]"
                     : " hover:-translate-y-1 hover:shadow-xl"

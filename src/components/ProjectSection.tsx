@@ -30,7 +30,6 @@ export type Project = {
 interface ProjectSectionProps {
   project: Project;
   isOpen: boolean;
-  onToggle: () => void;
   onOpenLive: (project: Project) => void;
   onExpandImage: (
     projectName: string,
@@ -138,8 +137,6 @@ const TechTagList: React.FC<{
 
 export const ProjectSection: React.FC<ProjectSectionProps> = ({
   project,
-  isOpen,
-  onToggle,
   onOpenLive,
   onExpandImage,
   variant,
@@ -152,12 +149,6 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
     ROW_GRADIENTS[variant % ROW_GRADIENTS.length] ?? ROW_GRADIENTS[0];
   const techTags = getTechTags(project.techStack);
 
-  useEffect(() => {
-    if (!isOpen && activeTab !== "description") {
-      setActiveTab("description");
-    }
-  }, [isOpen, activeTab]);
-
   const containerClass = attached
     ? `${backgroundClass} rounded-b-[2.75rem] border-0 bg-transparent p-6 text-text`
     : `rounded-3xl border border-border bg-surface-card/90 ${backgroundClass} p-5 text-text shadow-xl transition hover:-translate-y-1 hover:border-light-soft/70 hover:shadow-[0_20px_45px_rgba(0,0,0,0.18)]`;
@@ -165,35 +156,21 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
   return (
     <section id={project.id} className={containerClass}>
       {/* Header row */}
-      <button
-        type="button"
-        onClick={onToggle}
+      <div
         className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/20 px-4 py-3 text-left backdrop-blur-sm transition"
       >
         <div className="flex w-full items-start justify-between gap-4">
           <h2 className="text-xl font-heading text-text uppercase">
             {project.name}
           </h2>
-
-          <span
-            className={`shrink-0 rounded-full border px-3 py-1 text-xs font-body transition ${
-              isOpen
-                ? "border-lightMode-lavender bg-lightMode-lavender/10 text-lightMode-lavender"
-                : "border-border bg-surface-muted/60 text-text-muted"
-            }`}
-          >
-            {isOpen ? "Hide details ▲" : "Show details ▼"}
-          </span>
         </div>
 
         <p className="mt-0.5 text-sm text-text tracking-wide">
           {project.summary}
         </p>
         <TechTagList tags={techTags} className="mt-3" />
-      </button>
-
-      {/* Expandable content */}
-      {isOpen && (
+      </div>
+      
         <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
           {/* Carousel */}
           <ImageCarousel
@@ -228,7 +205,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                       }
                       className={`flex-1 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
                         isActive
-                          ? "border-lightMode-lavender bg-lightMode-lavender/10 text-lightMode-lavender"
+                          ? "border-brand-charcoal bg-brand-charcoal/10 text-brand-charcoal"
                           : "border-transparent bg-transparent text-text-muted hover:border-border hover:bg-surface-muted/40"
                       }`}
                     >
@@ -293,7 +270,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-white transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
+                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-white transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
               >
                 View live site
               </button>
@@ -308,7 +285,6 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
             </div>
           </div>
         </div>
-      )}
     </section>
   );
 };
