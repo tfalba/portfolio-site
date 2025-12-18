@@ -18,7 +18,6 @@ const HERO_REVEAL_DELAY_MS = 3200;
 const PANE_TRANSITION_MS = 250;
 
 export const ProjectsPage: React.FC = () => {
-  const initialProjectId = projects[0]?.id ?? "";
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     projectName: string;
@@ -26,16 +25,15 @@ export const ProjectsPage: React.FC = () => {
     phone?: CarouselImage;
   } | null>(null);
   const [projectMenuOpen, setProjectMenuOpen] = useState(false);
-  const [activeProjectId, setActiveProjectId] = useState<string>(
-    initialProjectId
-  );
+  const [activeProjectId, setActiveProjectId] = useState<string>("");
   const [renderedProjectId, setRenderedProjectId] =
-    useState<string>(initialProjectId);
+    useState<string>("");
   const [contentReady, setContentReady] = useState(false);
   const [paneState, setPaneState] = useState<
     "hidden" | "entering" | "exiting" | "idle"
   >("hidden");
   const [nextProjectId, setNextProjectId] = useState<string | null>(null);
+  const [pendingActiveId, setPendingActiveId] = useState<string | null>(null);
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -58,11 +56,14 @@ export const ProjectsPage: React.FC = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      if (pendingActiveId && pendingActiveId !== activeProjectId) {
+        setActiveProjectId(pendingActiveId);
+      }
       setContentReady(true);
       setPaneState("entering");
     }, HERO_REVEAL_DELAY_MS);
     return () => clearTimeout(timer);
-  }, []);
+  }, [pendingActiveId, activeProjectId]);
 
   useEffect(() => {
     if (paneState === "exiting") {
@@ -110,11 +111,13 @@ export const ProjectsPage: React.FC = () => {
 
   const handleProjectChange = (id: string) => {
     if (!id || id === activeProjectId) return;
-    setActiveProjectId(id);
+
     if (!contentReady) {
-      setRenderedProjectId(id);
+      setPendingActiveId(id);
       return;
     }
+
+    setActiveProjectId(id);
     setNextProjectId(id);
     setPaneState("exiting");
   };
@@ -187,7 +190,7 @@ export const ProjectsPage: React.FC = () => {
           activeId={activeProjectId}
         />
 
-        <div className="bg-white/95 p-4 pt-0 min-h-[400px]">
+        <div className="bg-white/95 p-4 pt-0 min-h-[100px]">
           <div
             className={`transition-all duration-300 ease-out ${
               !contentReady || paneState === "hidden"

@@ -1,5 +1,5 @@
 // src/components/ProjectSection.tsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ImageCarousel, type CarouselImage } from "./ImageCarousel";
 
 type ProjectDescription = {
