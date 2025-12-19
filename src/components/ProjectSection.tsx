@@ -65,17 +65,15 @@ type TechTag = {
 };
 
 const TECH_CATEGORY_STYLES: Record<TechCategory, string> = {
-  frontend: "border-project-teal/60 bg-project-teal/15 text-project-teal",
-  language: "border-project-taupe/60 bg-project-taupe/20 text-project-taupe",
-  styling: "border-project-pink/60 bg-project-pink/20 text-project-pink",
-  state: "border-project-green/60 bg-project-green/20 text-project-green",
-  infrastructure: "border-project-orange/60 bg-project-orange/20 text-project-orange",
-  integration: "border-project-teal/50 bg-project-teal/10 text-project-teal",
-  backend: "border-project-taupe/70 bg-project-taupe/15 text-project-taupe",
-  realtime: "border-project-orange/70 bg-project-orange/15 text-project-orange",
-   default: "border-project-green/60 bg-white/60 text-project-green",
-
-  // default: "border-project-taupe/40 bg-surface-card/70 text-project-taupe",
+  frontend: "border-brand-black/20 bg-project-teal/70 text-brand-black/70",
+  language: "border-brand-black/20 bg-project-taupe/70 text-brand-black/70",
+  styling: "border-brand-black/20 bg-project-pink/70 text-brand-black/70",
+  state: "border-brand-black/20 bg-project-green/70 text-brand-black/70",
+  infrastructure: "border-brand-black/20 bg-project-orange/70 text-brand-black/70",
+  integration: "border-brand-black/20 bg-project-teal/60 text-brand-black/70",
+  backend: "border-brand-black/20 bg-project-taupe/55 text-brand-black/70",
+  realtime: "border-brand-black/20 bg-project-orange/55 text-brand-black/70",
+  default: "border-brand-black/20 bg-white/25 text-brand-black/70",
 };
 
 const TECH_CATEGORY_MAP: Record<string, TechCategory> = {
@@ -156,7 +154,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
     <section id={project.id} className={containerClass}>
       {/* Header row */}
       <div
-        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/20 px-4 py-3 text-left backdrop-blur-sm transition"
+        className="flex w-full flex-col gap-2 rounded-2xl border border-border/70 bg-white/30 px-4 py-3 text-left backdrop-blur-sm"
       >
         <div className="flex w-full items-start justify-between gap-4">
           <h2 className="text-xl font-heading text-text uppercase">
@@ -202,11 +200,8 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                       onClick={() =>
                         setActiveTab(tab.id as "description" | "details")
                       }
-                      className={`flex-1 rounded-full border px-3 py-1.5 text-xs font-semibold uppercase tracking-wide transition ${
-                        isActive
-                          ? "border-brand-charcoal bg-brand-charcoal/10 text-brand-charcoal"
-                          : "border-transparent bg-transparent text-text-muted hover:border-border hover:bg-surface-muted/40"
-                      }`}
+                      className="flex-1 tab-pill"
+                      data-active={isActive}
                     >
                       {tab.label}
                     </button>
@@ -269,7 +264,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
               <button
                 type="button"
                 onClick={() => onOpenLive(project)}
-                className="inline-flex items-center justify-center rounded-full border border-border/80 bg-brand-charcoal px-5 py-2 font-body font-semibold text-white transition hover:border-brand-charcoal hover:bg-brand-black hover:text-brand-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
+                className="btn-3d relative inline-flex items-center justify-center overflow-hidden rounded-full px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.3em]"
               >
                 View live site
               </button>
@@ -277,7 +272,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center justify-center rounded-full border border-border px-4 py-2 font-body font-medium text-text transition hover:border-light hover:text-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
+                className="btn-3d btn-3d-ghost relative inline-flex items-center justify-center overflow-hidden rounded-full px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.3em]"
               >
                 View on GitHub
               </a>

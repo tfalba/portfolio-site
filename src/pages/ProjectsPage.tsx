@@ -148,7 +148,7 @@ export const ProjectsPage: React.FC = () => {
                 onClick={() => setProjectMenuOpen((prev) => !prev)}
                 aria-haspopup="true"
                 aria-expanded={projectMenuOpen}
-                className="inline-flex items-center gap-2 rounded-full border border-brand-charcoal/40 bg-white/90 px-4 py-2 text-sm font-medium text-brand-charcoal shadow-sm transition hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-charcoal"
+                className="btn-3d btn-3d-ghost relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-2 text-[0.65rem] font-semibold uppercase tracking-[0.35em]"
               >
                 Browse projects
                 <span
@@ -175,7 +175,7 @@ export const ProjectsPage: React.FC = () => {
                         handleProjectChange(project.id);
                         setProjectMenuOpen(false);
                       }}
-                      className="flex w-full items-center justify-between px-4 py-2 text-left text-brand-black/70 transition hover:bg-brand-charcoal/20 hover:text-brand-black/90"
+                      className="flex w-full items-center justify-between px-4 py-2 text-left text-brand-black/70 transition hover:bg-surface-muted/70 hover:text-brand-black"
                     >
                       {project.name}
                       <span className="text-xs text-brand-black/60">↘</span>
@@ -353,37 +353,37 @@ const HeroBanner: React.FC<{
           return (
             <div
               style={{ animationDelay: `${index * 0.45}s` }}
+                              onClick={() => onSelect(image.projectId)}
+
               className={`flex flex-col items-center opacity-0 animate-hero-slide transition rounded-t-[1.5rem] ${image.accentClass} ${
                 isActive
                   ? "mt-[-1.75rem] gap-5 p-3 pt-6 shadow"
-                  : "p-3 gap-2"
+                  : "p-3 gap-2 max-h-min hover:mt-[-0.5rem] hover:shadow-md"
               }`}
               key={`${image.projectId}-container`}
             >
               <button
                 type="button"
-                onClick={() => onSelect(image.projectId)}
-                className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
-                  isActive
-                    ? "ring-4 ring-white/80 shadow-lg scale-[1.01]"
-                    : " hover:-translate-y-1 hover:shadow-xl"
-                }`}
+                // onClick={() => onSelect(image.projectId)}
+                   className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white`}
+                // className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
+                //   isActive
+                //     ? " ring-4 ring-white/80 shadow-lg scale-[1.01]"
+                //     : " hover:-translate-y-1 hover:shadow-xl"
+                // }`}
                 style={{
                   backgroundImage: `url(${image.src})`,
                 }}
                 aria-label={image.alt ?? `View ${image.projectId}`}
                 aria-pressed={isActive}
               />
-              <p
-                className={`w-full truncate rounded-full px-3 py-1 text-center text-xs uppercase tracking-[0.2em] transition ${
-                  isActive
-                    ? "bg-brand-charcoal text-white translate-y-1"
-                    : "bg-white/80 text-brand-charcoal/80"
-                }`}
+              <span
+                className="tab-pill tab-pill--hero"
+                data-active={isActive}
                 title={image.projectName}
               >
                 {image.projectName}
-              </p>
+              </span>
             </div>
           );
         })}

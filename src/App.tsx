@@ -15,10 +15,8 @@ const navButtonClass = ({
   isTransitioning?: boolean;
 }) =>
   [
-    "inline-flex items-center justify-center rounded-full border px-4 py-2 text-sm font-body font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white",
-    isActive
-      ? "border-white/80 bg-white/90 text-brand-black shadow-lg shadow-white/40"
-      : "border-white/60 text-white/90 hover:bg-white/10 hover:text-white",
+    "relative inline-flex items-center justify-center rounded-full px-5 py-2 text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white btn-3d",
+    isActive ? "btn-3d-active" : "btn-3d-ghost",
   ].join(" ");
 
 const App: React.FC = () => {
