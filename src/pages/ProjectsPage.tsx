@@ -18,6 +18,7 @@ const HERO_REVEAL_DELAY_MS = 3200;
 const PANE_TRANSITION_MS = 250;
 
 export const ProjectsPage: React.FC = () => {
+  const initialProjectId = projects[0]?.id ?? "";
   const [liveProject, setLiveProject] = useState<Project | null>(null);
   const [imagePreview, setImagePreview] = useState<{
     projectName: string;
@@ -25,15 +26,12 @@ export const ProjectsPage: React.FC = () => {
     phone?: CarouselImage;
   } | null>(null);
   const [projectMenuOpen, setProjectMenuOpen] = useState(false);
-  const [activeProjectId, setActiveProjectId] = useState<string>("");
-  const [renderedProjectId, setRenderedProjectId] =
-    useState<string>("");
+  const [targetProjectId, setTargetProjectId] = useState(initialProjectId);
+  const [currentProjectId, setCurrentProjectId] = useState<string | null>(null);
   const [contentReady, setContentReady] = useState(false);
   const [paneState, setPaneState] = useState<
     "hidden" | "entering" | "exiting" | "idle"
   >("hidden");
-  const [nextProjectId, setNextProjectId] = useState<string | null>(null);
-  const [pendingActiveId, setPendingActiveId] = useState<string | null>(null);
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -55,32 +53,45 @@ export const ProjectsPage: React.FC = () => {
   const handleCloseImagePreview = () => setImagePreview(null);
 
   useEffect(() => {
+    if (contentReady || currentProjectId) return;
+
     const timer = setTimeout(() => {
-      if (pendingActiveId && pendingActiveId !== activeProjectId) {
-        setActiveProjectId(pendingActiveId);
-      }
-      setContentReady(true);
+      setCurrentProjectId(targetProjectId);
       setPaneState("entering");
+      setContentReady(true);
     }, HERO_REVEAL_DELAY_MS);
+
     return () => clearTimeout(timer);
-  }, [pendingActiveId, activeProjectId]);
+  }, [contentReady, currentProjectId, targetProjectId]);
 
   useEffect(() => {
+    if (!contentReady) return;
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
     if (paneState === "exiting") {
-      const timer = setTimeout(() => {
-        setRenderedProjectId(nextProjectId ?? activeProjectId);
-        setNextProjectId(null);
+      timer = setTimeout(() => {
+        setCurrentProjectId(targetProjectId);
         setPaneState("entering");
       }, PANE_TRANSITION_MS);
-      return () => clearTimeout(timer);
-    }
-    if (paneState === "entering") {
-      const timer = setTimeout(() => {
-        setPaneState(contentReady ? "idle" : "hidden");
+    } else if (paneState === "entering") {
+      timer = setTimeout(() => {
+        setPaneState("idle");
       }, PANE_TRANSITION_MS);
-      return () => clearTimeout(timer);
     }
-  }, [paneState, nextProjectId, activeProjectId, contentReady]);
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [paneState, contentReady, targetProjectId]);
+
+  useEffect(() => {
+    if (!contentReady) return;
+    if (!currentProjectId) return;
+    if (targetProjectId === currentProjectId) return;
+    if (paneState === "exiting" || paneState === "entering") return;
+    setPaneState("exiting");
+  }, [targetProjectId, currentProjectId, contentReady, paneState]);
 
   const heroSlides = projects.reduce<HeroSlide[]>((acc, project) => {
     if (acc.length >= 6) return acc;
@@ -110,20 +121,17 @@ export const ProjectsPage: React.FC = () => {
   }, []);
 
   const handleProjectChange = (id: string) => {
-    if (!id || id === activeProjectId) return;
-
-    if (!contentReady) {
-      setPendingActiveId(id);
-      return;
+    if (!id || id === targetProjectId) return;
+    setTargetProjectId(id);
+    if (!contentReady) return;
+    if (!currentProjectId) return;
+    if (paneState === "idle") {
+      setPaneState("exiting");
     }
-
-    setActiveProjectId(id);
-    setNextProjectId(id);
-    setPaneState("exiting");
   };
 
   const activeProject = projects.find(
-    (project) => project.id === renderedProjectId
+    (project) => project.id === (currentProjectId ?? targetProjectId)
   );
 
   return (
@@ -187,7 +195,7 @@ export const ProjectsPage: React.FC = () => {
         <HeroBanner
           images={heroSlides}
           onSelect={handleProjectChange}
-          activeId={activeProjectId}
+          activeId={targetProjectId}
         />
 
         <div className="bg-white/95 p-4 pt-0 min-h-[100px]">
@@ -206,7 +214,6 @@ export const ProjectsPage: React.FC = () => {
               <ProjectSection
                 key={activeProject.id}
                 project={activeProject}
-                isOpen
                 attached
                 onOpenLive={handleOpenLive}
                 onExpandImage={handleImagePreview}

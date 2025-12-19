@@ -29,7 +29,6 @@ export type Project = {
 
 interface ProjectSectionProps {
   project: Project;
-  isOpen: boolean;
   onOpenLive: (project: Project) => void;
   onExpandImage: (
     projectName: string,

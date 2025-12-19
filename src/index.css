@@ -17,36 +17,6 @@
     --color-accent-strong: 196 143 45;
   }
 
-  /* ---------- DARK THEME (manual .dark class) ---------- */
-  /* .dark {
-    --color-surface: 42 46 48;
-    --color-surface-muted: 52 92 114;
-    --color-surface-card: 52 92 114;
-    --color-surface-elevated: 212 237 244;
-    --color-text: 255 255 255;
-    --color-text-muted: 212 237 244;
-    --color-border: 212 237 244;
-    --color-accent: 244 101 48;
-    --color-accent-soft: 255 158 122;
-    --color-accent-strong: 52 92 114;
-  } */
-
-  /* ---------- SYSTEM DARK THEME (when no .light/.dark set) ---------- */
-  /* @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark) {
-      --color-surface: 42 46 48;
-      --color-surface-muted: 52 92 114;
-      --color-surface-card: 52 92 114;
-      --color-surface-elevated: 212 237 244;
-      --color-text: 255 255 255;
-      --color-text-muted: 212 237 244;
-      --color-border: 212 237 244;
-      --color-accent: 244 101 48;
-      --color-accent-soft: 255 158 122;
-      --color-accent-strong: 52 92 114;
-    }
-  } */
-
   /* ---------- BODY BASE STYLES (LIGHT BG BY DEFAULT) ---------- */
   body {
     min-height: 100vh;
@@ -57,13 +27,9 @@
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
     padding: 0;
-    /* background-image: url("./assets/pngtree-pastel-watercolor-background-with-mint-green-and-blush-pink-tones-picture-image_background.jpg"); */
     background-size: cover;
-    /* background-repeat: no-repeat; */
     background-position: center;
   }
-
-  /* System dark background when no manual theme override */
 
 
   /* Manual overrides via class on <html> */
