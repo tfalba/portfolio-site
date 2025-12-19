@@ -168,7 +168,7 @@ export const ProjectSection: React.FC<ProjectSectionProps> = ({
         <TechTagList tags={techTags} className="mt-3" />
       </div>
       
-        <div className="mt-6 grid gap-6 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
+        <div className="mt-6 grid gap-6 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
           {/* Carousel */}
           <ImageCarousel
             images={project.images}

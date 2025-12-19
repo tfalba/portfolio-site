@@ -353,29 +353,28 @@ const HeroBanner: React.FC<{
           return (
             <div
               style={{ animationDelay: `${index * 0.45}s` }}
-                              onClick={() => onSelect(image.projectId)}
-
-              className={`flex flex-col items-center opacity-0 animate-hero-slide transition rounded-t-[1.5rem] ${image.accentClass} ${
-                isActive
-                  ? "mt-[-1.75rem] gap-5 p-3 pt-6 shadow"
-                  : "p-3 gap-2 max-h-min hover:mt-[-0.5rem] hover:shadow-md"
+              onClick={() => onSelect(image.projectId)}
+              className={`hero-tile flex flex-col items-center opacity-0 animate-hero-slide transition rounded-t-[1.5rem] ${image.accentClass} ${
+                isActive ? "mt-[-1.75rem] gap-5 p-3 pt-6" : "p-3 gap-2 max-h-min"
               }`}
+              data-active={isActive}
               key={`${image.projectId}-container`}
             >
               <button
                 type="button"
-                // onClick={() => onSelect(image.projectId)}
-                   className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white`}
-                // className={`group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
-                //   isActive
-                //     ? " ring-4 ring-white/80 shadow-lg scale-[1.01]"
-                //     : " hover:-translate-y-1 hover:shadow-xl"
-                // }`}
+                onClick={(event) => {
+                  event.stopPropagation();
+                  onSelect(image.projectId);
+                }}
+                className={`hero-tile__button group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
+                  isActive ? "ring-4 ring-white/80" : "hover:-translate-y-1 hover:shadow-xl"
+                }`}
                 style={{
                   backgroundImage: `url(${image.src})`,
                 }}
                 aria-label={image.alt ?? `View ${image.projectId}`}
                 aria-pressed={isActive}
+                data-active={isActive}
               />
               <span
                 className="tab-pill tab-pill--hero"

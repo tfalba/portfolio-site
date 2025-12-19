@@ -11,6 +11,7 @@ export default {
       fontFamily: {
         heading: ["Cardo", "serif"],
         body: ["Didact Gothic", "sans-serif"],
+        root: ["Didact Gothic", "sans-serif"],
       },
       colors: {
         surface: withOpacityValue("--color-surface"),
