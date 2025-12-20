@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState, type Ref } from "react";
+import { useEffect, useState } from "react";
 import {
   ProjectSection,
   ROW_GRADIENTS,
@@ -16,7 +16,6 @@ type HeroSlide = CarouselImage & {
 
 const HERO_REVEAL_DELAY_MS = 3200;
 const PANE_TRANSITION_MS = 250;
-const EXTRA_HEADER_OFFSET_VH = 20;
 
 export const ProjectsPage: React.FC = () => {
   const initialProjectId = projects[0]?.id ?? "";
@@ -33,9 +32,6 @@ export const ProjectsPage: React.FC = () => {
   const [paneState, setPaneState] = useState<
     "hidden" | "entering" | "exiting" | "idle"
   >("hidden");
-  const sectionRef = useRef<HTMLElement | null>(null);
-  const heroMeasureRef = useRef<HTMLDivElement | null>(null);
-  const [heroOverlap, setHeroOverlap] = useState(0);
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -138,38 +134,11 @@ export const ProjectsPage: React.FC = () => {
     (project) => project.id === (currentProjectId ?? targetProjectId)
   );
 
-  useLayoutEffect(() => {
-    const updateOverlap = () => {
-      if (!heroMeasureRef.current) return;
-      setHeroOverlap(heroMeasureRef.current.offsetTop ?? 0);
-    };
-
-    updateOverlap();
-    window.addEventListener("resize", updateOverlap);
-
-    let observer: ResizeObserver | null = null;
-    if (typeof ResizeObserver !== "undefined") {
-      observer = new ResizeObserver(updateOverlap);
-      if (sectionRef.current) observer.observe(sectionRef.current);
-      if (heroMeasureRef.current) observer.observe(heroMeasureRef.current);
-    }
-
-    return () => {
-      window.removeEventListener("resize", updateOverlap);
-      observer?.disconnect();
-    };
-  }, []);
-
   return (
     <>
       <section
-        ref={sectionRef}
         className="relative z-10 mx-auto max-w-[100rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]"
-        style={
-          heroOverlap > 0 || EXTRA_HEADER_OFFSET_VH > 0
-            ? { marginTop: `calc(-${heroOverlap}px - ${EXTRA_HEADER_OFFSET_VH}vh)` }
-            : undefined
-        }
+        style={{ marginTop: "calc(var(--section-overlap, 130px) * -1)" }}
       >
         <div className="space-y-2 border-b border-border/50 p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
@@ -230,7 +199,6 @@ export const ProjectsPage: React.FC = () => {
           images={heroSlides}
           onSelect={handleProjectChange}
           activeId={targetProjectId}
-          containerRef={heroMeasureRef}
         />
 
         <div className="bg-white/95 p-4 pt-0 min-h-[100px]">
@@ -375,13 +343,12 @@ const HeroBanner: React.FC<{
   images: HeroSlide[];
   onSelect: (id: string) => void;
   activeId: string;
-  containerRef?: Ref<HTMLDivElement>;
-}> = ({ images, onSelect, activeId, containerRef }) => {
+}> = ({ images, onSelect, activeId }) => {
   if (images.length === 0) return null;
 
   return (
-    <div ref={containerRef} className="relative bg-white/60 px-4 pt-10 pb-0">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+    <div className="relative bg-white/60 px-4 pt-10 pb-6 lg:pb-4">
+      <div className="grid grid-cols-2 gap-4 gap-y-8 md:grid-cols-3 lg:grid-cols-6">
         {images.map((image, index) => {
           const isActive = image.projectId === activeId;
           return (
@@ -389,7 +356,7 @@ const HeroBanner: React.FC<{
               style={{ animationDelay: `${index * 0.45}s` }}
               onClick={() => onSelect(image.projectId)}
               className={`hero-tile flex flex-col items-center opacity-0 animate-hero-slide transition rounded-t-[1.5rem] ${image.accentClass} ${
-                isActive ? "mt-[-1.75rem] gap-5 p-3 pt-6" : "p-3 gap-2 max-h-min"
+                isActive ? "max-h-min pt-6" : "max-h-min pt-6"
               }`}
               data-active={isActive}
               key={`${image.projectId}-container`}
@@ -400,8 +367,8 @@ const HeroBanner: React.FC<{
                   event.stopPropagation();
                   onSelect(image.projectId);
                 }}
-                className={`hero-tile__button group relative w-full overflow-hidden rounded-3xl bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
-                  isActive ? "ring-4 ring-white/80" : "hover:-translate-y-1 hover:shadow-xl"
+                className={`hero-tile__button group hidden lg:block relative w-full overflow-hidden bg-cover bg-center bg-no-repeat aspect-[8/5] transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-white ${
+                  isActive ? "ring-4 ring-white/80 p-2 px-4" : "hover:-translate-y-1 hover:shadow-xl"
                 }`}
                 style={{
                   backgroundImage: `url(${image.src})`,
@@ -411,7 +378,7 @@ const HeroBanner: React.FC<{
                 data-active={isActive}
               />
               <span
-                className="tab-pill tab-pill--hero"
+                className="tab-pill tab-pill--hero rounded-none truncate"
                 data-active={isActive}
                 title={image.projectName}
               >

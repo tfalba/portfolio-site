@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const resumePdf = new URL(
   "../assets/Tracy Falba Resume Oct 2025.pdf",
-  import.meta.url,
+  import.meta.url
 ).href;
 
 export const AboutPage: React.FC = () => {
@@ -10,11 +10,12 @@ export const AboutPage: React.FC = () => {
 
   return (
     <>
-      <section className="mx-auto max-w-[100rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
+      <section
+        className="relative z-10 mx-auto max-w-[100rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]"
+        style={{ marginTop: "calc(var(--section-overlap, 130px) * -1)" }}
+      >
         {/* HERO / HEADSHOT ROW */}
         <div className="grid gap-4 border-b border-border/60 bg-surface/80 px-6 py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:px-8 lg:py-10">
-         
-
           {/* HERO HEADSHOT */}
           <div className="relative flex items-center justify-center">
             {/* soft glow behind headshot */}
@@ -35,7 +36,7 @@ export const AboutPage: React.FC = () => {
               </p>
             </div>
           </div>
- <header className="space-y-4 self-center">
+          <header className="space-y-4 self-center">
             <p className="text-xs uppercase tracking-[0.3em] text-text-muted">
               About me
             </p>
@@ -49,7 +50,6 @@ export const AboutPage: React.FC = () => {
               complex SaaS products.
             </p>
           </header>
-
         </div>
 
         {/* MAIN CONTENT ROWS */}
