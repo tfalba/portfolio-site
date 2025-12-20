@@ -10,7 +10,7 @@ export const AboutPage: React.FC = () => {
 
   return (
     <>
-      <section className="mx-auto max-w-[95rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
+      <section className="mx-auto max-w-[100rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
         {/* HERO / HEADSHOT ROW */}
         <div className="grid gap-4 border-b border-border/60 bg-surface/80 px-6 py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:px-8 lg:py-10">
          

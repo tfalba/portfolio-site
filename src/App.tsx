@@ -6,6 +6,7 @@ import { AboutPage } from "./pages/AboutPage";
 
 const HEADER_GRADIENT =
   "linear-gradient(105deg,#ffeb3b 0%,#2abbab 17%,#92d858 36%,#d1c8b4 53%,#f97216 71%,#d48e8e 88%)";
+const HEADER_HEIGHT = "70vh";
 
 const navButtonClass = ({
   isActive,
@@ -23,11 +24,18 @@ const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-surface/50 text-text">
       <header
-        className="border-b border-border text-brand-black shadow-sm"
-        style={{ background: HEADER_GRADIENT }}
+        className="sticky top-0 z-0 border-b border-border text-brand-black shadow-sm"
+        style={{ background: HEADER_GRADIENT, height: HEADER_HEIGHT }}
       >
-        <div className="mx-auto flex max-w-[90rem] flex-col gap-4 px-4 pb-8 pt-10 md:flex-row md:items-end md:justify-between">
-          <div className="flex-[1.3]">
+            <div className="p-6 pt-10 flex flex-wrap gap-2 justify-end md:flex-nowrap max-w-[100rem] mx-auto">
+              <NavLink to="/" className={navButtonClass}>
+                Projects
+              </NavLink>
+              <NavLink to="/about" className={navButtonClass}>
+                About me
+              </NavLink>
+            </div>
+        <div className="mx-auto flex h-full max-w-[100rem] flex-col justify-start gap-2 px-6 pb-8 pt-4 items-start">
             <p className="text-xs uppercase tracking-[0.2em] text-brand-black/80">
               Portfolio of
             </p>
@@ -36,23 +44,11 @@ const App: React.FC = () => {
             </h1>
             <p className="font-body text-brand-black/80">
               Software Engineer • Frontend / Full Stack
-            </p>
-          </div>
-
-          <div className="flex flex-2 gap-3 md:flex-row items-center justify-end">
-            <div className="flex flex-wrap gap-2">
-              <NavLink to="/" className={navButtonClass}>
-                Projects
-              </NavLink>
-              <NavLink to="/about" className={navButtonClass}>
-                About me
-              </NavLink>
-            </div>
-          </div>
+            </p>     
         </div>
       </header>
 
-      <main className="mx-auto max-w-[90rem] space-y-6 px-5 py-6">
+      <main className="relative z-10 mx-auto max-w-[100rem] space-y-6 px-5 py-6">
         <Routes>
           <Route
             path="/"

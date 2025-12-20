@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type Ref } from "react";
 import {
   ProjectSection,
   ROW_GRADIENTS,
@@ -16,6 +16,7 @@ type HeroSlide = CarouselImage & {
 
 const HERO_REVEAL_DELAY_MS = 3200;
 const PANE_TRANSITION_MS = 250;
+const EXTRA_HEADER_OFFSET_VH = 20;
 
 export const ProjectsPage: React.FC = () => {
   const initialProjectId = projects[0]?.id ?? "";
@@ -32,6 +33,9 @@ export const ProjectsPage: React.FC = () => {
   const [paneState, setPaneState] = useState<
     "hidden" | "entering" | "exiting" | "idle"
   >("hidden");
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const heroMeasureRef = useRef<HTMLDivElement | null>(null);
+  const [heroOverlap, setHeroOverlap] = useState(0);
 
   const handleOpenLive = (project: Project) => {
     setLiveProject(project);
@@ -134,9 +138,39 @@ export const ProjectsPage: React.FC = () => {
     (project) => project.id === (currentProjectId ?? targetProjectId)
   );
 
+  useLayoutEffect(() => {
+    const updateOverlap = () => {
+      if (!heroMeasureRef.current) return;
+      setHeroOverlap(heroMeasureRef.current.offsetTop ?? 0);
+    };
+
+    updateOverlap();
+    window.addEventListener("resize", updateOverlap);
+
+    let observer: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      observer = new ResizeObserver(updateOverlap);
+      if (sectionRef.current) observer.observe(sectionRef.current);
+      if (heroMeasureRef.current) observer.observe(heroMeasureRef.current);
+    }
+
+    return () => {
+      window.removeEventListener("resize", updateOverlap);
+      observer?.disconnect();
+    };
+  }, []);
+
   return (
     <>
-      <section className="mx-auto max-w-[95rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]">
+      <section
+        ref={sectionRef}
+        className="relative z-10 mx-auto max-w-[100rem] overflow-hidden rounded-[2.75rem] border border-border bg-surface-card/95 text-text shadow-[0_35px_120px_rgba(0,0,0,0.12)]"
+        style={
+          heroOverlap > 0 || EXTRA_HEADER_OFFSET_VH > 0
+            ? { marginTop: `calc(-${heroOverlap}px - ${EXTRA_HEADER_OFFSET_VH}vh)` }
+            : undefined
+        }
+      >
         <div className="space-y-2 border-b border-border/50 p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <h2 className="text-3xl font-heading uppercase">
@@ -196,6 +230,7 @@ export const ProjectsPage: React.FC = () => {
           images={heroSlides}
           onSelect={handleProjectChange}
           activeId={targetProjectId}
+          containerRef={heroMeasureRef}
         />
 
         <div className="bg-white/95 p-4 pt-0 min-h-[100px]">
@@ -233,7 +268,7 @@ export const ProjectsPage: React.FC = () => {
           onClick={handleCloseLive}
         >
           <div
-            className="relative flex h-full w-full max-w-[95rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
+            className="relative flex h-full w-full max-w-[100rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between gap-4">
@@ -286,7 +321,7 @@ export const ProjectsPage: React.FC = () => {
           onClick={handleCloseImagePreview}
         >
           <div
-            className="relative flex h-full w-full max-w-[95rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
+            className="relative flex h-full w-full max-w-[100rem] flex-col gap-4 rounded-3xl border border-border bg-surface-card/95 p-5 text-text shadow-[0_35px_120px_rgba(0,0,0,0.25)]"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -340,13 +375,12 @@ const HeroBanner: React.FC<{
   images: HeroSlide[];
   onSelect: (id: string) => void;
   activeId: string;
-}> = ({ images, onSelect, activeId }) => {
-  const heroRef = useRef<HTMLDivElement | null>(null);
-
+  containerRef?: Ref<HTMLDivElement>;
+}> = ({ images, onSelect, activeId, containerRef }) => {
   if (images.length === 0) return null;
 
   return (
-    <div ref={heroRef} className="relative bg-white/60 px-4 pt-10 pb-0">
+    <div ref={containerRef} className="relative bg-white/60 px-4 pt-10 pb-0">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         {images.map((image, index) => {
           const isActive = image.projectId === activeId;
