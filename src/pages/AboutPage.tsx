@@ -15,7 +15,7 @@ export const AboutPage: React.FC = () => {
         style={{ marginTop: "calc(var(--section-overlap, 130px) * -1)" }}
       >
         {/* HERO / HEADSHOT ROW */}
-        <div className="relative grid gap-6 border-b border-border/60 bg-gradient-to-br from-project-gold/40 via-white/70 to-project-teal/35 px-6 py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:px-10 lg:py-14">
+        <div className="relative grid gap-6 border-b border-border/60 bg-gradient-to-br from-project-gold/40 via-white/70 to-project-teal/35 px-2 sm:px-6 py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:px-10 lg:py-14">
           <div className="pointer-events-none absolute inset-0 opacity-70 blur-3xl">
             <div className="absolute -left-10 top-12 h-48 w-48 rounded-full bg-project-pink/50" />
             <div className="absolute bottom-0 right-0 h-60 w-60 rounded-full bg-project-teal/40" />
@@ -50,7 +50,7 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* MAIN CONTENT ROWS */}
-        <div className="grid gap-8 px-6 py-8 md:grid-cols-[minmax(0,2.0fr)_minmax(0,1.1fr)] lg:px-10 lg:pb-10 lg:pt-8">
+        <div className="grid gap-8 px-2 sm:px-6 py-8 md:grid-cols-[minmax(0,2.0fr)_minmax(0,1.1fr)] lg:px-10 lg:pb-10 lg:pt-8">
           {/* Narrative */}
           <article className="space-y-4 text-base leading-relaxed text-text">
             <p>
@@ -192,11 +192,11 @@ export const AboutPage: React.FC = () => {
         </div>
 
         {/* Resume button row */}
-        <div className="flex justify-end border-t border-border/60 bg-surface/80 px-6 py-4 lg:px-10">
+        <div className="flex justify-end border-t border-border/60 bg-surface/80 px-2 sm:px-6 py-4 lg:px-10">
           <button
             type="button"
             onClick={() => setShowResume(true)}
-            className="btn-3d relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.3em]"
+            className="btn-3d relative inline-flex items-center gap-2 overflow-hidden rounded-full px-2 sm:px-6 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.3em]"
           >
             <span className="text-base">📄</span>
             View résumé (full screen)
