@@ -20,20 +20,12 @@ export const AboutPage: React.FC = () => {
           <div className="relative flex items-center justify-center">
             {/* soft glow behind headshot */}
             <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-light/35 via-light-soft/30 to-surface-elevated/35 opacity-90 blur-2xl" />
-            <div className="relative h-auto w-64 md:w-72 overflow-hidden rounded-[2.5rem] border-4 border-surface-card bg-surface-muted shadow-[0_25px_80px_rgba(0,0,0,0.35)]">
+            <div className="relative h-64 w-64 md:w-[24rem] md:h-[24rem] overflow-hidden rounded-[2.5rem] p-1 border-4 border-surface-card bg-surface-muted shadow-[0_25px_80px_rgba(0,0,0,0.35)]">
               <img
                 src="/src/assets/headshot.jpeg"
                 alt="Tracy Falba headshot"
-                className="h-full w-full object-contain"
+                className="h-full w-full object-cover object-top rounded-[1.75rem]"
               />
-            </div>
-            <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-surface-card/90 px-4 py-2 text-center shadow-md shadow-black/15">
-              <p className="text-xs font-heading tracking-[0.25em] uppercase text-text-muted">
-                Tracy Falba, Ph.D.
-              </p>
-              <p className="text-xs text-text-muted">
-                Software Engineer · Frontend / Full Stack
-              </p>
             </div>
           </div>
           <header className="space-y-4 self-center">
