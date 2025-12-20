@@ -32,7 +32,6 @@
         transparent 50%
       ),
       rgb(var(--color-surface));
-    /* font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
     color: rgb(var(--color-text));
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -41,7 +40,6 @@
     background-size: cover;
     background-position: center;
   }
-
 
   /* Manual overrides via class on <html> */
 
@@ -67,13 +65,9 @@
       rgba(var(--color-accent) / 0.95),
       rgba(var(--color-accent-strong) / 0.9)
     );
-    box-shadow:
-      0 12px 25px rgba(var(--color-accent-strong) / 0.35),
+    box-shadow: 0 12px 25px rgba(var(--color-accent-strong) / 0.35),
       inset 0 1px 0 rgba(255 255 255 / 0.4);
-    transition:
-      transform 180ms ease,
-      box-shadow 200ms ease,
-      filter 200ms ease;
+    transition: transform 180ms ease, box-shadow 200ms ease, filter 200ms ease;
   }
 
   .btn-3d::after {
@@ -92,15 +86,13 @@
 
   .btn-3d:hover {
     transform: translateY(-3px);
-    box-shadow:
-      0 18px 32px rgba(var(--color-accent-strong) / 0.4),
+    box-shadow: 0 18px 32px rgba(var(--color-accent-strong) / 0.4),
       inset 0 1px 0 rgba(255 255 255 / 0.5);
   }
 
   .btn-3d:active {
     transform: translateY(0px);
-    box-shadow:
-      0 10px 18px rgba(var(--color-accent-strong) / 0.35),
+    box-shadow: 0 10px 18px rgba(var(--color-accent-strong) / 0.35),
       inset 0 1px 0 rgb(255, 254, 254);
   }
 
@@ -108,8 +100,7 @@
     color: rgb(var(--color-text));
     background: rgba(255 255 255 / 0.9);
     border-color: rgba(var(--color-border) / 0.9);
-    box-shadow:
-      0 8px 18px rgba(var(--color-border) / 0.5),
+    box-shadow: 0 8px 18px rgba(var(--color-border) / 0.5),
       inset 0 1px 0 rgba(255 255 255 / 0.35);
   }
 
@@ -130,23 +121,18 @@
     letter-spacing: 0.25em;
     color: rgba(var(--color-text-muted));
     background: rgba(var(--color-surface) / 0.25);
-    box-shadow:
-      0 6px 14px rgba(0 0 0 / 0.08),
+    box-shadow: 0 6px 14px rgba(0 0 0 / 0.08),
       inset 0 1px 0 rgba(255 255 255 / 0.4);
-    transition:
-      color 160ms ease,
-      border-color 160ms ease,
-      background 160ms ease,
+    transition: color 160ms ease, border-color 160ms ease, background 160ms ease,
       transform 160ms ease;
   }
 
   .tab-pill[data-active="true"] {
     color: rgb(var(--color-text));
-    background-color: white;;
-    font-size: .75rem;
+    background-color: white;
+    font-size: 0.75rem;
     font-weight: 700;
-    box-shadow:
-      0 10px 20px rgba(var(--color-accent-strong) / 0.35),
+    box-shadow: 0 10px 20px rgba(var(--color-accent-strong) / 0.35),
       inset 0 1px 0 rgba(255 255 255 / 0.4);
   }
 
@@ -160,31 +146,25 @@
   }
 
   .tab-pill--hero[data-active="true"] {
-    box-shadow:
-      0 16px 28px rgba(var(--color-accent-strong) / 0.35),
+    box-shadow: 0 16px 28px rgba(var(--color-accent-strong) / 0.35),
       inset 0 1px 0 rgba(255 255 255 / 0.55);
     z-index: 10;
   }
 
   .tab-pill--hero[data-active="false"] {
     transform: translateY(0);
-    box-shadow:
-      0 6px 14px rgba(0 0 0 / 0.08),
+    box-shadow: 0 6px 14px rgba(0 0 0 / 0.08),
       inset 0 1px 0 rgba(255 255 255 / 0.35);
   }
 
   .hero-tile {
     position: relative;
-    transition:
-      transform 220ms ease,
-      box-shadow 220ms ease,
-      filter 220ms ease;
+    transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
   }
 
   .hero-tile[data-active="true"] {
     transform: translateY(-1rem) !important;
-    box-shadow:
-      0 28px 50px rgba(var(--color-accent-strong) / 0.32),
+    box-shadow: 0 28px 50px rgba(var(--color-accent-strong) / 0.32),
       inset 0 1px 0 rgba(255 255 255 / 0.4);
     z-index: 8;
   }
@@ -195,14 +175,11 @@
 
   .hero-tile__button {
     box-shadow: 0 12px 25px rgba(0 0 0 / 0.18);
-    transition:
-      transform 200ms ease,
-      box-shadow 200ms ease;
+    transition: transform 200ms ease, box-shadow 200ms ease;
   }
 
   .hero-tile__button[data-active="true"] {
-    box-shadow:
-      0 22px 40px rgba(var(--color-accent-strong) / 0.35),
+    box-shadow: 0 22px 40px rgba(var(--color-accent-strong) / 0.35),
       inset 0 1px 0 rgba(255 255 255 / 0.4);
   }
 }

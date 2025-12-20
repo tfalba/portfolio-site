@@ -32,14 +32,6 @@ export const AboutPage: React.FC = () => {
                 className="h-full w-full rounded-[1.8rem] object-cover object-top"
               />
             </div>
-            <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-5 py-2 text-center shadow-xl shadow-project-teal/20">
-              <p className="text-xs font-heading tracking-[0.25em] uppercase text-project-teal">
-                Tracy Falba, Ph.D.
-              </p>
-              <p className="text-xs text-project-orange">
-                Software Engineer · Frontend / Full Stack
-              </p>
-            </div>
           </div>
           <header className="relative z-10 space-y-5 self-center rounded-3xl border border-white/60 bg-white/85 p-6 shadow-2xl shadow-project-pink/20">
             <p className="text-xs uppercase tracking-[0.35em] text-project-orange">
