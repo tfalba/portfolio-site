@@ -6,7 +6,7 @@ import { AboutPage } from "./pages/AboutPage";
 
 const HEADER_GRADIENT =
   "linear-gradient(105deg,#ffeb3b 0%,#2abbab 17%,#92d858 36%,#d1c8b4 53%,#f97216 71%,#d48e8e 88%)";
-const HEADER_HEIGHT = "70vh";
+const HEADER_HEIGHT = "60vh";
 
 const navButtonClass = ({
   isActive,
@@ -27,7 +27,7 @@ const App: React.FC = () => {
         className="sticky top-0 z-0 border-b border-border text-brand-black shadow-sm"
         style={{ background: HEADER_GRADIENT, height: HEADER_HEIGHT }}
       >
-            <div className="p-6 pt-10 flex flex-wrap gap-2 justify-end md:flex-nowrap max-w-[100rem] mx-auto">
+            <div className="px-6 pt-10 pb-1 flex flex-wrap gap-2 justify-end md:flex-nowrap max-w-[100rem] mx-auto">
               <NavLink to="/" className={navButtonClass}>
                 Projects
               </NavLink>
@@ -35,17 +35,17 @@ const App: React.FC = () => {
                 About me
               </NavLink>
             </div>
-        <div className="mx-auto flex h-full max-w-[100rem] flex-col justify-start gap-2 px-6 pb-8 pt-4 items-start">
-            <p className="text-xs uppercase tracking-[0.2em] text-brand-black/80">
+          <div className="mx-auto flex h-[30vh] max-w-[100rem] flex-col justify-start gap-3 px-6 pb-8 pt-4 sm:h-full md:h-[30vh] lg:h-[30vh] w-full">
+            <p className="text-base uppercase tracking-[0.3em] text-brand-black/80 sm:text-lg md:text-2xl">
               Portfolio of
             </p>
-            <h1 className="text-3xl font-heading tracking-tight text-brand-black">
+            <h1 className="text-4xl font-heading tracking-tight text-brand-black sm:text-5xl md:text-6xl lg:text-7xl max-w-full">
               Tracy Falba, Ph.D.
             </h1>
-            <p className="font-body text-brand-black/80">
+            <p className="font-body text-lg text-brand-black/80 sm:text-xl md:text-3xl">
               Software Engineer • Frontend / Full Stack
             </p>     
-        </div>
+          </div>
       </header>
 
       <main className="relative z-10 mx-auto max-w-[100rem] space-y-6 px-5 py-6">

@@ -173,7 +173,7 @@ export const ProjectsPage: React.FC = () => {
       >
         <div className="space-y-2 border-b border-border/50 p-5">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <h2 className="text-3xl font-heading uppercase">
+            <h2 className="text-2xl md:text-3xl font-heading uppercase">
               Selected Projects
             </h2>
             <div className="relative">
