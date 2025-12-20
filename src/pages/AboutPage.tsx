@@ -15,27 +15,40 @@ export const AboutPage: React.FC = () => {
         style={{ marginTop: "calc(var(--section-overlap, 130px) * -1)" }}
       >
         {/* HERO / HEADSHOT ROW */}
-        <div className="grid gap-4 border-b border-border/60 bg-surface/80 px-6 py-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:px-8 lg:py-10">
+        <div className="relative grid gap-6 border-b border-border/60 bg-gradient-to-br from-project-gold/40 via-white/70 to-project-teal/35 px-6 py-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] lg:px-10 lg:py-14">
+          <div className="pointer-events-none absolute inset-0 opacity-70 blur-3xl">
+            <div className="absolute -left-10 top-12 h-48 w-48 rounded-full bg-project-pink/50" />
+            <div className="absolute bottom-0 right-0 h-60 w-60 rounded-full bg-project-teal/40" />
+          </div>
+
           {/* HERO HEADSHOT */}
           <div className="relative flex items-center justify-center">
             {/* soft glow behind headshot */}
-            <div className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-gradient-to-br from-light/35 via-light-soft/30 to-surface-elevated/35 opacity-90 blur-2xl" />
-            <div className="relative h-64 w-64 md:w-[24rem] md:h-[24rem] overflow-hidden rounded-[2.5rem] p-1 border-4 border-surface-card bg-surface-muted shadow-[0_25px_80px_rgba(0,0,0,0.35)]">
+            <div className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-gradient-to-br from-project-gold/40 via-project-green/35 to-project-teal/35 opacity-90 blur-2xl" />
+            <div className="relative h-64 w-64 overflow-hidden rounded-[2.5rem] border-4 border-white/80 bg-white/95 p-1 shadow-[0_25px_80px_rgba(0,0,0,0.2)] md:h-[24rem] md:w-[24rem]">
               <img
                 src="/src/assets/headshot.jpeg"
                 alt="Tracy Falba headshot"
-                className="h-full w-full object-cover object-top rounded-[1.75rem]"
+                className="h-full w-full rounded-[1.8rem] object-cover object-top"
               />
             </div>
+            <div className="pointer-events-none absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-white/90 px-5 py-2 text-center shadow-xl shadow-project-teal/20">
+              <p className="text-xs font-heading tracking-[0.25em] uppercase text-project-teal">
+                Tracy Falba, Ph.D.
+              </p>
+              <p className="text-xs text-project-orange">
+                Software Engineer · Frontend / Full Stack
+              </p>
+            </div>
           </div>
-          <header className="space-y-4 self-center">
-            <p className="text-xs uppercase tracking-[0.3em] text-text-muted">
+          <header className="relative z-10 space-y-5 self-center rounded-3xl border border-white/60 bg-white/85 p-6 shadow-2xl shadow-project-pink/20">
+            <p className="text-xs uppercase tracking-[0.35em] text-project-orange">
               About me
             </p>
-            <h2 className="text-3xl md:text-4xl font-heading">
+            <h2 className="text-3xl font-heading text-project-teal md:text-4xl">
               Economist turned full-stack product builder
             </h2>
-            <p className="text-base text-text-muted md:text-lg max-w-xl">
+            <p className="text-base text-text md:text-lg">
               I pair a decade of academic research and teaching with modern
               product engineering skills to craft thoughtful, human-centered
               experiences—most recently with React, TypeScript, and Node across
@@ -97,7 +110,7 @@ export const AboutPage: React.FC = () => {
           </article>
 
           {/* Sidebar info blocks */}
-          <aside className="space-y-6 rounded-3xl border border-border bg-surface-muted/80 p-5 shadow-lg shadow-black/5">
+          <aside className="space-y-6 rounded-3xl border border-border bg-gradient-to-br from-surface-muted/95 via-white/85 to-project-teal/10 p-5 shadow-xl shadow-project-teal/20">
             <InfoBlock
               title="Current focus"
               items={[
@@ -106,6 +119,7 @@ export const AboutPage: React.FC = () => {
                 "Product & UX-led roadmaps",
                 "Data and API modeling",
               ]}
+              variant={0}
             />
 
             <InfoBlock
@@ -117,6 +131,7 @@ export const AboutPage: React.FC = () => {
                 "Ph.D. Economics – Stanford University",
                 "B.A. Economics – UC San Diego (summa cum laude)",
               ]}
+              variant={1}
             />
 
             <div>
@@ -135,7 +150,7 @@ export const AboutPage: React.FC = () => {
                 ].map((tool) => (
                   <li
                     key={tool}
-                    className="rounded-full border border-border px-3 py-1 text-text-muted"
+                    className="rounded-full border border-project-teal/40 bg-project-teal/10 px-3 py-1 text-project-teal"
                   >
                     {tool}
                   </li>
@@ -189,7 +204,7 @@ export const AboutPage: React.FC = () => {
           <button
             type="button"
             onClick={() => setShowResume(true)}
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-card/80 px-5 py-2 text-sm font-medium text-text shadow-sm transition hover:border-light hover:text-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-light"
+            className="btn-3d relative inline-flex items-center gap-2 overflow-hidden rounded-full px-6 py-2 text-[0.75rem] font-semibold uppercase tracking-[0.3em]"
           >
             <span className="text-base">📄</span>
             View résumé (full screen)
@@ -244,20 +259,39 @@ export const AboutPage: React.FC = () => {
   );
 };
 
-const InfoBlock = ({ title, items }: { title: string; items: string[] }) => (
-  <div>
-    <h4 className="text-xs font-heading uppercase tracking-[0.3em] text-text-muted">
-      {title}
-    </h4>
-    <ul className="mt-3 space-y-1 text-sm text-text">
-      {items.map((item) => (
-        <li
-          key={item}
-          className="pl-4 text-text-muted before:-ml-4 before:inline-block before:w-4 before:text-light before:content-['•']"
-        >
-          {item}
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const INFO_ACCENTS = [
+  "border-project-gold/40 bg-gradient-to-br from-project-gold/25 via-white/90 to-project-orange/20 shadow-project-gold/30",
+  "border-project-teal/40 bg-gradient-to-br from-project-teal/25 via-white/85 to-project-green/20 shadow-project-teal/30",
+  "border-project-pink/40 bg-gradient-to-br from-project-pink/25 via-white/90 to-project-gold/15 shadow-project-pink/30",
+];
+
+const InfoBlock = ({
+  title,
+  items,
+  variant = 0,
+}: {
+  title: string;
+  items: string[];
+  variant?: number;
+}) => {
+  const accent =
+    INFO_ACCENTS[variant % INFO_ACCENTS.length] ?? INFO_ACCENTS[0];
+
+  return (
+    <div className={`rounded-3xl border px-5 py-4 shadow-lg ${accent}`}>
+      <h4 className="text-xs font-heading uppercase tracking-[0.3em] text-project-orange">
+        {title}
+      </h4>
+      <ul className="mt-3 space-y-1 text-sm text-text">
+        {items.map((item) => (
+          <li
+            key={item}
+            className="pl-4 text-text before:-ml-4 before:inline-block before:w-4 before:text-project-teal before:content-['•']"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
