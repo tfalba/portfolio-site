@@ -46,12 +46,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
           type="button"
           onClick={() => onExpand?.(current, currentPhone)}
           aria-label="Expand screenshot"
-          className="block h-64 w-full cursor-zoom-in bg-transparent p-0 md:h-[25rem]"
+          className="block h-min w-full cursor-zoom-in bg-transparent p-0"
         >
           <img
             src={current?.src}
             alt={current?.alt}
-            className="h-full w-full object-contain"
+            className="h-full w-full object-cover"
           />
         </button>
 

@@ -82,6 +82,18 @@ const heroProjects: ProjectHighlight[] = projects.map((project) => {
 });
 
 export const PortfolioPage: React.FC = () => {
+  const [spotlightIndex, setSpotlightIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(
+      () => setSpotlightIndex((prev) => (prev + 1) % heroProjects.length),
+      6000,
+    );
+    return () => clearInterval(timer);
+  }, []);
+
+  const spotlightProject = heroProjects[spotlightIndex];
+
   return (
     <div className="space-y-24">
       <section id="hero" className="section-shell overflow-hidden scroll-mt-32">
@@ -159,28 +171,74 @@ export const PortfolioPage: React.FC = () => {
             <p className="text-xs uppercase tracking-[0.25em] text-white/60">
               Spotlight
             </p>
-            <div className="mt-4 grid gap-6">
-              {heroProjects.slice(0, 2).map((project) => (
+            <div className="mt-4 overflow-hidden">
+              <div className="transition-all duration-500">
                 <a
-                  key={project.id}
-                  href={`#project-${project.id}`}
+                  key={spotlightProject.id}
+                  href={`#project-${spotlightProject.id}`}
                   className="project-card block border-brand-ocean/60 scroll-mt-32 transition hover:-translate-y-1"
                 >
                   <div
                     className="project-card__media m-6"
                     style={{
-                      backgroundImage: `url(${project.previewSrc})`,
+                      backgroundImage: `url(${spotlightProject.previewSrc})`,
                     }}
                   />
-                  <div className="space-y-2 px-5 py-4 flex flex-col">
-                    <p className="pill-link inline-flex bg-white/15 ml-auto">
-                      {project.role ?? "Lead Engineer"}
+                  <div className="flex flex-col space-y-2 px-5 py-4">
+                    <p className="pill-link ml-auto inline-flex bg-white/15">
+                      {spotlightProject.role ?? "Lead Engineer"}
                     </p>
-                    <h3 className="project-card__title">{project.name}</h3>
-                    <p className="text-sm text-white/70">{project.summary}</p>
+                    <h3 className="project-card__title">
+                      {spotlightProject.name}
+                    </h3>
+                    <p className="text-sm text-white/70">
+                      {spotlightProject.summary}
+                    </p>
                   </div>
                 </a>
-              ))}
+              </div>
+
+              <div className="mt-4 flex items-center justify-between">
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSpotlightIndex(
+                        (spotlightIndex - 1 + heroProjects.length) %
+                          heroProjects.length
+                      )
+                    }
+                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setSpotlightIndex(
+                        (spotlightIndex + 1) % heroProjects.length
+                      )
+                    }
+                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
+                  >
+                    ›
+                  </button>
+                </div>
+                <div className="flex gap-2">
+                  {heroProjects.map((project, index) => (
+                    <button
+                      key={`${project.id}-spotlight-dot`}
+                      onClick={() => setSpotlightIndex(index)}
+                      className={`h-2.5 w-2.5 rounded-full transition ${
+                        index === spotlightIndex
+                          ? "bg-brand-ember/80"
+                          : "bg-white/30 hover:bg-white/60"
+                      }`}
+                      aria-label={`Show ${project.name}`}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -542,11 +600,11 @@ const ScreenshotModal: React.FC<{
 
   return createPortal(
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4 py-6"
+      className="fixed inset-0 z-50 flex items-start overflow-y-scroll justify-center bg-black/85 px-4 py-6"
       onClick={onClose}
     >
       <div
-        className="relative flex h-full w-full flex-col gap-6 rounded-3xl border border-white/20 bg-brand-ink/95 p-6 text-white shadow-[0_45px_140px_rgba(0,0,0,0.6)]"
+        className="relative flex h-auto w-full flex-col gap-6 rounded-3xl border border-white/20 bg-brand-ink/95 p-6 text-white shadow-[0_45px_140px_rgba(0,0,0,0.6)]"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -556,7 +614,7 @@ const ScreenshotModal: React.FC<{
         >
           Close
         </button>
-        <div className="flex flex-1 flex-col gap-6 overflow-y-auto pt-10 pr-2 md:flex-row">
+        <div className="flex flex-1 flex-col gap-6 overflow-y-auto pt-10 pr-2 lg:flex-row">
           {currentDesktop?.src && (
             <div className="relative flex-1 rounded-2xl border border-white/20 bg-black/30 p-4">
               <img
@@ -568,7 +626,7 @@ const ScreenshotModal: React.FC<{
             </div>
           )}
           {currentPhone?.src && (
-            <div className="mx-auto w-full max-w-xs rounded-2xl border border-white/20 bg-black/30 p-4">
+            <div className="mx-auto w-full h-min max-w-[calc(max(20vw,20rem))] rounded-2xl border border-white/20 bg-black/30 p-4">
               <img
                 src={currentPhone.src}
                 alt={currentPhone.alt ?? "Mobile screenshot"}
