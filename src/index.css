@@ -75,7 +75,9 @@
 
   .project-card__media {
     @apply relative overflow-hidden rounded-[1.6rem];
-    min-height: 220px;
+    /* min-height: 220px; */
+    aspect-ratio: 3 / 2;
+    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     filter: saturate(0.85);

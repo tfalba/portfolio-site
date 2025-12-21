@@ -89,7 +89,7 @@ export const PortfolioPage: React.FC = () => {
           <div className="space-y-6">
             <span className="chip">Tracy Falba, Ph.D.</span>
             <div className="space-y-4">
-              <h1 className="text-4xl font-heading text-white md:text-5xl">
+              <h1 className="text-3xl font-heading text-white lg:text-[2.5rem] leading-snug">
                 Economist turned product-focused software engineer.
               </h1>
               <p className="text-lg text-white/75">
@@ -125,18 +125,18 @@ export const PortfolioPage: React.FC = () => {
                 Download Résumé
               </a>
             </div>
-            <div className="flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row sm:items-center">
-              <div className="h-28 w-28 overflow-hidden rounded-2xl border border-white/20">
+            <div className="flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center">
+              <div className="h-[12rem] w-[12rem] md:h-[7rem] md:w-[7rem] lg:h-[10rem] lg:w-[10rem] min-w-max overflow-hidden rounded-2xl border border-white/20">
                 <img
                   src={headshotUrl}
                   alt="Tracy Falba headshot"
                   className="h-full w-full object-cover object-top"
                 />
               </div>
-              <p className="text-sm text-white/80">
+              <div className="text-sm lg:text-base text-white/80">
                 “I care deeply about products that respect people’s time. I
                 design with empathy, prototype quickly, and ship with polish.”
-              </p>
+              </div>
             </div>
             <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {heroStats.map((stat) => (
@@ -161,28 +161,32 @@ export const PortfolioPage: React.FC = () => {
             </p>
             <div className="mt-4 grid gap-6">
               {heroProjects.slice(0, 2).map((project) => (
-                <article key={project.id} className="project-card">
+                <a
+                  key={project.id}
+                  href={`#project-${project.id}`}
+                  className="project-card block border-brand-ocean/60 scroll-mt-32 transition hover:-translate-y-1"
+                >
                   <div
-                    className="project-card__media"
+                    className="project-card__media m-6"
                     style={{
                       backgroundImage: `url(${project.previewSrc})`,
                     }}
                   />
-                  <div className="space-y-2 px-5 py-4">
-                    <p className="pill-link inline-flex bg-white/15">
+                  <div className="space-y-2 px-5 py-4 flex flex-col">
+                    <p className="pill-link inline-flex bg-white/15 ml-auto">
                       {project.role ?? "Lead Engineer"}
                     </p>
                     <h3 className="project-card__title">{project.name}</h3>
                     <p className="text-sm text-white/70">{project.summary}</p>
                   </div>
-                </article>
+                </a>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="projects" className="space-y-10 section-shell scroll-mt-32">
+      <section id="projects" className="space-y-10 section-shell bg-brand-ink/20 border-white/30 scroll-mt-32">
         <div className="flex flex-col gap-3">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Selected Work
@@ -198,7 +202,7 @@ export const PortfolioPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:gap-10 lg:grid-cols-2">
+        <div className="grid gap-5 sm:gap-10 lg:row-gap-12 lg:grid-cols-2">
           {heroProjects.map((project, index) => (
             <ProjectCard project={project} index={index} key={project.id} />
           ))}
@@ -294,7 +298,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
   const [activeTab, setActiveTab] = useState<"narrative" | "impact">(
     "narrative"
   );
-  const [detailsOpen, setDetailsOpen] = useState(true);
+  const [detailsOpen, setDetailsOpen] = useState(false);
   const [isPreviewOpen, setPreviewOpen] = useState(false);
   const [previewDesktop, setPreviewDesktop] = useState<
     CarouselImage | undefined
@@ -314,8 +318,12 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
   const howBuilt = project.details?.howBuilt ?? [];
 
   return (
-    <article className="project-card overflow-hidden space-y-5 p-4 sm:p-6 bg-black/80 border border-brand-ocean/40 ">
-      <header className="space-y-4 px-2 sm:px-4 pb-4">
+    <article
+      id={`project-${project.id}`}
+      className="project-card overflow-hidden space-y-5 p-4 sm:p-6 scroll-mt-32
+      border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)]"
+    >
+      <header className="space-y-4 px-4 pb-4">
         <div className="flex items-center justify-between text-[0.65rem] uppercase tracking-[0.35em] text-white/50">
           <span>0{index + 1}</span>
           <span>{project.role ?? "Lead Engineer"}</span>
@@ -347,7 +355,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
         />
       </div>
 
-      <div className="space-y-4 px-2 sm:px-4">
+      <div className="space-y-4 px-4">
         <button
           type="button"
           onClick={() => setDetailsOpen((prev) => !prev)}
@@ -476,8 +484,10 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
 
       {isPreviewOpen && (
         <ScreenshotModal
-          desktop={previewDesktop}
-          phone={previewPhone}
+          desktopImages={project.images}
+          phoneImages={project.imagesPhone}
+          initialDesktop={previewDesktop}
+          initialPhone={previewPhone}
           onClose={() => setPreviewOpen(false)}
         />
       )}
@@ -486,10 +496,24 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
 };
 
 const ScreenshotModal: React.FC<{
-  desktop?: CarouselImage;
-  phone?: CarouselImage;
+  desktopImages: CarouselImage[];
+  phoneImages?: CarouselImage[];
+  initialDesktop?: CarouselImage;
+  initialPhone?: CarouselImage;
   onClose: () => void;
-}> = ({ desktop, phone, onClose }) => {
+}> = ({ desktopImages, phoneImages = [], initialDesktop, initialPhone, onClose }) => {
+  const initialIndex = initialDesktop
+    ? desktopImages.findIndex((img) => img?.src === initialDesktop.src)
+    : 0;
+  const [desktopIndex, setDesktopIndex] = useState(
+    initialIndex >= 0 ? initialIndex : 0,
+  );
+  const [phoneIndex, setPhoneIndex] = useState(
+    initialPhone
+      ? phoneImages.findIndex((img) => img?.src === initialPhone.src)
+      : 0,
+  );
+
   useEffect(() => {
     const original = document.body.style.overflow;
     document.body.style.overflow = "hidden";
@@ -497,6 +521,24 @@ const ScreenshotModal: React.FC<{
       document.body.style.overflow = original;
     };
   }, []);
+
+  const currentDesktop = desktopImages[desktopIndex];
+  const currentPhone =
+    phoneImages.length > 0 ? phoneImages[phoneIndex] : undefined;
+
+  const handlePrev = () => {
+    setDesktopIndex((prev) => (prev - 1 + desktopImages.length) % desktopImages.length);
+    if (phoneImages.length > 0) {
+      setPhoneIndex((prev) => (prev - 1 + phoneImages.length) % phoneImages.length);
+    }
+  };
+
+  const handleNext = () => {
+    setDesktopIndex((prev) => (prev + 1) % desktopImages.length);
+    if (phoneImages.length > 0) {
+      setPhoneIndex((prev) => (prev + 1) % phoneImages.length);
+    }
+  };
 
   return createPortal(
     <div
@@ -514,25 +556,60 @@ const ScreenshotModal: React.FC<{
         >
           Close
         </button>
-        <div className="flex flex-1 flex-col md:flex-row gap-6 space-y-4 overflow-y-auto pt-6 pr-2">
-          {desktop?.src && (
-            <div className="rounded-2xl flex-[4] border border-white/20 bg-black/30 p-4">
+        <div className="flex flex-1 flex-col gap-6 overflow-y-auto pt-10 pr-2 md:flex-row">
+          {currentDesktop?.src && (
+            <div className="relative flex-1 rounded-2xl border border-white/20 bg-black/30 p-4">
               <img
-                src={desktop.src}
-                alt={desktop.alt ?? "Desktop screenshot"}
-                className="w-full h-full rounded-xl object-contain"
+                src={currentDesktop.src}
+                alt={currentDesktop.alt ?? "Desktop screenshot"}
+                className="h-full w-full rounded-xl object-contain"
+              />
+            
+            </div>
+          )}
+          {currentPhone?.src && (
+            <div className="mx-auto w-full max-w-xs rounded-2xl border border-white/20 bg-black/30 p-4">
+              <img
+                src={currentPhone.src}
+                alt={currentPhone.alt ?? "Mobile screenshot"}
+                className="h-full w-full rounded-xl object-contain"
               />
             </div>
           )}
-          {phone?.src && (
-            <div className="rounded-2xl flex-1 w-full max-w-sm self-center border border-white/20 bg-black/30 p-4">
-              <img
-                src={phone.src}
-                alt={phone.alt ?? "Mobile screenshot"}
-                className="w-full h-full rounded-xl object-contain"
-              />
-            </div>
-          )}
+            <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handlePrev();
+                }}
+                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white transition hover:bg-white/40"
+              >
+                ‹
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleNext();
+                }}
+                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white transition hover:bg-white/40"
+              >
+                ›
+              </button>
+        </div>
+        <div className="flex items-center justify-center gap-2 text-xs text-white/60">
+          {desktopImages.map((_, i) => (
+            <button
+              key={`desktop-dot-${i}`}
+              onClick={() => setDesktopIndex(i)}
+              className={`h-2.5 w-2.5 rounded-full transition ${
+                i === desktopIndex
+                  ? "bg-brand-ember/70 hover:bg-brand-ember/90"
+                  : "bg-white/30 hover:bg-white/60"
+              }`}
+              aria-label={`Desktop slide ${i + 1}`}
+            />
+          ))}
         </div>
       </div>
     </div>,
