@@ -87,7 +87,7 @@ export const PortfolioPage: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(
       () => setSpotlightIndex((prev) => (prev + 1) % heroProjects.length),
-      6000,
+      6000
     );
     return () => clearInterval(timer);
   }, []);
@@ -244,7 +244,10 @@ export const PortfolioPage: React.FC = () => {
         </div>
       </section>
 
-      <section id="projects" className="space-y-10 section-shell bg-brand-ink/20 border-white/30 scroll-mt-32">
+      <section
+        id="projects"
+        className="space-y-10 section-shell bg-brand-ink/20 border-white/30 scroll-mt-32"
+      >
         <div className="flex flex-col gap-3">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Selected Work
@@ -378,148 +381,143 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
   return (
     <article
       id={`project-${project.id}`}
-      className="project-card overflow-hidden space-y-5 p-4 sm:p-6 scroll-mt-32
-      border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)]"
+      className="project-card flex h-full flex-col border border-white/15 bg-white/5 p-4 sm:p-6 shadow-[0_25px_80px_rgba(0,0,0,0.45)] scroll-mt-32"
     >
-      <header className="space-y-4 px-4 pb-4">
-        <div className="flex items-center justify-between text-[0.65rem] uppercase tracking-[0.35em] text-white/50">
-          <span>0{index + 1}</span>
-          <span>{project.role ?? "Lead Engineer"}</span>
-        </div>
-        <h3 className="text-2xl font-heading text-white">{project.name}</h3>
-        <p className="text-sm text-white/70">{project.summary}</p>
-        <div className="flex flex-wrap gap-2 text-xs">
-          <span className="pill-link bg-brand-ocean/80">{primaryTag}</span>
-          {additionalTags.map((stack) => (
-            <span
-              key={`${project.id}-${stack}`}
-              className="rounded-full border border-white/15 px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em] text-white/60"
-            >
-              {stack}
-            </span>
-          ))}
-        </div>
-      </header>
-      <div className="rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner shadow-black/40">
-        <ImageCarousel
-          images={project.images}
-          imagesPhone={project.imagesPhone}
-          onExpand={(desktop, phone) => {
-            if (!desktop && !phone) return;
-            setPreviewDesktop(desktop);
-            setPreviewPhone(phone);
-            setPreviewOpen(true);
-          }}
-        />
-      </div>
-
-      <div className="space-y-4 px-4">
-        <button
-          type="button"
-          onClick={() => setDetailsOpen((prev) => !prev)}
-          className={`flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
-            detailsOpen ? "hidden" : ""
-          }`}
-        >
-          <span
-            className={`text-brand-ocean/80 ${detailsOpen ? "hidden" : ""}`}
-          >
-            Project Details
-          </span>
-          <span className="text-base">{detailsOpen ? null : "+"}</span>
-        </button>
-
-        {detailsOpen && (
-          <>
-            <div className="flex gap-2">
-              {[
-                { id: "narrative", label: "Product Narrative" },
-                { id: "impact", label: "Impact & Build" },
-              ].map((tab) => (
-                <button
-                  key={tab.id}
-                  type="button"
-                  onClick={() => setActiveTab(tab.id as "narrative" | "impact")}
-                  className={`rounded-full border px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.3em] transition ${
-                    activeTab === tab.id
-                      ? "border-transparent text-brand-gold shadow-[0_5px_10px_rgba(244,179,36,0.45)] bg-white/10"
-                      : "border-white/10 text-white/60 hover:border-white/40"
-                  }`}
-                >
-                  {tab.label}
-                </button>
-              ))}
-              <button
-                type="button"
-                onClick={() => setDetailsOpen((prev) => !prev)}
-                className="flex w-min items-center justify-end ml-auto rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70"
+      <div className="flex flex-1 flex-col gap-4">
+        <header className="space-y-4 px-4 pb-2">
+          <h3 className="text-2xl font-heading text-white">{project.name}</h3>
+          <p className="text-sm text-white/70">{project.summary}</p>
+          <div className="flex flex-wrap gap-2 text-xs">
+            <span className="pill-link bg-brand-ocean/80">{primaryTag}</span>
+            {additionalTags.map((stack) => (
+              <span
+                key={`${project.id}-${stack}`}
+                className="rounded-full border border-white/15 px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em] text-white/60"
               >
-                <span className="text-base">{"-"}</span>
-              </button>
-            </div>
-            {activeTab === "narrative" ? (
-              <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/40">
-                <p className="text-sm text-white/80">
-                  {project.description?.overview ?? project.details?.summary}
-                </p>
-                {descriptionSteps.length > 0 && (
-                  <ol className="list-decimal space-y-1 pl-5 text-xs text-white/70">
-                    {descriptionSteps.map((step) => (
-                      <li key={`${project.id}-step-${step}`}>{step}</li>
-                    ))}
-                  </ol>
-                )}
+                {stack}
+              </span>
+            ))}
+          </div>
+        </header>
+        <div className="rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner shadow-black/40">
+          <ImageCarousel
+            images={project.images}
+            imagesPhone={project.imagesPhone}
+            onExpand={(desktop, phone) => {
+              if (!desktop && !phone) return;
+              setPreviewDesktop(desktop);
+              setPreviewPhone(phone);
+              setPreviewOpen(true);
+            }}
+          />
+        </div>
+
+        <div className="space-y-4 px-4">
+          <button
+            type="button"
+            onClick={() => setDetailsOpen((prev) => !prev)}
+            className={`flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
+              detailsOpen ? "shadow-lg shadow-black/40" : ""
+            }`}
+          >
+            <span className={`text-brand-ocean/80`}>Project Details</span>
+            <span className="text-base">{detailsOpen ? "-" : "+"}</span>
+          </button>
+
+          {detailsOpen && (
+            <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/40">
+              <div className="flex gap-2">
+                {[
+                  { id: "narrative", label: "Product Narrative" },
+                  { id: "impact", label: "Impact & Build" },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    type="button"
+                    onClick={() =>
+                      setActiveTab(tab.id as "narrative" | "impact")
+                    }
+                    className={`rounded-full border px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.3em] transition ${
+                      activeTab === tab.id
+                        ? "border-transparent text-brand-gold shadow-[0_5px_10px_rgba(244,179,36,0.45)] bg-white/10"
+                        : "border-white/10 text-white/60 hover:border-white/40"
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+                {/* <button
+                  type="button"
+                  onClick={() => setDetailsOpen((prev) => !prev)}
+                  className="ml-auto flex w-min items-center justify-end rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70"
+                >
+                  <span className="text-base">{"-"}</span>
+                </button> */}
               </div>
-            ) : (
-              <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/40">
-                {project.details?.summary && (
+              {activeTab === "narrative" ? (
+                <div>
                   <p className="text-sm text-white/80">
-                    {project.details.summary}
+                    {project.description?.overview ?? project.details?.summary}
                   </p>
-                )}
-                {keyFeatures.length > 0 && (
-                  <div>
-                    <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
-                      Key features
-                    </p>
-                    <ul className="mt-2 space-y-1 text-xs text-white/75">
-                      {keyFeatures.map((feature) => (
-                        <li
-                          key={`${project.id}-feature-${feature}`}
-                          className="flex gap-2"
-                        >
-                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ember/80" />
-                          <span>{feature}</span>
-                        </li>
+                  {descriptionSteps.length > 0 && (
+                    <ol className="list-decimal space-y-1 pl-5 text-xs text-white/70">
+                      {descriptionSteps.map((step) => (
+                        <li key={`${project.id}-step-${step}`}>{step}</li>
                       ))}
-                    </ul>
-                  </div>
-                )}
-                {howBuilt.length > 0 && (
-                  <div>
-                    <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
-                      How it was built
+                    </ol>
+                  )}
+                </div>
+              ) : (
+                <div>
+                  {project.details?.summary && (
+                    <p className="text-sm text-white/80">
+                      {project.details.summary}
                     </p>
-                    <ul className="mt-2 space-y-1 text-xs text-white/75">
-                      {howBuilt.map((item) => (
-                        <li
-                          key={`${project.id}-how-${item}`}
-                          className="flex gap-2"
-                        >
-                          <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ocean/80" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            )}
-          </>
-        )}
+                  )}
+                  {keyFeatures.length > 0 && (
+                    <div>
+                      <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
+                        Key features
+                      </p>
+                      <ul className="mt-2 space-y-1 text-xs text-white/75">
+                        {keyFeatures.map((feature) => (
+                          <li
+                            key={`${project.id}-feature-${feature}`}
+                            className="flex gap-2"
+                          >
+                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ember/80" />
+                            <span>{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {howBuilt.length > 0 && (
+                    <div>
+                      <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
+                        How it was built
+                      </p>
+                      <ul className="mt-2 space-y-1 text-xs text-white/75">
+                        {howBuilt.map((item) => (
+                          <li
+                            key={`${project.id}-how-${item}`}
+                            className="flex gap-2"
+                          >
+                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ocean/80" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
-      <div className="flex flex-wrap gap-3 px-2 text-sm sm:px-4">
+      <div className="mt-auto flex flex-wrap items-center justify-end gap-3 px-4 py-4 text-sm sm:px-6">
         {project.liveUrl && (
           <a
             href={project.liveUrl}
@@ -559,17 +557,23 @@ const ScreenshotModal: React.FC<{
   initialDesktop?: CarouselImage;
   initialPhone?: CarouselImage;
   onClose: () => void;
-}> = ({ desktopImages, phoneImages = [], initialDesktop, initialPhone, onClose }) => {
+}> = ({
+  desktopImages,
+  phoneImages = [],
+  initialDesktop,
+  initialPhone,
+  onClose,
+}) => {
   const initialIndex = initialDesktop
     ? desktopImages.findIndex((img) => img?.src === initialDesktop.src)
     : 0;
   const [desktopIndex, setDesktopIndex] = useState(
-    initialIndex >= 0 ? initialIndex : 0,
+    initialIndex >= 0 ? initialIndex : 0
   );
   const [phoneIndex, setPhoneIndex] = useState(
     initialPhone
       ? phoneImages.findIndex((img) => img?.src === initialPhone.src)
-      : 0,
+      : 0
   );
 
   useEffect(() => {
@@ -585,9 +589,13 @@ const ScreenshotModal: React.FC<{
     phoneImages.length > 0 ? phoneImages[phoneIndex] : undefined;
 
   const handlePrev = () => {
-    setDesktopIndex((prev) => (prev - 1 + desktopImages.length) % desktopImages.length);
+    setDesktopIndex(
+      (prev) => (prev - 1 + desktopImages.length) % desktopImages.length
+    );
     if (phoneImages.length > 0) {
-      setPhoneIndex((prev) => (prev - 1 + phoneImages.length) % phoneImages.length);
+      setPhoneIndex(
+        (prev) => (prev - 1 + phoneImages.length) % phoneImages.length
+      );
     }
   };
 
@@ -622,7 +630,6 @@ const ScreenshotModal: React.FC<{
                 alt={currentDesktop.alt ?? "Desktop screenshot"}
                 className="h-full w-full rounded-xl object-contain"
               />
-            
             </div>
           )}
           {currentPhone?.src && (
@@ -634,26 +641,26 @@ const ScreenshotModal: React.FC<{
               />
             </div>
           )}
-            <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handlePrev();
-                }}
-                className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white transition hover:bg-white/40"
-              >
-                ‹
-              </button>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleNext();
-                }}
-                className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white transition hover:bg-white/40"
-              >
-                ›
-              </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlePrev();
+            }}
+            className="absolute left-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white transition hover:bg-white/40"
+          >
+            ‹
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleNext();
+            }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-white/10 px-3 py-1 text-sm text-white transition hover:bg-white/40"
+          >
+            ›
+          </button>
         </div>
         <div className="flex items-center justify-center gap-2 text-xs text-white/60">
           {desktopImages.map((_, i) => (
