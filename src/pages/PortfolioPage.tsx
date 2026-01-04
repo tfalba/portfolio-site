@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import type { Project } from "../components/ProjectSection";
 import { ImageCarousel, type CarouselImage } from "../components/ImageCarousel";
-import { projects } from "../data/projectData";
+import { projects, type Project } from "../data/projectData";
 
 const headshotUrl = new URL("../assets/headshot.jpeg", import.meta.url).href;
 const resumePdf = new URL(
@@ -475,7 +474,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
                     </p>
                   )}
                   {keyFeatures.length > 0 && (
-                    <div>
+                    <div className="mt-4">
                       <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
                         Key features
                       </p>
@@ -493,7 +492,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
                     </div>
                   )}
                   {howBuilt.length > 0 && (
-                    <div>
+                    <div className="mt-4">
                       <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
                         How it was built
                       </p>
