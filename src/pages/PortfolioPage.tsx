@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { ImageCarousel, type CarouselImage } from "../components/ImageCarousel";
+import bioQuotes from "../data/bioQuotes";
 import { projects, type Project } from "../data/projectData";
-
-const headshotUrl = new URL("../assets/headshot.jpeg", import.meta.url).href;
 const resumePdf = new URL(
   "../assets/Tracy Falba Resume Oct 2025.pdf",
   import.meta.url
@@ -82,16 +81,27 @@ const heroProjects: ProjectHighlight[] = projects.map((project) => {
 
 export const PortfolioPage: React.FC = () => {
   const [spotlightIndex, setSpotlightIndex] = useState(0);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [bioQuoteIndex, setBioQuoteIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(
       () => setSpotlightIndex((prev) => (prev + 1) % heroProjects.length),
-      6000
+      9000
+    );
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(
+      () => setBioQuoteIndex((prev) => (prev + 1) % bioQuotes.length),
+      7000
     );
     return () => clearInterval(timer);
   }, []);
 
   const spotlightProject = heroProjects[spotlightIndex];
+  const bioQuote = bioQuotes[bioQuoteIndex];
 
   return (
     <div className="space-y-24">
@@ -110,45 +120,49 @@ export const PortfolioPage: React.FC = () => {
                 warm, useful, and human.
               </p>
             </div>
-            <div className="flex flex-wrap gap-3">
-              <a href="#projects" className="cta-link">
-                Explore Projects
-              </a>
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-brand-ember px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-ember hover:text-brand-ink"
-              >
-                Connect
-              </a>
-              <a
-                href={resumePdf}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
-              >
-                View Résumé
-              </a>
-              <a
-                href={resumePdf}
-                download
-                className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
-              >
-                Download Résumé
-              </a>
-            </div>
-            <div className="flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center">
+            
+            <div className="flex gap-3 space-between" >
+            <div
+              key={bioQuote.id}
+              className="max-w-[26rem] flex-1 flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center transition-opacity duration-700"
+            >
               <div className="h-[12rem] w-[12rem] md:h-[7rem] md:w-[7rem] lg:h-[10rem] lg:w-[10rem] min-w-max overflow-hidden rounded-2xl border border-white/20">
                 <img
-                  src={headshotUrl}
-                  alt="Tracy Falba headshot"
+                  src={bioQuote.image}
+                  alt={bioQuote.author ?? "Tracy Falba headshot"}
                   className="h-full w-full object-cover object-top"
                 />
               </div>
               <div className="text-sm lg:text-base text-white/80">
-                “I care deeply about products that respect people’s time. I
-                design with empathy, prototype quickly, and ship with polish.”
+                “{bioQuote.quote}”
               </div>
             </div>
+            <div className="flex flex-[.8] flex-col gap-3">
+              <a href="#projects" className="cta-link">
+                Explore Projects
+              </a>
+              <a
+                href="#story"
+                className="inline-flex items-center text-sm gap-2 rounded-full bg-brand-gold/5 border border-brand-gold px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-gold hover:text-brand-ink"
+              >
+                My Story
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center text-sm gap-2 rounded-full bg-ember/5 border border-brand-ember px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-ember hover:text-brand-ink"
+              >
+                Connect
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsResumeOpen(true)}
+                className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
+              >
+                View Résumé
+              </button>
+            </div>
+            </div>
+
             <div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {heroStats.map((stat) => (
                 <div
@@ -277,9 +291,18 @@ export const PortfolioPage: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Story & craft
           </p>
-          <h2 className="text-3xl font-heading text-white">
-            Research roots, product instincts
-          </h2>
+          <div className="flex gap-6">
+            <h2 className="text-3xl font-heading text-white">
+              Research roots, product instincts
+            </h2>
+            <button
+              type="button"
+              onClick={() => setIsResumeOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
+            >
+              View Résumé
+            </button>
+          </div>
         </div>
         <div className="grid gap-8 md:grid-cols-2">
           {aboutNarrative.map((paragraph) => (
@@ -309,8 +332,8 @@ export const PortfolioPage: React.FC = () => {
                 ))}
               </ul>
             </div>
-          ))}
-        </div>
+            ))}
+          </div>
       </section>
 
       <section
@@ -347,7 +370,66 @@ export const PortfolioPage: React.FC = () => {
           ))}
         </div>
       </section>
+      {isResumeOpen && (
+        <ResumeModal
+          resumeUrl={resumePdf}
+          onClose={() => setIsResumeOpen(false)}
+        />
+      )}
     </div>
+  );
+};
+
+const ResumeModal: React.FC<{ resumeUrl: string; onClose: () => void }> = ({
+  resumeUrl,
+  onClose,
+}) => {
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = original;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
+
+  return createPortal(
+    <div
+      className="fixed inset-0 z-50 flex items-start justify-center bg-black/85 px-4 py-6"
+      onClick={onClose}
+    >
+      <div
+        className="relative flex w-full max-w-5xl flex-col gap-4 rounded-3xl border border-white/20 bg-brand-ink/95 p-6 text-white shadow-[0_45px_140px_rgba(0,0,0,0.6)]"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-xs uppercase tracking-[0.35em] text-white/60">
+            Resume
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full border border-white/40 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70 transition hover:border-white hover:text-white"
+          >
+            Close
+          </button>
+        </div>
+        <div className="h-[75vh] overflow-hidden rounded-2xl border border-white/15 bg-black/30">
+          <iframe
+            title="Resume PDF"
+            src={resumeUrl}
+            className="h-full w-full"
+          />
+        </div>
+      </div>
+    </div>,
+    document.body
   );
 };
 
@@ -411,12 +493,13 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
           />
         </div>
 
-        <div className="space-y-4 px-4">
+        {/* <div className="space-y-4 px-4"> */}
+        <div>
           <button
             type="button"
             onClick={() => setDetailsOpen((prev) => !prev)}
-            className={`flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
-              detailsOpen ? "shadow-lg shadow-black/40" : ""
+            className={`flex w-full items-center justify-between border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
+              detailsOpen ? "shadow-lg shadow-black/40 rounded-t-2xl" : "rounded-2xl"
             }`}
           >
             <span className={`text-brand-ocean/80`}>Project Details</span>
@@ -424,8 +507,8 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
           </button>
 
           {detailsOpen && (
-            <div className="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/40">
-              <div className="flex gap-2">
+            <div className="space-y-3 -mt-2 rounded-b-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/40">
+              <div className="flex gap-2 mt-4">
                 {[
                   { id: "narrative", label: "Product Narrative" },
                   { id: "impact", label: "Impact & Build" },
@@ -459,7 +542,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
                     {project.description?.overview ?? project.details?.summary}
                   </p>
                   {descriptionSteps.length > 0 && (
-                    <ol className="list-decimal space-y-1 pl-5 text-xs text-white/70">
+                    <ol className="mt-2 px-8 list-decimal space-y-2 text-xs text-white/70">
                       {descriptionSteps.map((step) => (
                         <li key={`${project.id}-step-${step}`}>{step}</li>
                       ))}

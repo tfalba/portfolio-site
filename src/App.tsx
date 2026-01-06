@@ -5,7 +5,7 @@ const navLinks = [
   { href: "#hero", label: "Overview" },
   { href: "#projects", label: "Projects" },
   { href: "#story", label: "Story" },
-  { href: "#contact", label: "Connect" },
+  // { href: "#contact", label: "Connect" },
 ];
 
 const App: React.FC = () => {
