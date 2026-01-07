@@ -1,7 +1,32 @@
-import type { Project } from "../components/ProjectSection";
+import type { CarouselImage } from "../components/ImageCarousel";
 import { imageSets } from "./imageSets";
 
-const { topKnot, colorMyMusic, casinoGames, puzzleQuest, partyGames, castlesHearts } =
+type ProjectDescription = {
+  overview: string;
+  steps: string[];
+};
+
+type ProjectDetails = {
+  summary: string;
+  keyFeatures: string[];
+  howBuilt: string[];
+};
+
+export type Project = {
+  id: string;
+  name: string;
+  role?: string;
+  techStack?: string;
+  summary: string;
+  description: ProjectDescription;
+  details: ProjectDetails;
+  liveUrl: string;
+  githubUrl: string;
+  images: CarouselImage[];
+  imagesPhone: CarouselImage[];
+};
+
+const { topKnot, colorMyMusic, casinoGames, puzzleQuest, partyGames, castlesHearts, karaokeNight } =
   imageSets;
 
 export const projects: Project[] = [
@@ -145,14 +170,14 @@ export const projects: Project[] = [
         "Tooling leans on the Vite + ESLint template with strict TypeScript settings and hot module reload.",
       ],
     },
-    liveUrl: "https://puzzle-game-3ity.vercel.app/",
+    liveUrl: "https://puzzle-game-blue.vercel.app/",
     githubUrl: "https://github.com/tfalba/puzzle-game",
     images: puzzleQuest.desktop,
     imagesPhone: puzzleQuest.phone,
   },
   {
     id: "5",
-    name: "Charades Party Game",
+    name: "Charades",
     role: "design, front-end, back-end",
     techStack:
       "React 18, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",
@@ -187,7 +212,7 @@ export const projects: Project[] = [
     images: partyGames.desktop,
     imagesPhone: partyGames.phone,
   },
-   {
+  {
     id: "6",
     name: "Castles & Heaerts",
     role: "design, front-end, back-end",
@@ -223,5 +248,45 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/tfalba/ch-initial",
     images: castlesHearts.desktop,
     imagesPhone: castlesHearts.phone,
+  },
+  {
+    id: "7",
+    name: "Karaoke Night",
+    role: "design, front-end, back-end",
+    techStack:
+      "React, TypeScript, Vite, Tailwind CSS, YouTube Data API, react-youtube",
+    summary:
+      "A club-mode karaoke queue that auto-finds YouTube karaoke versions, rotates singers fairly, and tracks the session in local storage.",
+    description: {
+      overview:
+        "Karaoke Night turns a shared queue into a smooth, fair rotation by combining YouTube search, karaoke-focused scoring, and a lightweight local state machine.",
+      steps: [
+        "Pick one or more singers and enter a song request.",
+        "Search YouTube for a karaoke version and score candidates by keywords, channel reputation, and view counts.",
+        "Add the best match to the queue with singer metadata and avatars.",
+        "Advance to the next singer using weighted rotation that avoids repeats when possible.",
+        "Persist the queue and now-playing state until the party is reset.",
+      ],
+    },
+    details: {
+      summary:
+        "Singers add songs to the queue, the app selects the best karaoke video from YouTube, and a weighted picker balances turns based on remaining songs. The interface keeps the main video stage clear, while drawers manage queue and rules.",
+      keyFeatures: [
+        "Weighted singer rotation that avoids the last singer when possible.",
+        "YouTube scoring tuned for karaoke channels and strong karaoke-version intent.",
+        "Queue drawer with make-next overrides and per-entry removal.",
+        "Local storage persistence with a one-click reset.",
+      ],
+      howBuilt: [
+        "React + TypeScript UI bootstrapped with Vite for fast local iteration.",
+        "Tailwind CSS neon theme with custom cards and drawer panels.",
+        "YouTube Data API search + stats, embedded via react-youtube.",
+        "Local storage persistence for entries, now-playing, and last singer state.",
+      ],
+    },
+    liveUrl: "",
+    githubUrl: "https://github.com/tfalba/portfolio-site",
+    images: karaokeNight.desktop,
+    imagesPhone: karaokeNight.phone,
   },
 ];

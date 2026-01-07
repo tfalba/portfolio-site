@@ -1,4 +1,11 @@
-const withOpacityValue = (variable) => `rgb(var(${variable}) / <alpha-value>)`;
+const palette = {
+  ocean: "#07a5c3",
+  gold: "#f4b324",
+  sand: "#f6e7d8",
+  graphite: "#303030",
+  ember: "#f14902",
+  ink: "#1c191a",
+};
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -6,43 +13,36 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        heading: ["Cardo", "serif"],
-        body: ["Didact Gothic", "sans-serif"],
+        heading: ["Archivo", "sans-serif"],
+        body: ["Open Sans", "sans-serif"],
       },
       colors: {
-        surface: withOpacityValue("--color-surface"),
-        "surface-muted": withOpacityValue("--color-surface-muted"),
-        "surface-card": withOpacityValue("--color-surface-card"),
-        "surface-elevated": withOpacityValue("--color-surface-elevated"),
-        text: withOpacityValue("--color-text"),
-        "text-muted": withOpacityValue("--color-text-muted"),
-        border: withOpacityValue("--color-border"),
-        accent: withOpacityValue("--color-accent"),
-        "accent-soft": withOpacityValue("--color-accent-soft"),
-        "accent-strong": withOpacityValue("--color-accent-strong"),
-        brand: {
-          black: "#2a2e30",
-          charcoal: "#345c72",
-          red: "#f46530",
-          coral: "#ff9e7a",
-          blue: "#345c72",
-          green: "#d4edf4",
-          gold: "#ff9e7a",
-          light: "#ffffff",
-          white: "#ffffff",
+        brand: palette,
+        canvas: palette.sand,
+        "canvas-muted": "#fff8f3",
+        "panel": "#faf3ea",
+        accent: palette.ocean,
+        ember: palette.ember,
+        graphite: palette.graphite,
+        ink: palette.ink,
+      },
+      keyframes: {
+        "float-up": {
+          "0%": { opacity: "0", transform: "translateY(40px) scale(0.98)" },
+          "50%": { opacity: "0.9" },
+          "100%": { opacity: "1", transform: "translateY(0) scale(1)" },
         },
-        lightMode: {
-          lavender: "#857BAC",
-          mint: "#96D0CF",
-          blush: "#EABBB9",
-          mist: "#F4F2F3",
-          butter: "#FDF4C3",
-          white: "#FEFEFE",
-        }
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+      },
+      animation: {
+        "float-up": "float-up 0.9s ease forwards",
+        "fade-in": "fade-in 0.6s ease forwards",
       },
 
     },

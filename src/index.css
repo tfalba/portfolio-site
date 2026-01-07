@@ -3,85 +3,102 @@
 @tailwind utilities;
 
 @layer base {
-  /* ---------- LIGHT THEME (default) ---------- */
   :root {
-    --color-surface: 255 255 255;
-    --color-surface-muted: 253 248 221;
-    --color-surface-card: 244 242 243;
-    --color-surface-elevated: 235 232 220;
-    --color-text: 29 28 33;
-    --color-text-muted: 103 104 112;
-    --color-border: 218 215 210;
-    --color-accent: 221 69 50;
-    --color-accent-soft: 233 137 115;
-    --color-accent-strong: 196 143 45;
+    --ocean: 7 165 195;
+    --gold: 244 179 36;
+    --sand: 246 231 216;
+    --ink: 28 25 26;
+    --graphite: 48 48 48;
+    --ember: 241 73 2;
   }
 
-  /* ---------- DARK THEME (manual .dark class) ---------- */
-  .dark {
-    --color-surface: 42 46 48;
-    --color-surface-muted: 52 92 114;
-    --color-surface-card: 52 92 114;
-    --color-surface-elevated: 212 237 244;
-    --color-text: 255 255 255;
-    --color-text-muted: 212 237 244;
-    --color-border: 212 237 244;
-    --color-accent: 244 101 48;
-    --color-accent-soft: 255 158 122;
-    --color-accent-strong: 52 92 114;
-  }
-
-  /* ---------- SYSTEM DARK THEME (when no .light/.dark set) ---------- */
-  @media (prefers-color-scheme: dark) {
-    :root:not(.light):not(.dark) {
-      --color-surface: 42 46 48;
-      --color-surface-muted: 52 92 114;
-      --color-surface-card: 52 92 114;
-      --color-surface-elevated: 212 237 244;
-      --color-text: 255 255 255;
-      --color-text-muted: 212 237 244;
-      --color-border: 212 237 244;
-      --color-accent: 244 101 48;
-      --color-accent-soft: 255 158 122;
-      --color-accent-strong: 52 92 114;
-    }
-  }
-
-  /* ---------- BODY BASE STYLES (LIGHT BG BY DEFAULT) ---------- */
   body {
-    @apply min-h-screen bg-surface font-body text-text antialiased;
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
-    background-image: url("./assets/pngtree-pastel-watercolor-background-with-mint-green-and-blush-pink-tones-picture-image_background.jpg"); /* ← light-mode image */
-    background-size: cover;
-    /* background-repeat: no-repeat; */
-    background-position: center;
-  }
-
-  /* System dark background when no manual theme override */
-  @media (prefers-color-scheme: dark) {
-    html:not(.light):not(.dark) body {
-      background-image: url("./assets/dark-background-image.jpg"); /* ← dark-mode image */
-    }
-  }
-
-  /* Manual overrides via class on <html> */
-  .dark body {
-    background-image: url("./assets/dark-background-image.jpg");
-  }
-
-  .light body {
-    background-image: url("./assets/pngtree-pastel-watercolor-background-with-mint-green-and-blush-pink-tones-picture-image_background.jpg");
+    font-family: "Open Sans", system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    background: radial-gradient(
+        circle at 15% 20%,
+        rgba(var(--ocean) / 0.25),
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 85% 15%,
+        rgba(var(--gold) / 0.2),
+        transparent 55%
+      ),
+      radial-gradient(
+        circle at 35% 82%,
+        rgba(var(--ember) / 0.15),
+        transparent 55%
+      ),
+      rgb(var(--ink));
+    color: rgb(236 230 224);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   #root {
-    @apply min-h-screen;
+    @apply min-h-screen text-white;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-heading text-text;
+    font-family: "Archivo", "Open Sans", sans-serif;
+    color: rgb(244 240 234);
+  }
+
+  ::selection {
+    background: rgba(var(--gold) / 0.35);
+    color: rgb(14 14 14);
+  }
+}
+
+@layer components {
+  .chip {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-white/70 shadow-lg shadow-black/25;
+  }
+
+  .cta-link {
+    @apply inline-flex items-center gap-2 rounded-full text-sm border border-brand-ocean bg-brand-ocean/20 px-2 sm:px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-ocean hover:text-brand-ink;
+  }
+
+  .section-shell {
+    @apply rounded-[2.5rem] border border-white/10 bg-brand-graphite/60 p-4 shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:p-6;
+  }
+
+  .project-card {
+    @apply rounded-[2rem] border border-white/10 bg-brand-ink shadow-[0_25px_80px_rgba(0,0,0,0.45)] transition hover:-translate-y-1 hover:shadow-[0_40px_150px_rgba(0,0,0,0.55)];
+  }
+
+  .project-card__media {
+    @apply relative overflow-hidden rounded-[1.6rem];
+    /* min-height: 220px; */
+    aspect-ratio: 3 / 2;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: saturate(0.85);
+  }
+
+  .project-card__media::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0%,
+      rgba(0, 0, 0, 0.55) 100%
+    );
+  }
+
+  .project-card__title {
+    @apply text-lg font-heading text-white;
+  }
+
+  .pill-link {
+    @apply inline-flex items-center rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white;
   }
 }
