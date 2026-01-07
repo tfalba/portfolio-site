@@ -232,7 +232,7 @@ export const HeroSection: React.FC<{
   useEffect(() => {
     const timer = setInterval(
       () => setSpotlightGridPage((prev) => (prev + 1) % totalSpotlightPages),
-      6500
+      10000
     );
     return () => clearInterval(timer);
   }, [totalSpotlightPages]);
@@ -240,7 +240,7 @@ export const HeroSection: React.FC<{
   useEffect(() => {
     const timer = setInterval(
       () => setBioQuoteIndex((prev) => (prev + 1) % bioQuotes.length),
-      7000
+      15000
     );
     return () => clearInterval(timer);
   }, []);
@@ -254,12 +254,12 @@ export const HeroSection: React.FC<{
   const bioQuote = bioQuotes[bioQuoteIndex];
 
   const bioSection = (
-    <div className="flex gap-3 space-between">
+    <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 space-between">
       <div
         key={bioQuote.id}
-        className="max-w-[26rem] flex-[1.3] flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center transition-opacity duration-700"
+        className="flex-[1.3] flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center transition-opacity duration-700"
       >
-        <div className="h-[12rem] w-[12rem] md:h-[7rem] md:w-[7rem] lg:h-[10rem] lg:w-[10rem] min-w-max overflow-hidden rounded-2xl border border-white/20">
+        <div className="min-h-[12rem] min-w-[12rem] max-h-[12rem] max-w-[12rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/20">
           <img
             src={bioQuote.image}
             alt={bioQuote.author ?? "Tracy Falba headshot"}
