@@ -88,7 +88,7 @@ export const PortfolioPage: React.FC = () => {
 
       <section
         id="projects"
-        className="space-y-10 section-shell bg-brand-ink/20 border-white/30 scroll-mt-32"
+        className="space-y-10 section-shell bg-brand-ink/20 border-white/30 scroll-mt-48 md:scroll-mt-24"
       >
         <div className="flex flex-col gap-3">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
@@ -114,7 +114,7 @@ export const PortfolioPage: React.FC = () => {
 
       <section
         id="story"
-        className="section-shell space-y-10 bg-brand-graphite/60 scroll-mt-32"
+        className="section-shell space-y-10 bg-brand-graphite/60 scroll-mt-48 md:scroll-mt-24"
       >
         <div className="flex flex-col gap-3">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
@@ -167,7 +167,7 @@ export const PortfolioPage: React.FC = () => {
 
       <section
         id="contact"
-        className="space-y-6 rounded-[2.75rem] border border-brand-ocean/40 bg-black/60 p-10 shadow-[0_40px_150px_rgba(0,0,0,0.6)] scroll-mt-32"
+        className="space-y-6 rounded-[2.75rem] border border-brand-ocean/40 bg-black/60 p-10 shadow-[0_40px_150px_rgba(0,0,0,0.6)] scroll-mt-48 md:scroll-mt-24"
       >
         <div className="flex flex-col gap-3">
           <p className="text-xs uppercase tracking-[0.4em] text-white/70">
@@ -314,7 +314,7 @@ export const HeroSection: React.FC<{
   );
 
   return (
-    <section id="hero" className="section-shell overflow-hidden scroll-mt-32">
+    <section id="hero" className="section-shell overflow-hidden scroll-mt-48 md:scroll-mt-24">
       <div className="grid gap-8 md:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
         <div className="space-y-8">
           <span className="chip">Tracy Falba, Ph.D.</span>
@@ -424,7 +424,7 @@ export const HeroSection: React.FC<{
                 <a
                   key={spotlightProject.id}
                   href={`#project-${spotlightProject.id}`}
-                  className="project-card block border-brand-ocean/60 scroll-mt-32 transition hover:-translate-y-1"
+                  className="project-card block border-brand-ocean/60 scroll-mt-48 md:scroll-mt-24 transition hover:-translate-y-1"
                 >
                   <div
                     className="project-card__media m-6"
