@@ -145,7 +145,7 @@ export const PortfolioPage: React.FC = () => {
             </p>
           ))}
           </div>
-          <img src={fullHeadshot} alt="About narrative illustration" className="opacity-90 max-h-[380px] rounded-2xl col-span-2 md:col-span-1 m-auto" />
+          <img src={fullHeadshot} alt="About narrative illustration" className="opacity-90 max-h-[380px] rounded-2xl col-span-2 md:col-span-1 mx-auto" />
         </div>
         <div className="grid gap-5 md:grid-cols-3">
           {focusPanels.map((panel) => (
@@ -610,7 +610,6 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
           />
         </div>
 
-        {/* <div className="space-y-4 px-4"> */}
         <div>
           <button
             type="button"
@@ -622,7 +621,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
             }`}
           >
             <span className={`text-white/80`}>Project Details</span>
-            <span className="text-base">{detailsOpen ? "-" : "+"}</span>
+            <span className="text-lg">{detailsOpen ? "-" : "+"}</span>
           </button>
 
           {detailsOpen && (
@@ -709,9 +708,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
             </div>
           )}
         </div>
-      </div>
-
-      <div className="mt-auto flex flex-wrap items-center justify-end gap-3 px-4 py-4 text-sm sm:px-6">
+   <div className="mt-auto flex flex-wrap items-center justify-end gap-3 px-4 py-4 text-sm sm:px-6">
         {project.liveUrl && (
           <a
             href={project.liveUrl}
@@ -731,6 +728,10 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
           GitHub
         </a>
       </div>
+
+      </div>
+
+   
 
       {isPreviewOpen && (
         <ScreenshotModal
