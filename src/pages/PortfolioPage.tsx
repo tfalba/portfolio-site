@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { ImageCarousel, type CarouselImage } from "../components/ImageCarousel";
 import bioQuotes from "../data/bioQuotes";
+import fullHeadshot from "@/assets/headshots/headshot-full.png";
 import { projects, type Project } from "../data/projectData";
 const resumePdf = new URL(
   "../assets/Tracy Falba Resume Oct 2025.pdf",
@@ -67,7 +68,7 @@ const contactLinks = [
 const heroStats = [
   { label: "Years crafting research & products", value: "10+" },
   { label: "Full-stack launches", value: "35" },
-  { label: "Disciplines bridged", value: "Economics • Health • Product" },
+  { label: "Disciplines & industries bridged", value: "Economics • Health • Tech" },
 ];
 
 const heroProjects: ProjectHighlight[] = projects.map((project) => {
@@ -83,14 +84,14 @@ export const PortfolioPage: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   return (
-    <div className="space-y-24">
+    <div className="space-y-12 lg:space-y-16">
       <HeroSection setIsResumeOpen={setIsResumeOpen} />
 
       <section
         id="projects"
         className="space-y-10 section-shell bg-brand-ink/20 border-white/30 scroll-mt-48 md:scroll-mt-24"
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 mt-2">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Selected Work
           </p>
@@ -105,7 +106,7 @@ export const PortfolioPage: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid gap-5 sm:gap-10 lg:row-gap-12 lg:grid-cols-2">
+        <div className="grid gap-5 sm:gap-10 md:gap-12 xl:gap-16 lg:row-gap-12 lg:grid-cols-2">
           {heroProjects.map((project) => (
             <ProjectCard project={project} key={project.id} />
           ))}
@@ -114,9 +115,9 @@ export const PortfolioPage: React.FC = () => {
 
       <section
         id="story"
-        className="section-shell space-y-10 bg-brand-graphite/60 scroll-mt-48 md:scroll-mt-24"
+        className="section-shell space-y-10 bg-brand-graphite/50 border-white/80 scroll-mt-48 md:scroll-mt-24"
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 mt-2">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Story & craft
           </p>
@@ -133,7 +134,8 @@ export const PortfolioPage: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-2 md:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)]">
+          <div className="grid gap-5">
           {aboutNarrative.map((paragraph) => (
             <p
               key={paragraph}
@@ -142,12 +144,14 @@ export const PortfolioPage: React.FC = () => {
               {paragraph}
             </p>
           ))}
+          </div>
+          <img src={fullHeadshot} alt="About narrative illustration" className="opacity-90 max-h-[380px] rounded-2xl col-span-2 md:col-span-1 m-auto" />
         </div>
         <div className="grid gap-5 md:grid-cols-3">
           {focusPanels.map((panel) => (
             <div
               key={panel.title}
-              className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_25px_90px_rgba(0,0,0,0.4)] backdrop-blur"
+              className="rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[5px_25px_90px_rgba(0,0,0,0.8)]"
             >
               <h3 className="text-sm font-heading uppercase tracking-[0.25em] text-brand-gold/80">
                 {panel.title}
@@ -169,7 +173,7 @@ export const PortfolioPage: React.FC = () => {
         id="contact"
         className="space-y-6 rounded-[2.75rem] border border-brand-ocean/40 bg-black/60 p-10 shadow-[0_40px_150px_rgba(0,0,0,0.6)] scroll-mt-48 md:scroll-mt-24"
       >
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 mt-2">
           <p className="text-xs uppercase tracking-[0.4em] text-white/70">
             Let’s build
           </p>
@@ -224,10 +228,7 @@ export const HeroSection: React.FC<{
     return () => clearInterval(timer);
   }, []);
 
-  const totalSpotlightPages = Math.max(
-    1,
-    Math.ceil(heroProjects.length / 4)
-  );
+  const totalSpotlightPages = Math.max(1, Math.ceil(heroProjects.length / 4));
 
   useEffect(() => {
     const timer = setInterval(
@@ -248,8 +249,7 @@ export const HeroSection: React.FC<{
   const spotlightProject = heroProjects[spotlightIndex];
   const spotlightPages = Array.from(
     { length: totalSpotlightPages },
-    (_, pageIndex) =>
-      heroProjects.slice(pageIndex * 4, pageIndex * 4 + 4)
+    (_, pageIndex) => heroProjects.slice(pageIndex * 4, pageIndex * 4 + 4)
   );
   const bioQuote = bioQuotes[bioQuoteIndex];
 
@@ -257,7 +257,7 @@ export const HeroSection: React.FC<{
     <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 space-between">
       <div
         key={bioQuote.id}
-        className="flex-[1.3] flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center transition-opacity duration-700"
+        className="flex-[1.2] flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center transition-opacity duration-700"
       >
         <div className="min-h-[12rem] min-w-[12rem] max-h-[12rem] max-w-[12rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/20">
           <img
@@ -270,26 +270,29 @@ export const HeroSection: React.FC<{
           “{bioQuote.quote}”
         </div>
       </div>
-      <div className="flex flex-[.8] flex-col gap-3">
-        <a href="#projects" className="cta-link">
+      <div className="flex flex-[.7] flex-wrap items-center justify-end gap-3 my-auto">
+        <a
+          href="#projects"
+          className="cta-link border-brand-ocean bg-brand-ocean/20 hover:bg-brand-ocean hover:text-brand-ink"
+        >
           Explore Projects
         </a>
         <a
           href="#story"
-          className="inline-flex items-center text-sm gap-2 rounded-full bg-brand-gold/5 border border-brand-gold px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-gold hover:text-brand-ink"
+          className="cta-link bg-brand-gold/5 border-brand-gold hover:bg-brand-gold hover:text-brand-ink"
         >
           My Story
         </a>
         <a
           href="#contact"
-          className="inline-flex items-center text-sm gap-2 rounded-full bg-ember/5 border border-brand-ember px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-ember hover:text-brand-ink"
+          className="cta-link bg-ember/5 border border-brand-ember hover:bg-brand-ember "
         >
           Connect
         </a>
         <button
           type="button"
           onClick={() => setIsResumeOpen(true)}
-          className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
+          className="cta-link border-white/30 bg-white/5 text-white/80 hover:border-white hover:bg-white/80"
         >
           View Résumé
         </button>
@@ -314,7 +317,10 @@ export const HeroSection: React.FC<{
   );
 
   return (
-    <section id="hero" className="section-shell overflow-hidden scroll-mt-48 md:scroll-mt-24">
+    <section
+      id="hero"
+      className="section-shell overflow-hidden scroll-mt-48 md:scroll-mt-24"
+    >
       <div className="grid gap-8 md:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)]">
         <div className="space-y-8">
           <span className="chip">Tracy Falba, Ph.D.</span>
@@ -334,7 +340,7 @@ export const HeroSection: React.FC<{
           {statSection}
         </div>
 
-        <div className="rounded-[2.5rem] border border-white/10 bg-brand-ink/70 p-4 sm:p-6 shadow-[0_25px_90px_rgba(155,155,155,0.55)]">
+        <div className="rounded-[2.5rem] border border-white/10 bg-brand-ink/70 p-4 sm:p-6 shadow-[0_25px_90px_rgba(155,155,155,0.3)]">
           <p className="text-xs uppercase tracking-[0.25em] text-white/60">
             Spotlight
           </p>
@@ -382,8 +388,7 @@ export const HeroSection: React.FC<{
                     onClick={() =>
                       setSpotlightGridPage(
                         (prev) =>
-                          (prev - 1 + totalSpotlightPages) %
-                          totalSpotlightPages
+                          (prev - 1 + totalSpotlightPages) % totalSpotlightPages
                       )
                     }
                     className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
@@ -548,9 +553,7 @@ const ResumeModal: React.FC<{ resumeUrl: string; onClose: () => void }> = ({
   );
 };
 
-const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
-  project,
-}) => {
+const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
   const [activeTab, setActiveTab] = useState<"narrative" | "impact">(
     "narrative"
   );
@@ -568,7 +571,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
       .map((item) => item.trim())
       .filter(Boolean) ?? [];
   const primaryTag = techTags[0] ?? "Full stack";
-  const additionalTags = techTags.slice(1, 4);
+  const additionalTags = techTags.slice(1, 5);
   const descriptionSteps = project.description?.steps ?? [];
   const keyFeatures = project.details?.keyFeatures ?? [];
   const howBuilt = project.details?.howBuilt ?? [];
@@ -576,7 +579,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
   return (
     <article
       id={`project-${project.id}`}
-      className="project-card flex h-full flex-col border border-white/15 bg-white/5 p-4 sm:p-6 shadow-[0_25px_80px_rgba(0,0,0,0.45)] scroll-mt-32"
+      className="project-card flex h-full flex-col border border-white/15 bg-white/5 p-4 sm:p-6 shadow-[0_15px_60px_rgba(165,165,165,0.35)] scroll-mt-32"
     >
       <div className="flex flex-1 flex-col gap-4">
         <header className="space-y-4 px-4 pb-2">
@@ -612,19 +615,19 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
           <button
             type="button"
             onClick={() => setDetailsOpen((prev) => !prev)}
-            className={`flex w-full items-center justify-between border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
+            className={`flex w-full items-center justify-between border border-white/10 bg-black/50 shadow-lg shadow-black/80 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
               detailsOpen
                 ? "shadow-lg shadow-black/40 rounded-t-2xl"
                 : "rounded-2xl"
             }`}
           >
-            <span className={`text-brand-ocean/80`}>Project Details</span>
+            <span className={`text-white/80`}>Project Details</span>
             <span className="text-base">{detailsOpen ? "-" : "+"}</span>
           </button>
 
           {detailsOpen && (
-            <div className="space-y-3 -mt-2 rounded-b-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-black/40">
-              <div className="flex gap-2 mt-4">
+            <div className="rounded-b-2xl border border-white/10 bg-white/1 p-4 shadow-lg shadow-black/80">
+              <div className="flex gap-2 justify-evenly">
                 {[
                   { id: "narrative", label: "Product Narrative" },
                   { id: "impact", label: "Impact & Build" },
@@ -635,25 +638,18 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
                     onClick={() =>
                       setActiveTab(tab.id as "narrative" | "impact")
                     }
-                    className={`rounded-full border px-4 py-1 text-[0.65rem] font-semibold uppercase tracking-[0.3em] transition ${
+                    className={`px-4 py-1 text-[0.85rem] rounded-t-xl mt-2 font-semibold uppercase tracking-[0.3em] transition ${
                       activeTab === tab.id
-                        ? "border-transparent text-brand-gold shadow-[0_5px_10px_rgba(244,179,36,0.45)] bg-white/10"
-                        : "border-white/10 text-white/60 hover:border-white/40"
+                        ? " text-brand-gold shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] py-2 bg-black/50"
+                        : "text-white/60 hover:text-white bg-transparent hover:bg-black/30 z-[0]"
                     }`}
                   >
                     {tab.label}
                   </button>
                 ))}
-                {/* <button
-                  type="button"
-                  onClick={() => setDetailsOpen((prev) => !prev)}
-                  className="ml-auto flex w-min items-center justify-end rounded-2xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white/70"
-                >
-                  <span className="text-base">{"-"}</span>
-                </button> */}
               </div>
               {activeTab === "narrative" ? (
-                <div>
+                <div className="rounded-xl p-4 bg-black/30 shadow shadow-[-6px_4px_10px_rgba(var(--ink)/0.35)]">
                   <p className="text-sm text-white/80">
                     {project.description?.overview ?? project.details?.summary}
                   </p>
@@ -666,7 +662,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
                   )}
                 </div>
               ) : (
-                <div>
+                <div className="rounded-xl p-4 bg-black/30 shadow shadow-[6px_4px_10px_rgba(var(--ink)/0.35)]">
                   {project.details?.summary && (
                     <p className="text-sm text-white/80">
                       {project.details.summary}
@@ -721,7 +717,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
             href={project.liveUrl}
             target="_blank"
             rel="noreferrer"
-            className="cta-link"
+            className="cta-link bg-brand-ocean/20 hover:bg-brand-ocean/60 hover:text-white/90 border-brand-ocean/80"
           >
             View live
           </a>
@@ -730,7 +726,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
           href={project.githubUrl}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-white hover:text-brand-ink"
+          className="inline-flex items-center gap-2 rounded-full border border-white/30 px-2 sm:px-3 py-2 font-semibold uppercase tracking-[0.15em] text-xs text-white/90 transition hover:bg-white/80 hover:text-brand-ink"
         >
           GitHub
         </a>

@@ -62,15 +62,15 @@
   }
 
   .cta-link {
-    @apply inline-flex items-center text-center gap-2 rounded-full text-sm border border-brand-ocean bg-brand-ocean/20 px-2 sm:px-5 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-brand-ocean hover:text-brand-ink;
+    @apply inline-flex items-center text-xs text-center gap-2 rounded-full border  px-2 sm:px-3 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:text-brand-ink ;
   }
 
   .section-shell {
-    @apply rounded-[2.5rem] border border-white/10 bg-brand-graphite/60 p-4 shadow-[0_40px_120px_rgba(0,0,0,0.45)] sm:p-6;
+    @apply rounded-[2.5rem] border border-white/10 bg-brand-graphite/60 p-4 shadow-[0_40px_120px_rgba(0,0,0,0.25)] sm:p-6;
   }
 
   .project-card {
-    @apply rounded-[2rem] border border-white/10 bg-brand-ink shadow-[0_25px_80px_rgba(0,0,0,0.45)] transition hover:-translate-y-1 hover:shadow-[0_40px_150px_rgba(0,0,0,0.55)];
+    @apply rounded-[2rem] border border-white/10 bg-brand-ink shadow-[0_25px_80px_rgba(0,0,0,0.25)] transition hover:-translate-y-1 hover:shadow-[0_40px_150px_rgba(0,0,0,0.55)];
   }
 
   .project-card__media {
