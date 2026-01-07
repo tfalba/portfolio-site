@@ -5,7 +5,6 @@ const navLinks = [
   { href: "#hero", label: "Overview" },
   { href: "#projects", label: "Projects" },
   { href: "#story", label: "Story" },
-  // { href: "#contact", label: "Connect" },
 ];
 
 const App: React.FC = () => {
@@ -41,7 +40,7 @@ const App: React.FC = () => {
         </div>
       </header>
 
-      <main className="mx-auto max-w-[100rem] space-y-20 px-2 sm:px-6 py-12">
+      <main className="mx-auto max-w-[100rem] space-y-20 px-4 sm:px-6 py-12">
         <PortfolioPage />
       </main>
 
