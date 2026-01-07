@@ -106,8 +106,8 @@ export const PortfolioPage: React.FC = () => {
         </div>
 
         <div className="grid gap-5 sm:gap-10 lg:row-gap-12 lg:grid-cols-2">
-          {heroProjects.map((project, index) => (
-            <ProjectCard project={project} index={index} key={project.id} />
+          {heroProjects.map((project) => (
+            <ProjectCard project={project} key={project.id} />
           ))}
         </div>
       </section>
@@ -366,9 +366,6 @@ export const HeroSection: React.FC<{
                                 : undefined,
                             }}
                           />
-                          <p className="mt-3 text-xs uppercase tracking-[0.2em] text-white/50">
-                            {project.type ?? "Feature"}
-                          </p>
                           <p className="mt-1 text-sm font-semibold text-white">
                             {project.name}
                           </p>
@@ -551,9 +548,8 @@ const ResumeModal: React.FC<{ resumeUrl: string; onClose: () => void }> = ({
   );
 };
 
-const ProjectCard: React.FC<{ project: ProjectHighlight; index: number }> = ({
+const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({
   project,
-  index,
 }) => {
   const [activeTab, setActiveTab] = useState<"narrative" | "impact">(
     "narrative"
