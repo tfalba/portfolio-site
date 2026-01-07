@@ -1,12 +1,6 @@
 import React from "react";
 import { PortfolioPage } from "./pages/PortfolioPage";
 
-const navLinks = [
-  { href: "#hero", label: "Overview" },
-  { href: "#projects", label: "Projects" },
-  { href: "#story", label: "Story" },
-];
-
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-brand-ink text-white">
@@ -20,21 +14,30 @@ const App: React.FC = () => {
               Tracy Falba, Ph.D.
             </h1>
           </div>
-          <nav className="flex flex-wrap ml-auto max-w-[78vw] md:max-w-full justify-end gap-2 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="rounded-full border border-transparent px-4 py-2 transition hover:border-brand-ocean hover:text-brand-ocean"
-              >
-                {link.label}
-              </a>
-            ))}
+          <nav className="flex flex-wrap ml-auto max-w-[78vw] md:max-w-full justify-end gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
+            <a
+              href="#hero"
+              className="cta-link text-sm border-white/40 bg-white/5 hover:border-white hover:bg-white/80"
+            >
+              Overview
+            </a>
+            <a
+              href="#projects"
+              className="cta-link border-brand-ocean bg-brand-ocean/20 hover:bg-brand-ocean hover:text-brand-ink"
+            >
+              Projects
+            </a>
+            <a
+              href="#story"
+              className="cta-link bg-brand-gold/5 border-brand-gold hover:bg-brand-gold hover:text-brand-ink"
+            >
+              My Story
+            </a>
             <a
               href="#contact"
-              className="cta-link border border-brand-ember bg-brand-ember/10 text-white hover:bg-brand-ember hover:text-brand-ink"
+              className="cta-link bg-ember/5 border border-brand-ember hover:bg-brand-ember "
             >
-              Say hello
+              Connect
             </a>
           </nav>
         </div>
@@ -45,7 +48,8 @@ const App: React.FC = () => {
       </main>
 
       <footer className="mx-auto max-w-[100rem] px-2 sm:px-6 pb-12 text-xs uppercase tracking-[0.35em] text-white/40">
-        Crafted with React, TypeScript, Vite & Tailwind. Fonts: Archivo + Open Sans.
+        Crafted with React, TypeScript, Vite & Tailwind. Fonts: Archivo + Open
+        Sans.
       </footer>
     </div>
   );

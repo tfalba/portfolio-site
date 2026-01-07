@@ -34,7 +34,7 @@ export const projects: Project[] = [
     id: "1",
     name: "Top Knot Holistics",
     role: "design, front-end, back-end",
-    techStack: "React, TypeScript, Tailwind CSS, Vercel, Google Calendar",
+    techStack: "React, TypeScript, Tailwind CSS, Google Calendar API",
     summary: "A mobile-first React site for a massage therapist featuring service cards, a practitioner story, and embedded scheduling—crafted to feel calming, credible, and effortless to book.",
     description: {
       overview:
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     id: "2",
     name: "Color My Music",
     role: "design, front-end, back-end",
-    techStack: "React, TypeScript, Tailwind CSS, Spotify API, Pixabay API",
+    techStack: "React + TypeScript, Tailwind CSS, Open AI, Spotify API, Pixabay API",
     summary: "A React app that transforms Spotify playlists into color palettes and pairs them with matching Pixabay artwork for sharable visual “music stories.",
     description: {
       overview:
@@ -104,7 +104,7 @@ export const projects: Project[] = [
     id: "3",
     name: "Casino Games",
     role: "design, front-end, back-end",
-    techStack: "React, TypeScript, Tailwind CSS, Zustand, Vercel",
+    techStack: "React, TypeScript, Tailwind CSS, Python, Vercel",
     summary: "A React + TypeScript project featuring Blackjack and War, powered by a Python backend for game logic and a unified front-end design system for cards, chips, and tables.",
     description: {
       overview:
@@ -140,7 +140,7 @@ export const projects: Project[] = [
     id: "4",
     name: "Puzzle Quest",
     role: "design, front-end, back-end",
-    techStack: "React 18, TypeScript, Tailwind CSS, Zustand, Pixabay API, Vercel",
+    techStack: "React, TypeScript, Tailwind CSS, Pixabay API, Vercel",
     summary:
       "Create a personal sliding puzzle from any Pixabay photo, play it directly in the browser, and celebrate when puzzle is complete.",
     description: {
@@ -180,7 +180,7 @@ export const projects: Project[] = [
     name: "Charades",
     role: "design, front-end, back-end",
     techStack:
-      "React 18, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",
+      "React, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",
     summary:
       "Spin a neon wheel to pick the next actor, fetch OpenAI-crafted prompts, and run five-round charades matches with timers and scoreboards in one browser tab.",
     description: {
@@ -217,7 +217,7 @@ export const projects: Project[] = [
     name: "Castles & Heaerts",
     role: "design, front-end, back-end",
     techStack:
-      "React 18, TypeScript, Vite, Tailwind CSS, Express, OpenAI, shared packages",
+      "React, TypeScript, Vite, Express, Google Auth, Google Firebase",
     summary:
       "Spin a neon wheel to pick the next actor, fetch OpenAI-crafted prompts, and run five-round charades matches with timers and scoreboards in one browser tab.",
     description: {
