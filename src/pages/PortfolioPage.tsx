@@ -268,7 +268,10 @@ export const HeroSection: React.FC<{
             className="h-full w-full object-cover object-top"
           />
         </div>
-        <div key={bioQuote.id} className="text-sm lg:text-base text-white/80 transition-opacity duration-700">
+        <div
+          key={bioQuote.id}
+          className="text-sm lg:text-base text-white/80 animate-slide-in-right"
+        >
           “{bioQuote.quote}”
         </div>
       </div>

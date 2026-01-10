@@ -45,11 +45,16 @@ export default {
           "70%": { opacity: "1", transform: "scale(1.02)" },
           "100%": { opacity: "1", transform: "scale(1)" },
         },
+        "slide-in-right": {
+          "0%": { opacity: "0", transform: "translateX(20px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
       },
       animation: {
         "float-up": "float-up 0.9s ease forwards",
         "fade-in": "fade-in 0.6s ease forwards",
         wink: "wink 0.45s ease-in-out",
+        "slide-in-right": "slide-in-right 0.7s ease-in forwards",
       },
 
     },
