@@ -222,6 +222,9 @@ export const HeroSection: React.FC<{
   const [spotlightIndex, setSpotlightIndex] = useState(0);
   const [spotlightGridPage, setSpotlightGridPage] = useState(0);
   const [bioQuoteIndex, setBioQuoteIndex] = useState(0);
+  const [spotlightTouchStartX, setSpotlightTouchStartX] = useState<
+    number | null
+  >(null);
 
   useEffect(() => {
     const timer = setInterval(
@@ -255,6 +258,29 @@ export const HeroSection: React.FC<{
     (_, pageIndex) => heroProjects.slice(pageIndex * 4, pageIndex * 4 + 4)
   );
   const bioQuote = bioQuotes[bioQuoteIndex];
+
+  const handleSpotlightTouchStart = (
+    event: React.TouchEvent<HTMLDivElement>
+  ) => {
+    setSpotlightTouchStartX(event.touches[0]?.clientX ?? null);
+  };
+
+  const handleSpotlightTouchEnd = (
+    event: React.TouchEvent<HTMLDivElement>
+  ) => {
+    if (spotlightTouchStartX === null) return;
+    const endX = event.changedTouches[0]?.clientX ?? spotlightTouchStartX;
+    const deltaX = endX - spotlightTouchStartX;
+    setSpotlightTouchStartX(null);
+    if (Math.abs(deltaX) < 40) return;
+    if (deltaX < 0) {
+      setSpotlightIndex((prev) => (prev + 1) % heroProjects.length);
+    } else {
+      setSpotlightIndex(
+        (prev) => (prev - 1 + heroProjects.length) % heroProjects.length
+      );
+    }
+  };
 
   const bioSection = (
     <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 space-between">
@@ -430,7 +456,11 @@ export const HeroSection: React.FC<{
             </div>
 
             <div className="hidden lg:block">
-              <div className="transition-all duration-500">
+            <div
+              className="transition-all duration-500"
+              onTouchStart={handleSpotlightTouchStart}
+              onTouchEnd={handleSpotlightTouchEnd}
+            >
                 <a
                   key={spotlightProject.id}
                   href={`#project-${spotlightProject.id}`}
