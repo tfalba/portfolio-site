@@ -39,10 +39,17 @@ export default {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
         },
+        wink: {
+          "0%": { opacity: "1", transform: "scale(1)" },
+          "45%": { opacity: "0.6", transform: "scale(0.98)" },
+          "70%": { opacity: "1", transform: "scale(1.02)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         "float-up": "float-up 0.9s ease forwards",
         "fade-in": "fade-in 0.6s ease forwards",
+        wink: "wink 0.45s ease-in-out",
       },
 
     },

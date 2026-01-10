@@ -40,7 +40,7 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
   const currentPhone = imagesPhone[index];
 
   return (
-    <div className="flex h-full flex-col gap-4">
+    <div className="flex h-fit flex-col gap-4 shadow-inner shadow-black/40 opacity-80">
       <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-brand-ink/60 shadow-[0_25px_90px_rgba(0,0,0,0.45)]">
         <button
           type="button"

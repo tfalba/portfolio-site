@@ -68,7 +68,10 @@ const contactLinks = [
 const heroStats = [
   { label: "Years crafting research & products", value: "10+" },
   { label: "Full-stack launches", value: "35" },
-  { label: "Disciplines & industries bridged", value: "Economics • Health • Tech" },
+  {
+    label: "Disciplines & industries bridged",
+    value: "Economics • Health • Tech",
+  },
 ];
 
 const heroProjects: ProjectHighlight[] = projects.map((project) => {
@@ -115,7 +118,7 @@ export const PortfolioPage: React.FC = () => {
 
       <section
         id="story"
-        className="section-shell space-y-10 bg-brand-graphite/50 border-white/80 scroll-mt-48 md:scroll-mt-24"
+        className="section-shell space-y-10 bg-brand-graphite/50 border-white/30 scroll-mt-48 md:scroll-mt-24"
       >
         <div className="flex flex-col gap-3 mt-2">
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
@@ -136,14 +139,14 @@ export const PortfolioPage: React.FC = () => {
         </div>
         <div className="grid gap-6 md:grid-cols-2 md:grid-cols-[minmax(0,1.5fr)_minmax(0,0.8fr)]">
           <div className="grid gap-5">
-          {aboutNarrative.map((paragraph) => (
-            <p
-              key={paragraph}
-              className="text-base leading-relaxed text-white/75"
-            >
-              {paragraph}
-            </p>
-          ))}
+            {aboutNarrative.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="text-base leading-relaxed text-white/75"
+              >
+                {paragraph}
+              </p>
+            ))}
           </div>
           <img src={fullHeadshot} alt="About narrative illustration" className="opacity-90 max-h-[380px] rounded-2xl col-span-2 md:col-span-1 mx-auto" />
         </div>
@@ -256,21 +259,20 @@ export const HeroSection: React.FC<{
   const bioSection = (
     <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 space-between">
       <div
-        key={bioQuote.id}
-        className="flex-[1.2] flex flex-col gap-3 rounded-[2rem] border border-white/15 bg-white/5 p-4 shadow-[0_25px_80px_rgba(0,0,0,0.45)] sm:flex-row items-center transition-opacity duration-700"
+        className="flex-[1.2] flex flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/10 p-4 shadow-[-5px_10px_20px_rgba(255,255,255,0.50)] sm:flex-row items-center "
       >
-        <div className="min-h-[12rem] min-w-[12rem] max-h-[12rem] max-w-[12rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/20">
+        <div className="min-h-[12rem] min-w-[12rem] max-h-[12rem] max-w-[12rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/10">
           <img
-            src={bioQuote.image}
-            alt={bioQuote.author ?? "Tracy Falba headshot"}
+            src={bioQuotes[1].image}
+            alt={"Tracy Falba headshot"}
             className="h-full w-full object-cover object-top"
           />
         </div>
-        <div className="text-sm lg:text-base text-white/80">
+        <div key={bioQuote.id} className="text-sm lg:text-base text-white/80 transition-opacity duration-700">
           “{bioQuote.quote}”
         </div>
       </div>
-      <div className="flex flex-[.7] flex-wrap items-center justify-end gap-3 my-auto">
+      <div className="flex flex-[.62] flex-wrap items-center justify-end gap-3 my-auto">
         <a
           href="#projects"
           className="cta-link border-brand-ocean bg-brand-ocean/20 hover:bg-brand-ocean hover:text-brand-ink"
@@ -553,11 +555,119 @@ const ResumeModal: React.FC<{ resumeUrl: string; onClose: () => void }> = ({
   );
 };
 
-const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
+const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
+  project,
+}) => {
   const [activeTab, setActiveTab] = useState<"narrative" | "impact">(
     "narrative"
   );
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const descriptionSteps = project.description?.steps ?? [];
+  const keyFeatures = project.details?.keyFeatures ?? [];
+  const howBuilt = project.details?.howBuilt ?? [];
+
+  return (
+    <div>
+      <button
+        id={`details-button-${project.id}`}
+        type="button"
+        onClick={() => setDetailsOpen((prev) => !prev)}
+        className={`flex w-full items-center justify-between border border-white/10 bg-white/5 shadow-lg shadow-black/80 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70  ${
+          detailsOpen
+            ? "shadow-lg shadow-black/40 rounded-t-2xl"
+            : "rounded-2xl transition group-hover:animate-wink"
+        }`}
+      >
+        <span className={`text-white/80`}>Project Details</span>
+        <span className="text-lg">{detailsOpen ? "-" : "+"}</span>
+      </button>
+
+      {detailsOpen && (
+        <div className="rounded-b-2xl border border-white/10 bg-white/[.04] p-4 shadow-lg shadow-black/80">
+          <div className="flex gap-2 justify-evenly">
+            {[
+              { id: "narrative", label: "Product Narrative" },
+              { id: "impact", label: "Impact & Build" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setActiveTab(tab.id as "narrative" | "impact")}
+                className={`px-4 py-1 text-[0.85rem] rounded-t-xl mt-2 font-semibold uppercase tracking-[0.3em] transition ${
+                  activeTab === tab.id
+                    ? " text-brand-gold shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] py-2 bg-black/50"
+                    : "text-white/60 hover:text-white bg-transparent hover:bg-black/30 z-[0]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          {activeTab === "narrative" ? (
+            <div className="rounded-xl p-4 bg-black/30 shadow shadow-[-6px_4px_10px_rgba(var(--ink)/0.35)]">
+              <p className="text-sm text-white/80">
+                {project.description?.overview ?? project.details?.summary}
+              </p>
+              {descriptionSteps.length > 0 && (
+                <ol className="mt-2 px-8 list-decimal space-y-2 text-xs text-white/70">
+                  {descriptionSteps.map((step) => (
+                    <li key={`${project.id}-step-${step}`}>{step}</li>
+                  ))}
+                </ol>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-xl p-4 bg-black/30 shadow shadow-[6px_4px_10px_rgba(var(--ink)/0.35)]">
+              {project.details?.summary && (
+                <p className="text-sm text-white/80">
+                  {project.details.summary}
+                </p>
+              )}
+              {keyFeatures.length > 0 && (
+                <div className="mt-4">
+                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
+                    Key features
+                  </p>
+                  <ul className="mt-2 space-y-1 text-xs text-white/75">
+                    {keyFeatures.map((feature) => (
+                      <li
+                        key={`${project.id}-feature-${feature}`}
+                        className="flex gap-2"
+                      >
+                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ember/80" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {howBuilt.length > 0 && (
+                <div className="mt-4">
+                  <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
+                    How it was built
+                  </p>
+                  <ul className="mt-2 space-y-1 text-xs text-white/75">
+                    {howBuilt.map((item) => (
+                      <li
+                        key={`${project.id}-how-${item}`}
+                        className="flex gap-2"
+                      >
+                        <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ocean/80" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
   const [isPreviewOpen, setPreviewOpen] = useState(false);
   const [previewDesktop, setPreviewDesktop] = useState<
     CarouselImage | undefined
@@ -572,14 +682,11 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
       .filter(Boolean) ?? [];
   const primaryTag = techTags[0] ?? "Full stack";
   const additionalTags = techTags.slice(1, 5);
-  const descriptionSteps = project.description?.steps ?? [];
-  const keyFeatures = project.details?.keyFeatures ?? [];
-  const howBuilt = project.details?.howBuilt ?? [];
 
   return (
     <article
       id={`project-${project.id}`}
-      className="project-card flex h-full flex-col border border-white/15 bg-white/5 p-4 sm:p-6 shadow-[0_15px_60px_rgba(165,165,165,0.35)] scroll-mt-32"
+      className="project-card group flex h-full flex-col border border-white/15 bg-white/2 p-4 sm:p-6 shadow-[0_15px_60px_rgba(165,165,165,0.35)] scroll-mt-32"
     >
       <div className="flex flex-1 flex-col gap-4">
         <header className="space-y-4 px-4 pb-2">
@@ -597,7 +704,6 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
             ))}
           </div>
         </header>
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-3 shadow-inner shadow-black/40">
           <ImageCarousel
             images={project.images}
             imagesPhone={project.imagesPhone}
@@ -608,130 +714,29 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
               setPreviewOpen(true);
             }}
           />
-        </div>
 
-        <div>
-          <button
-            type="button"
-            onClick={() => setDetailsOpen((prev) => !prev)}
-            className={`flex w-full items-center justify-between border border-white/10 bg-black/50 shadow-lg shadow-black/80 px-4 py-2 text-sm font-semibold uppercase tracking-[0.3em] text-white/70 ${
-              detailsOpen
-                ? "shadow-lg shadow-black/40 rounded-t-2xl"
-                : "rounded-2xl"
-            }`}
-          >
-            <span className={`text-white/80`}>Project Details</span>
-            <span className="text-lg">{detailsOpen ? "-" : "+"}</span>
-          </button>
-
-          {detailsOpen && (
-            <div className="rounded-b-2xl border border-white/10 bg-white/1 p-4 shadow-lg shadow-black/80">
-              <div className="flex gap-2 justify-evenly">
-                {[
-                  { id: "narrative", label: "Product Narrative" },
-                  { id: "impact", label: "Impact & Build" },
-                ].map((tab) => (
-                  <button
-                    key={tab.id}
-                    type="button"
-                    onClick={() =>
-                      setActiveTab(tab.id as "narrative" | "impact")
-                    }
-                    className={`px-4 py-1 text-[0.85rem] rounded-t-xl mt-2 font-semibold uppercase tracking-[0.3em] transition ${
-                      activeTab === tab.id
-                        ? " text-brand-gold shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] py-2 bg-black/50"
-                        : "text-white/60 hover:text-white bg-transparent hover:bg-black/30 z-[0]"
-                    }`}
-                  >
-                    {tab.label}
-                  </button>
-                ))}
-              </div>
-              {activeTab === "narrative" ? (
-                <div className="rounded-xl p-4 bg-black/30 shadow shadow-[-6px_4px_10px_rgba(var(--ink)/0.35)]">
-                  <p className="text-sm text-white/80">
-                    {project.description?.overview ?? project.details?.summary}
-                  </p>
-                  {descriptionSteps.length > 0 && (
-                    <ol className="mt-2 px-8 list-decimal space-y-2 text-xs text-white/70">
-                      {descriptionSteps.map((step) => (
-                        <li key={`${project.id}-step-${step}`}>{step}</li>
-                      ))}
-                    </ol>
-                  )}
-                </div>
-              ) : (
-                <div className="rounded-xl p-4 bg-black/30 shadow shadow-[6px_4px_10px_rgba(var(--ink)/0.35)]">
-                  {project.details?.summary && (
-                    <p className="text-sm text-white/80">
-                      {project.details.summary}
-                    </p>
-                  )}
-                  {keyFeatures.length > 0 && (
-                    <div className="mt-4">
-                      <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
-                        Key features
-                      </p>
-                      <ul className="mt-2 space-y-1 text-xs text-white/75">
-                        {keyFeatures.map((feature) => (
-                          <li
-                            key={`${project.id}-feature-${feature}`}
-                            className="flex gap-2"
-                          >
-                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ember/80" />
-                            <span>{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                  {howBuilt.length > 0 && (
-                    <div className="mt-4">
-                      <p className="text-[0.65rem] uppercase tracking-[0.2em] text-white/60">
-                        How it was built
-                      </p>
-                      <ul className="mt-2 space-y-1 text-xs text-white/75">
-                        {howBuilt.map((item) => (
-                          <li
-                            key={`${project.id}-how-${item}`}
-                            className="flex gap-2"
-                          >
-                            <span className="mt-1 h-1.5 w-1.5 rounded-full bg-brand-ocean/80" />
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-   <div className="mt-auto flex flex-wrap items-center justify-end gap-3 px-4 py-4 text-sm sm:px-6">
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="cta-link bg-brand-ocean/20 hover:bg-brand-ocean/60 hover:text-white/90 border-brand-ocean/80"
-          >
-            View live
-          </a>
-        )}
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-full border border-white/30 px-2 sm:px-3 py-2 font-semibold uppercase tracking-[0.15em] text-xs text-white/90 transition hover:bg-white/80 hover:text-brand-ink"
-        >
-          GitHub
-        </a>
+          <ProjectDetails project={project} />
+          <div className="mt-auto flex flex-wrap items-center justify-end gap-3 px-4 py-4 text-sm sm:px-6">
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="cta-link bg-brand-ocean/20 hover:bg-brand-ocean/60 hover:text-white/90 border-brand-ocean/80"
+              >
+                View live
+              </a>
+            )}
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-2 sm:px-3 py-2 font-semibold uppercase tracking-[0.15em] text-xs text-white/90 transition hover:bg-white/80 hover:text-brand-ink"
+            >
+              GitHub
+            </a>
+          </div>
       </div>
-
-      </div>
-
-   
 
       {isPreviewOpen && (
         <ScreenshotModal
