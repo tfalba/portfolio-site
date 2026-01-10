@@ -221,6 +221,9 @@ export const HeroSection: React.FC<{
 }> = ({ setIsResumeOpen }) => {
   const [spotlightIndex, setSpotlightIndex] = useState(0);
   const [spotlightGridPage, setSpotlightGridPage] = useState(0);
+  const [spotlightGridTouchStartX, setSpotlightGridTouchStartX] = useState<
+    number | null
+  >(null);
   const [bioQuoteIndex, setBioQuoteIndex] = useState(0);
   const [spotlightTouchStartX, setSpotlightTouchStartX] = useState<
     number | null
@@ -282,10 +285,33 @@ export const HeroSection: React.FC<{
     }
   };
 
+  const handleSpotlightGridTouchStart = (
+    event: React.TouchEvent<HTMLDivElement>
+  ) => {
+    setSpotlightGridTouchStartX(event.touches[0]?.clientX ?? null);
+  };
+
+  const handleSpotlightGridTouchEnd = (
+    event: React.TouchEvent<HTMLDivElement>
+  ) => {
+    if (spotlightGridTouchStartX === null) return;
+    const endX = event.changedTouches[0]?.clientX ?? spotlightGridTouchStartX;
+    const deltaX = endX - spotlightGridTouchStartX;
+    setSpotlightGridTouchStartX(null);
+    if (Math.abs(deltaX) < 40) return;
+    if (deltaX < 0) {
+      setSpotlightGridPage((prev) => (prev + 1) % totalSpotlightPages);
+    } else {
+      setSpotlightGridPage(
+        (prev) => (prev - 1 + totalSpotlightPages) % totalSpotlightPages
+      );
+    }
+  };
+
   const bioSection = (
     <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 space-between">
       <div
-        className="flex-[1.2] flex flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/10 p-4 shadow-[-5px_10px_20px_rgba(255,255,255,0.50)] sm:flex-row items-center "
+        className="flex-[1.2] flex flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/10 p-4 shadow-[-5px_5px_10px_rgba(255,255,255,0.50)] sm:flex-row items-center mb-4"
       >
         <div className="min-h-[12rem] min-w-[12rem] max-h-[12rem] max-w-[12rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/10">
           <img
@@ -376,7 +402,11 @@ export const HeroSection: React.FC<{
             Spotlight
           </p>
           <div className="mt-4 overflow-hidden">
-            <div className="lg:hidden">
+            <div
+              className="lg:hidden"
+              onTouchStart={handleSpotlightGridTouchStart}
+              onTouchEnd={handleSpotlightGridTouchEnd}
+            >
               <div className="overflow-hidden">
                 <div
                   className="flex transition-transform duration-500 ease-in-out"
