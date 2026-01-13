@@ -98,7 +98,7 @@ export const PortfolioPage: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Selected Work
           </p>
-          <h2 className="text-3xl font-heading text-white">
+          <h2 className="text-3xl font-heading text-white/80">
             Projects that span research + product craft
           </h2>
           <p className="max-w-3xl text-white/70">
@@ -124,14 +124,14 @@ export const PortfolioPage: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.35em] text-brand-gold">
             Story & craft
           </p>
-          <div className="flex gap-6">
-            <h2 className="text-3xl font-heading text-white">
+          <div className="flex gap-6 items-center">
+            <h2 className="text-3xl flex-1 font-heading text-white/80">
               Research roots, product instincts
             </h2>
             <button
               type="button"
               onClick={() => setIsResumeOpen(true)}
-              className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-white/30 p-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/80 transition hover:border-white hover:text-white/90"
             >
               View Résumé
             </button>
@@ -180,7 +180,7 @@ export const PortfolioPage: React.FC = () => {
           <p className="text-xs uppercase tracking-[0.4em] text-white/70">
             Let’s build
           </p>
-          <h2 className="text-3xl font-heading text-white">
+          <h2 className="text-3xl font-heading text-white/80">
             Ready for thoughtful collaborations
           </h2>
           <p className="text-white/75">
@@ -201,7 +201,7 @@ export const PortfolioPage: React.FC = () => {
               <p className="text-xs uppercase tracking-[0.3em] text-white/70">
                 {contact.label}
               </p>
-              <p className="text-lg font-heading text-white">{contact.value}</p>
+              <p className="text-lg font-heading text-white/80">{contact.value}</p>
             </a>
           ))}
         </div>
@@ -309,11 +309,11 @@ export const HeroSection: React.FC<{
   };
 
   const bioSection = (
-    <div className="flex flex-col md:flex-row lg:flex-col xl:flex-row gap-3 space-between">
+    <div className="flex flex-row sm:flex-row md:flex-row xl:flex-row gap-3 space-between">
       <div
-        className="flex-[1.2] flex flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/10 p-4 shadow-[-5px_5px_10px_rgba(255,255,255,0.50)] sm:flex-row items-center mb-4"
+        className="flex-1 flex flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/10 p-4 shadow-[-5px_5px_10px_rgba(255,255,255,0.25)] sm:flex-row items-center mb-4"
       >
-        <div className="min-h-[12rem] min-w-[12rem] max-h-[12rem] max-w-[12rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/10">
+        <div className="min-h-[10rem] min-w-[10rem] max-h-[10rem] max-w-[10rem] md:min-h-[7rem] md:min-w-[7rem] md:max-h-[7rem] md:max-w-[7rem] lg:min-h-[8rem] lg:max-h-[8rem] lg:max-w-[8rem] lg:min-w-[8rem] overflow-hidden rounded-2xl border border-white/10">
           <img
             src={bioQuotes[1].image}
             alt={"Tracy Falba headshot"}
@@ -322,12 +322,12 @@ export const HeroSection: React.FC<{
         </div>
         <div
           key={bioQuote.id}
-          className="text-sm lg:text-base text-white/80 animate-slide-in-right"
+          className="text-sm xl:text-base text-white/80 animate-slide-in-right"
         >
           “{bioQuote.quote}”
         </div>
       </div>
-      <div className="flex flex-[.62] flex-wrap items-center justify-end gap-3 my-auto">
+      <div className="flex flex-[.72] flex-wrap items-center justify-center gap-3 my-auto">
         <a
           href="#projects"
           className="cta-link border-brand-ocean bg-brand-ocean/20 hover:bg-brand-ocean hover:text-brand-ink"
@@ -382,7 +382,7 @@ export const HeroSection: React.FC<{
         <div className="space-y-8">
           <span className="chip">Tracy Falba, Ph.D.</span>
           <div className="space-y-4">
-            <h1 className="text-3xl font-heading text-white lg:text-[2.5rem] leading-snug">
+            <h1 className="text-3xl font-heading text-white/80 lg:text-[2.5rem] leading-snug">
               Economist turned product-focused software engineer.
             </h1>
             <p className="text-lg text-white/75">
@@ -433,7 +433,7 @@ export const HeroSection: React.FC<{
                                 : undefined,
                             }}
                           />
-                          <p className="mt-1 text-sm font-semibold text-white">
+                          <p className="mt-1 text-sm font-semibold text-white/80">
                             {project.name}
                           </p>
                         </a>
@@ -452,7 +452,7 @@ export const HeroSection: React.FC<{
                           (prev - 1 + totalSpotlightPages) % totalSpotlightPages
                       )
                     }
-                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
+                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/90 transition hover:border-white"
                   >
                     ‹
                   </button>
@@ -463,7 +463,7 @@ export const HeroSection: React.FC<{
                         (prev) => (prev + 1) % totalSpotlightPages
                       )
                     }
-                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
+                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/90 transition hover:border-white"
                   >
                     ›
                   </button>
@@ -485,7 +485,7 @@ export const HeroSection: React.FC<{
               </div>
             </div>
 
-            <div className="hidden lg:block">
+            <div className="hidden lg:block pt-2">
             <div
               className="transition-all duration-500"
               onTouchStart={handleSpotlightTouchStart}
@@ -526,7 +526,7 @@ export const HeroSection: React.FC<{
                           heroProjects.length
                       )
                     }
-                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
+                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/90 transition hover:border-white"
                   >
                     ‹
                   </button>
@@ -537,7 +537,7 @@ export const HeroSection: React.FC<{
                         (spotlightIndex + 1) % heroProjects.length
                       )
                     }
-                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white transition hover:border-white"
+                    className="rounded-full border border-white/20 px-3 py-1 text-sm text-white/90 transition hover:border-white"
                   >
                     ›
                   </button>
@@ -590,7 +590,7 @@ const ResumeModal: React.FC<{ resumeUrl: string; onClose: () => void }> = ({
       onClick={onClose}
     >
       <div
-        className="relative flex w-full max-w-5xl flex-col gap-4 rounded-3xl border border-white/20 bg-brand-ink/95 p-6 text-white shadow-[0_45px_140px_rgba(0,0,0,0.6)]"
+        className="relative flex w-full max-w-5xl flex-col gap-4 rounded-3xl border border-white/20 bg-brand-ink/95 p-6 text-white/80 shadow-[0_45px_140px_rgba(0,0,0,0.6)]"
         onClick={(event) => event.stopPropagation()}
       >
         <div className="flex flex-wrap items-center justify-between gap-4">
@@ -600,7 +600,7 @@ const ResumeModal: React.FC<{ resumeUrl: string; onClose: () => void }> = ({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full border border-white/40 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70 transition hover:border-white hover:text-white"
+            className="rounded-full border border-white/40 px-3 py-1 text-xs uppercase tracking-[0.3em] text-white/70 transition hover:border-white/90 hover:text-white/90"
           >
             Close
           </button>
@@ -630,7 +630,7 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
   const howBuilt = project.details?.howBuilt ?? [];
 
   return (
-    <div>
+    <div className="group">
       <button
         id={`details-button-${project.id}`}
         type="button"
@@ -646,8 +646,8 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
       </button>
 
       {detailsOpen && (
-        <div className="rounded-b-2xl border border-white/10 bg-white/[.04] p-4 shadow-lg shadow-black/80">
-          <div className="flex gap-2 justify-evenly">
+        <div className="rounded-b-2xl border border-white/10 bg-white/[.04] pt-4 p-1 shadow-lg shadow-black/80">
+          <div className="flex gap-2 ml-6">
             {[
               { id: "narrative", label: "Product Narrative" },
               { id: "impact", label: "Impact & Build" },
@@ -656,10 +656,10 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveTab(tab.id as "narrative" | "impact")}
-                className={`px-4 py-1 text-[0.85rem] rounded-t-xl mt-2 font-semibold uppercase tracking-[0.3em] transition ${
+                className={`px-2 py-2 text-[0.85rem] rounded-t-xl mt-2 font-semibold lowercase tracking-[0.3em] transition ${
                   activeTab === tab.id
-                    ? " text-brand-gold shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] py-2 bg-black/50"
-                    : "text-white/60 hover:text-white bg-transparent hover:bg-black/30 z-[0]"
+                    ? " text-brand-gold/70 shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] bg-black/30"
+                    : "text-white/60 hover:text-white/80 bg-transparent hover:bg-black/20 z-[0]"
                 }`}
               >
                 {tab.label}
@@ -672,7 +672,7 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
                 {project.description?.overview ?? project.details?.summary}
               </p>
               {descriptionSteps.length > 0 && (
-                <ol className="mt-2 px-8 list-decimal space-y-2 text-xs text-white/70">
+                <ol className="mt-2 pl-4 pr-8 list-decimal space-y-2 text-xs text-white/70">
                   {descriptionSteps.map((step) => (
                     <li key={`${project.id}-step-${step}`}>{step}</li>
                   ))}
@@ -749,18 +749,18 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
   return (
     <article
       id={`project-${project.id}`}
-      className="project-card group flex h-full flex-col border border-white/15 bg-white/2 p-4 sm:p-6 shadow-[0_15px_60px_rgba(165,165,165,0.35)] scroll-mt-32"
+      className="project-card flex h-full flex-col border border-white/15 bg-white/2 p-4 sm:p-6 shadow-[0_15px_60px_rgba(165,165,165,0.35)] scroll-mt-32"
     >
       <div className="flex flex-1 flex-col gap-4">
         <header className="space-y-4 px-4 pb-2">
-          <h3 className="text-2xl font-heading text-white">{project.name}</h3>
+          <h3 className="text-2xl font-heading text-white/80">{project.name}</h3>
           <p className="text-sm text-white/70">{project.summary}</p>
           <div className="flex flex-wrap gap-2 text-xs">
             <span className="pill-link bg-brand-ocean/80">{primaryTag}</span>
             {additionalTags.map((stack) => (
               <span
                 key={`${project.id}-${stack}`}
-                className="rounded-full border border-white/15 px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em] text-white/60"
+                className="rounded-full border border-white/15 px-3 py-1 text-[0.7rem] uppercase tracking-[0.25em] text-white/70"
               >
                 {stack}
               </span>

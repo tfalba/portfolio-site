@@ -24,12 +24,16 @@ import spotify3b from "@/assets/spotify-pixabay/spotify-pixabay-1b.png";
 
 import spotify4b from "@/assets/spotify-pixabay/spotify-pixabay4b.png";
 
-import casino1 from "@/assets/casino-games/casino-games-1.png";
-import casino2 from "@/assets/casino-games/casino-games-2.png";
-import casino3 from "@/assets/casino-games/casino-games-3.png";
-import casino4 from "@/assets/casino-games/casino-games-4.png";
-import casino5 from "@/assets/casino-games/casino-games-5.png";
-import casino3b from "@/assets/casino-games/casino-games-3b.png";
+import casino1 from "@/assets/casino-games/casino-games1.png";
+import casino2 from "@/assets/casino-games/casino-games2.png";
+import casino3 from "@/assets/casino-games/casino-games3.png";
+import casino4 from "@/assets/casino-games/casino-games4.png";
+import casino5 from "@/assets/casino-games/casino-games5.png";
+import casino1b from "@/assets/casino-games/casino-games1b.png";
+import casino2b from "@/assets/casino-games/casino-games2b.png";
+import casino3b from "@/assets/casino-games/casino-games3b.png";
+import casino4b from "@/assets/casino-games/casino-games4b.png";
+import casino5b from "@/assets/casino-games/casino-games5b.png";
 
 import puzzle1 from "@/assets/puzzle-quest/puzzle-quest1.png";
 import puzzle2 from "@/assets/puzzle-quest/puzzle-quest2.png";
@@ -115,7 +119,7 @@ export const imageSets = {
   casinoGames: createImageSet({
     prefix: "cg",
     desktop: [casino1, casino2, casino3, casino4, casino5],
-    phone: [undefined, undefined, casino3b, undefined, undefined],
+    phone: [casino1b, casino2b, casino3b, casino4b, casino5b],
   }),
   puzzleQuest: createImageSet({
     prefix: "pq",

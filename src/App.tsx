@@ -3,14 +3,14 @@ import { PortfolioPage } from "./pages/PortfolioPage";
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen bg-brand-ink text-white">
+    <div className="min-h-screen bg-brand-ink text-white/80">
       <header className="sticky top-0 z-20 border-b border-brand-ink/60 bg-brand-ink/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-[100rem] flex-col items:end  gap-2 md:gap-4 px-2 sm:px-6 py-2 md:py-5 md:flex-row md:items-center md:justify-between">
+        <div className="mx-auto flex max-w-[100rem] flex-col items:end gap-2 md:gap-4 px-2 sm:px-6 py-3 md:py-5 md:flex-row md:items-center md:justify-between">
           <div className="min-w-max">
             <p className="text-xs uppercase tracking-[0.35em] text-white/60">
               Portfolio
             </p>
-            <h1 className="text-2xl font-heading text-white">
+            <h1 className="text-2xl font-heading text-white/80">
               Tracy Falba, Ph.D.
             </h1>
           </div>

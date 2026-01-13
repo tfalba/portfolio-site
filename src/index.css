@@ -39,7 +39,7 @@
   }
 
   #root {
-    @apply min-h-screen text-white;
+    @apply min-h-screen text-brand-sand;
   }
 
   h1,
@@ -62,7 +62,7 @@
   }
 
   .cta-link {
-    @apply inline-flex items-center text-xs text-center gap-2 rounded-full border  px-2 sm:px-3 py-2 font-semibold uppercase tracking-[0.15em] text-white transition hover:text-brand-ink ;
+    @apply inline-flex items-center text-xs text-center gap-2 rounded-full border  px-2 sm:px-3 py-2 font-semibold uppercase tracking-[0.15em] text-white/80 transition hover:text-brand-ink ;
   }
 
   .section-shell {
@@ -95,10 +95,10 @@
   }
 
   .project-card__title {
-    @apply text-lg font-heading text-white;
+    @apply text-lg font-heading text-brand-sand;
   }
 
   .pill-link {
-    @apply inline-flex items-center rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-white;
+    @apply inline-flex items-center rounded-full bg-white/15 px-4 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-brand-sand;
   }
 }
