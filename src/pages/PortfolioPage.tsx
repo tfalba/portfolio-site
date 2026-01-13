@@ -751,7 +751,7 @@ const ProjectCard: React.FC<{ project: ProjectHighlight }> = ({ project }) => {
       id={`project-${project.id}`}
       className="project-card flex h-full flex-col border border-white/15 bg-white/2 p-4 sm:p-6 shadow-[0_15px_60px_rgba(165,165,165,0.35)] scroll-mt-32"
     >
-      <div className="flex flex-1 flex-col gap-4">
+      <div className="flex flex-1 flex-col gap-8">
         <header className="space-y-4 px-4 pb-2">
           <h3 className="text-2xl font-heading text-white/80">{project.name}</h3>
           <p className="text-sm text-white/70">{project.summary}</p>
