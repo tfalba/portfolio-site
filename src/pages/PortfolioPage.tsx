@@ -309,7 +309,7 @@ export const HeroSection: React.FC<{
   };
 
   const bioSection = (
-    <div className="flex flex-row sm:flex-row md:flex-row xl:flex-row gap-3 space-between">
+    <div className="flex flex-col sm:flex-row md:flex-row xl:flex-row gap-3 space-between">
       <div
         className="flex-1 flex flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/10 p-4 shadow-[-5px_5px_10px_rgba(255,255,255,0.25)] sm:flex-row items-center mb-4"
       >
@@ -327,7 +327,7 @@ export const HeroSection: React.FC<{
           “{bioQuote.quote}”
         </div>
       </div>
-      <div className="flex flex-[.72] flex-wrap items-center justify-center gap-3 my-auto">
+      <div className="flex flex-[.72] flex-wrap items-center justify-end gap-3 my-auto">
         <a
           href="#projects"
           className="cta-link border-brand-ocean bg-brand-ocean/20 hover:bg-brand-ocean hover:text-brand-ink"
@@ -658,7 +658,7 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
                 onClick={() => setActiveTab(tab.id as "narrative" | "impact")}
                 className={`px-2 py-2 text-[0.85rem] rounded-t-xl mt-2 font-semibold lowercase tracking-[0.3em] transition ${
                   activeTab === tab.id
-                    ? " text-brand-gold/70 shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] bg-black/30"
+                    ? " text-brand-gold/70 shadow-[-2px_-2px_2px_rgba(115,115,115,0.35)] bg-black/10"
                     : "text-white/60 hover:text-white/80 bg-transparent hover:bg-black/20 z-[0]"
                 }`}
               >
@@ -667,7 +667,7 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
             ))}
           </div>
           {activeTab === "narrative" ? (
-            <div className="rounded-xl p-4 bg-black/30 shadow shadow-[-6px_4px_10px_rgba(var(--ink)/0.35)]">
+            <div className="rounded-xl p-4 shadow shadow-[-6px_4px_10px_rgba(var(--ink)/0.35)]">
               <p className="text-sm text-white/80">
                 {project.description?.overview ?? project.details?.summary}
               </p>
@@ -680,7 +680,7 @@ const ProjectDetails: React.FC<{ project: ProjectHighlight }> = ({
               )}
             </div>
           ) : (
-            <div className="rounded-xl p-4 bg-black/30 shadow shadow-[6px_4px_10px_rgba(var(--ink)/0.35)]">
+            <div className="rounded-xl p-4 shadow shadow-[6px_4px_10px_rgba(var(--ink)/0.35)]">
               {project.details?.summary && (
                 <p className="text-sm text-white/80">
                   {project.details.summary}
