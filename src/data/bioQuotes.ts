@@ -1,6 +1,4 @@
-import headshot1 from "@/assets/headshots/headshot.jpeg";
 import headshot2 from "@/assets/headshots/tracy-headshot.jpg";
-import headshot3 from "@/assets/headshots/headshot2.png";
 
 type BioQuote = {
   id: number;
@@ -13,7 +11,7 @@ export const bioQuotes: BioQuote[] = [
   {
     id: 0,
     quote: "I’m drawn to complex systems—and even more to making them feel simple, human, and useful.",
-    image: headshot1,
+    image: headshot2,
   },
   {
     id: 1,
@@ -23,7 +21,7 @@ export const bioQuotes: BioQuote[] = [
   {
     id: 2,
     quote: "I bring analytical rigor to engineering—and a deep respect for the people on the other side of the screen",
-    image: headshot3,
+    image: headshot2,
   },
   {
     id: 3,
@@ -33,7 +31,7 @@ export const bioQuotes: BioQuote[] = [
   {
     id: 4,
     quote: "My best work happens at the intersection of engineering, design, and real human needs.",
-    image: headshot1,
+    image: headshot2,
   }
 ];
 
