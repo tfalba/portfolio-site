@@ -284,7 +284,7 @@ export const projects: Project[] = [
         "Local storage persistence for entries, now-playing, and last singer state.",
       ],
     },
-    liveUrl: "",
+    liveUrl: "https://karaoke-night-web.vercel.app/",
     githubUrl: "https://github.com/tfalba/portfolio-site",
     images: karaokeNight.desktop,
     imagesPhone: karaokeNight.phone,

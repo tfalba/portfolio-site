@@ -70,6 +70,10 @@ import castlesHearts5b from "@/assets/castles-hearts/castles-hearts5b.png";
 import karaokeNight1 from "@/assets/karaoke-night/karaoke-night1.png";
 import karaokeNight2 from "@/assets/karaoke-night/karaoke-night2.png";
 import karaokeNight3 from "@/assets/karaoke-night/karaoke-night3.png";
+import karaokeNight4 from "@/assets/karaoke-night/karaoke-night4.png";
+import karaokeNight5 from "@/assets/karaoke-night/karaoke-night5.png";
+import karaokeNight6 from "@/assets/karaoke-night/karaoke-night6.png";
+import karaokeNight7 from "@/assets/karaoke-night/karaoke-night7.png";
 
 
 type AltFormatter = (index: number) => string | undefined;
@@ -138,8 +142,8 @@ export const imageSets = {
   }),
   karaokeNight: createImageSet({
     prefix: "kn",
-    desktop: [karaokeNight1, karaokeNight2, karaokeNight3],
-    phone: [undefined, undefined, undefined],
+    desktop: [karaokeNight1, karaokeNight2, karaokeNight3, karaokeNight4, karaokeNight5, karaokeNight6, karaokeNight7],
+    phone: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
   }),
 } as const;
 
