@@ -11,18 +11,35 @@ import topKnot3b from "@/assets/top-knot/top-knot-3b.png";
 import topKnot4b from "@/assets/top-knot/top-knot-4b.png";
 import topKnot5b from "@/assets/top-knot/top-knot-5b.png";
 
-import spotify1 from "@/assets/spotify-pixabay/spotify-pixabay3.png";
-import spotify2 from "@/assets/spotify-pixabay/spotify-pixabay2.png";
+import spotify1 from "@/assets/spotify-pixabay/spotify-pix-1.png";
+import spotify2 from "@/assets/spotify-pixabay/spotify-pix-2.png";
+import spotify3 from "@/assets/spotify-pixabay/spotify-pix-3.png";
+import spotify4 from "@/assets/spotify-pixabay/spotify-pix-4.png";
+import spotify5 from "@/assets/spotify-pixabay/spotify-pix-5.png";
+import spotify6 from "@/assets/spotify-pixabay/spotify-pix-6.png";
+import spotify7 from "@/assets/spotify-pixabay/spotify-pix-7.png";
+import spotify8 from "@/assets/spotify-pixabay/spotify-pix-8.png";
+import spotify1b from "@/assets/spotify-pixabay/spotify-pix-1b.png";
+import spotify2b from "@/assets/spotify-pixabay/spotify-pix-2b.png";
+import spotify3b from "@/assets/spotify-pixabay/spotify-pix-3b.png";
+import spotify4b from "@/assets/spotify-pixabay/spotify-pix-4b.png";
+import spotify5b from "@/assets/spotify-pixabay/spotify-pix-5b.png";
+import spotify6b from "@/assets/spotify-pixabay/spotify-pix-6b.png";
+import spotify7b from "@/assets/spotify-pixabay/spotify-pix-7b.png";
+import spotify8b from "@/assets/spotify-pixabay/spotify-pix-8b.png";
+
+// import spotify1 from "@/assets/spotify-pixabay/spotify-pixabay3.png";
+// import spotify2 from "@/assets/spotify-pixabay/spotify-pixabay2.png";
 // import spotify3 from "@/assets/spotify-pixabay/spotify-pixabay1.png";
-import spotify3 from "@/assets/spotify-pixabay/spotify-pixabay-1.png";
+// import spotify3 from "@/assets/spotify-pixabay/spotify-pixabay-1.png";
 
-import spotify4 from "@/assets/spotify-pixabay/spotify-pixabay4.png";
-import spotify1b from "@/assets/spotify-pixabay/spotify-pixabay3b.png";
-import spotify2b from "@/assets/spotify-pixabay/spotify-pixabay2b.png";
+// import spotify4 from "@/assets/spotify-pixabay/spotify-pixabay4.png";
+// import spotify1b from "@/assets/spotify-pixabay/spotify-pixabay3b.png";
+// import spotify2b from "@/assets/spotify-pixabay/spotify-pixabay2b.png";
 // import spotify3b from "@/assets/spotify-pixabay/spotify-pixabay1b.png";
-import spotify3b from "@/assets/spotify-pixabay/spotify-pixabay-1b.png";
+// import spotify3b from "@/assets/spotify-pixabay/spotify-pixabay-1b.png";
 
-import spotify4b from "@/assets/spotify-pixabay/spotify-pixabay4b.png";
+// import spotify4b from "@/assets/spotify-pixabay/spotify-pixabay4b.png";
 
 import casino1 from "@/assets/casino-games/casino-games1.png";
 import casino2 from "@/assets/casino-games/casino-games2.png";
@@ -117,8 +134,8 @@ export const imageSets = {
   }),
   colorMyMusic: createImageSet({
     prefix: "sp",
-    desktop: [spotify1, spotify2, spotify3, spotify4],
-    phone: [spotify1b, spotify2b, spotify3b, spotify4b],
+    desktop: [spotify1, spotify2, spotify3, spotify4, spotify5, spotify6, spotify7, spotify8],
+    phone: [spotify1b, spotify2b, spotify3b, spotify4b, spotify5b, spotify6b, spotify7b, spotify8b],
   }),
   casinoGames: createImageSet({
     prefix: "cg",
