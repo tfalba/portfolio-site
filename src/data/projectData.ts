@@ -207,7 +207,7 @@ export const projects: Project[] = [
         "API route `apps/api/src/routes.ts` calls `gpt-4o-mini` with strict difficulty rules and deduped history files before returning prompts.",
       ],
     },
-    liveUrl: "",
+    liveUrl: "https://charades-tracy.web.app",
     githubUrl: "https://github.com/tfalba/charades-mono",
     images: partyGames.desktop,
     imagesPhone: partyGames.phone,

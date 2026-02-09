@@ -5,7 +5,7 @@ import bioQuotes from "../data/bioQuotes";
 import fullHeadshot from "@/assets/headshots/headshot-full.png";
 import { projects, type Project } from "../data/projectData";
 const resumePdf = new URL(
-  "../assets/Tracy Falba Resume Oct 2025.pdf",
+  "../assets/Tracy Falba Resume Feb 2026.pdf",
   import.meta.url
 ).href;
 

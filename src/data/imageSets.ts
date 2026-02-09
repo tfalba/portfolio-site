@@ -28,19 +28,6 @@ import spotify6b from "@/assets/spotify-pixabay/spotify-pix-6b.png";
 import spotify7b from "@/assets/spotify-pixabay/spotify-pix-7b.png";
 import spotify8b from "@/assets/spotify-pixabay/spotify-pix-8b.png";
 
-// import spotify1 from "@/assets/spotify-pixabay/spotify-pixabay3.png";
-// import spotify2 from "@/assets/spotify-pixabay/spotify-pixabay2.png";
-// import spotify3 from "@/assets/spotify-pixabay/spotify-pixabay1.png";
-// import spotify3 from "@/assets/spotify-pixabay/spotify-pixabay-1.png";
-
-// import spotify4 from "@/assets/spotify-pixabay/spotify-pixabay4.png";
-// import spotify1b from "@/assets/spotify-pixabay/spotify-pixabay3b.png";
-// import spotify2b from "@/assets/spotify-pixabay/spotify-pixabay2b.png";
-// import spotify3b from "@/assets/spotify-pixabay/spotify-pixabay1b.png";
-// import spotify3b from "@/assets/spotify-pixabay/spotify-pixabay-1b.png";
-
-// import spotify4b from "@/assets/spotify-pixabay/spotify-pixabay4b.png";
-
 import casino1 from "@/assets/casino-games/casino-games1.png";
 import casino2 from "@/assets/casino-games/casino-games2.png";
 import casino3 from "@/assets/casino-games/casino-games3.png";
@@ -63,14 +50,16 @@ import puzzle3b from "@/assets/puzzle-quest/puzzle-quest3b.png";
 import puzzle4b from "@/assets/puzzle-quest/puzzle-quest4b.png";
 import puzzle5b from "@/assets/puzzle-quest/puzzle-quest5b.png";
 
-import charades1 from "@/assets/charades/charades-1.png";
-import charades2 from "@/assets/charades/charades-2.png";
-import charades3 from "@/assets/charades/charades-3.png";
-import charades4 from "@/assets/charades/charades-4.png";
-import charades1b from "@/assets/charades/charades-1b.png";
-import charades2b from "@/assets/charades/charades-2b.png";
-import charades3b from "@/assets/charades/charades-3b.png";
-import charades4b from "@/assets/charades/charades-4b.png";
+import charades1 from "@/assets/charades/char1.png";
+import charades2 from "@/assets/charades/char2.png";
+import charades3 from "@/assets/charades/char3.png";
+import charades4 from "@/assets/charades/char4.png";
+import charades5 from "@/assets/charades/char5.png";
+import charades1b from "@/assets/charades/char1b.png";
+import charades2b from "@/assets/charades/char2b.png";
+import charades3b from "@/assets/charades/char3b.png";
+import charades4b from "@/assets/charades/char4b.png";
+import charades5b from "@/assets/charades/char5b.png";
 
 import castlesHearts1 from "@/assets/castles-hearts/castles-hearts1.png";
 import castlesHearts2 from "@/assets/castles-hearts/castles-hearts2.png";
@@ -149,8 +138,8 @@ export const imageSets = {
   }),
   partyGames: createImageSet({
     prefix: "ch",
-    desktop: [charades1, charades2, charades3, charades4],
-    phone: [charades1b, charades2b, charades3b, charades4b],
+    desktop: [charades1, charades2, charades3, charades4, charades5],
+    phone: [charades1b, charades2b, charades3b, charades4b, charades5b],
   }),
   castlesHearts: createImageSet({
     prefix: "c-h",
