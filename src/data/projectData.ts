@@ -40,6 +40,44 @@ const {
 export const projects: Project[] = [
   {
     id: "1",
+    name: "Recipe Genius",
+    role: "design, front-end, back-end",
+    techStack:
+      "React + TypeScript, Tailwind CSS, Express, OpenAI API, PDF parsing, pnpm monorepo",
+    summary:
+      "An ADHD-friendly recipe assistant that turns pasted or uploaded recipes into structured ingredients and short, focus-first cooking steps with timers and recovery cues.",
+    description: {
+      overview:
+        "Recipe Genius transforms any recipe text into a calm, guided cooking flow optimized for attention management in the kitchen.",
+      steps: [
+        "Users paste recipe text, provide a URL, or upload a file, then trigger a transform request to parse and structure the recipe.",
+        "The app rewrites output into chunked, step-by-step guidance with ingredient callouts and cleaner visual hierarchy.",
+        "A review/edit stage lets cooks simplify language, check ingredients, and make quick fixes before cooking.",
+        "Cook mode surfaces one clear step at a time with visible progress, timers, and a rescue pattern for regaining context.",
+      ],
+    },
+    details: {
+      summary:
+        "The web app centers accessibility and cognitive load reduction with focus mode, large tap targets, timer visibility, and line-spacing/theme controls. Backend endpoints convert raw recipe input into structured steps and ingredients using OpenAI, while the frontend organizes the flow across inbox, review, and cook panels.",
+      keyFeatures: [
+        "Recipe transformation pipeline (`POST /api/transform`) that returns structured ingredients and steps from raw recipe text.",
+        "PDF-to-text ingestion (`POST /api/parse`) to support recipes that start as uploaded documents.",
+        "ADHD-aware UX patterns: one-step screens, distraction rescue, adjustable text/contrast, and persistent progress cues.",
+        "Multi-stage workflow across paste/import, review/edit, and cook mode to reduce kitchen decision fatigue.",
+      ],
+      howBuilt: [
+        "Monorepo architecture with `apps/web` (Vite + React + Tailwind) and `apps/api` (Express + TypeScript + OpenAI integration).",
+        "Frontend state management coordinates recipe source, parsed output, progress state, timers, and accessibility toggles.",
+        "Environment-based deployment split: web on Vercel and API on Render with CORS/URL config via env vars.",
+      ],
+    },
+    liveUrl: "https://recipe-curation-genius.vercel.app",
+    githubUrl: "https://github.com/tfalba/recipe-curation-adhd",
+    images: recipeGenius.desktop,
+    imagesPhone: recipeGenius.phone,
+  },
+  {
+    id: "2",
     name: "Top Knot Holistics",
     role: "design, front-end, back-end",
     techStack: "React + TypeScript, Tailwind CSS, Google Calendar API",
@@ -74,7 +112,7 @@ export const projects: Project[] = [
     imagesPhone: topKnot.phone,
   },
   {
-    id: "2",
+    id: "3",
     name: "Color My Music",
     role: "design, front-end, back-end",
     techStack: "React + TypeScript, Tailwind CSS, Open AI, Spotify API, Pixabay API",
@@ -109,7 +147,7 @@ export const projects: Project[] = [
     imagesPhone: colorMyMusic.phone,
   },
   {
-    id: "3",
+    id: "4",
     name: "Casino Games",
     role: "design, front-end, back-end",
     techStack: "React + TypeScript, Tailwind CSS, Python, Express",
@@ -145,7 +183,7 @@ export const projects: Project[] = [
     imagesPhone: casinoGames.phone,
   },
   {
-    id: "4",
+    id: "5",
     name: "Puzzle Quest",
     role: "design, front-end, back-end",
     techStack: "React + TypeScript, Tailwind CSS, Pixabay API",
@@ -184,7 +222,7 @@ export const projects: Project[] = [
     imagesPhone: puzzleQuest.phone,
   },
   {
-    id: "5",
+    id: "6",
     name: "Charades",
     role: "design, front-end, back-end",
     techStack:
@@ -221,7 +259,7 @@ export const projects: Project[] = [
     imagesPhone: partyGames.phone,
   },
   {
-    id: "6",
+    id: "7",
     name: "Castles & Hearts",
     role: "design, front-end, back-end",
     techStack:
@@ -261,7 +299,7 @@ export const projects: Project[] = [
     imagesPhone: castlesHearts.phone,
   },
   {
-    id: "7",
+    id: "8",
     name: "Karaoke Night",
     role: "design, front-end, back-end",
     techStack:
@@ -299,43 +337,5 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/tfalba/portfolio-site",
     images: karaokeNight.desktop,
     imagesPhone: karaokeNight.phone,
-  },
-  {
-    id: "8",
-    name: "Recipe Genius",
-    role: "design, front-end, back-end",
-    techStack:
-      "React + TypeScript, Tailwind CSS, Express, OpenAI API, PDF parsing, pnpm monorepo",
-    summary:
-      "An ADHD-friendly recipe assistant that turns pasted or uploaded recipes into structured ingredients and short, focus-first cooking steps with timers and recovery cues.",
-    description: {
-      overview:
-        "Recipe Genius transforms any recipe text into a calm, guided cooking flow optimized for attention management in the kitchen.",
-      steps: [
-        "Users paste recipe text, provide a URL, or upload a file, then trigger a transform request to parse and structure the recipe.",
-        "The app rewrites output into chunked, step-by-step guidance with ingredient callouts and cleaner visual hierarchy.",
-        "A review/edit stage lets cooks simplify language, check ingredients, and make quick fixes before cooking.",
-        "Cook mode surfaces one clear step at a time with visible progress, timers, and a rescue pattern for regaining context.",
-      ],
-    },
-    details: {
-      summary:
-        "The web app centers accessibility and cognitive load reduction with focus mode, large tap targets, timer visibility, and line-spacing/theme controls. Backend endpoints convert raw recipe input into structured steps and ingredients using OpenAI, while the frontend organizes the flow across inbox, review, and cook panels.",
-      keyFeatures: [
-        "Recipe transformation pipeline (`POST /api/transform`) that returns structured ingredients and steps from raw recipe text.",
-        "PDF-to-text ingestion (`POST /api/parse`) to support recipes that start as uploaded documents.",
-        "ADHD-aware UX patterns: one-step screens, distraction rescue, adjustable text/contrast, and persistent progress cues.",
-        "Multi-stage workflow across paste/import, review/edit, and cook mode to reduce kitchen decision fatigue.",
-      ],
-      howBuilt: [
-        "Monorepo architecture with `apps/web` (Vite + React + Tailwind) and `apps/api` (Express + TypeScript + OpenAI integration).",
-        "Frontend state management coordinates recipe source, parsed output, progress state, timers, and accessibility toggles.",
-        "Environment-based deployment split: web on Vercel and API on Render with CORS/URL config via env vars.",
-      ],
-    },
-    liveUrl: "https://recipe-curation-genius.vercel.app",
-    githubUrl: "https://github.com/tfalba/recipe-curation-adhd",
-    images: recipeGenius.desktop,
-    imagesPhone: recipeGenius.phone,
   },
 ];
