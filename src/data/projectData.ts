@@ -26,8 +26,16 @@ export type Project = {
   imagesPhone: CarouselImage[];
 };
 
-const { topKnot, colorMyMusic, casinoGames, puzzleQuest, partyGames, castlesHearts, karaokeNight } =
-  imageSets;
+const {
+  topKnot,
+  colorMyMusic,
+  casinoGames,
+  puzzleQuest,
+  partyGames,
+  castlesHearts,
+  karaokeNight,
+  recipeGenius,
+} = imageSets;
 
 export const projects: Project[] = [
   {
@@ -214,34 +222,37 @@ export const projects: Project[] = [
   },
   {
     id: "6",
-    name: "Castles & Heaerts",
+    name: "Castles & Hearts",
     role: "design, front-end, back-end",
     techStack:
       "React, TypeScript, Vite, Express, Google Auth, Google Firebase",
     summary:
-      "Spin a neon wheel to pick the next actor, fetch OpenAI-crafted prompts, and run five-round charades matches with timers and scoreboards in one browser tab.",
+      "A co-buying platform concept that helps home buyers and outside investors align on goals, understand co-ownership mechanics, and estimate affordability with an interactive mortgage calculator.",
     description: {
       overview:
-        "Charades Game Night Hub keeps team setup, wheel spins, prompt delivery, timers, and scoring in sync so hosts can run party-length matches without juggling multiple tools.",
+        "Castles & Hearts introduces a guided co-buying journey focused on access to ownership, investor collaboration, and practical planning for shared home purchases.",
       steps: [
-        "Build teams through the slide-out player drawer, assign colors, and persist the roster via localStorage for future sessions.",
-        "Spin the SVG prize wheel to pick the next actor, then choose topic and difficulty to recolor the table and fetch five fresh prompts.",
-        "Kick off the five-minute countdown; each actor can burn 30 seconds for an alternate hint before logging Got It or Surrender.",
-        "Track ✓/✕ results across five rounds in the scoreboard and flash celebratory overlays when turns end.",
+        "Onboarding flow asks users to self-identify across co-buying roles (for example, co-buyer, current owner, or outside investor) so guidance can be tailored.",
+        "Educational FAQ section explains the co-buying model, risks, legal agreements, title options, and expense-sharing basics.",
+        "Mission and legacy storytelling sections frame the product as an access-focused path to long-term homeownership and community wealth building.",
+        "Calculator workspace lets users model home value, down payment, loan amount, interest rate, and tenure with live monthly payment feedback.",
       ],
     },
     details: {
       summary:
-        "GameContext orchestrates players, prompts, timers, wheel spins, and scoreboard updates so the UI stays synchronized across every section of the board.",
+        "The product combines educational content, profile-based guidance, and affordability tooling in one branded experience. Its design direction emphasizes trust and approachability with curated interiors, editorial typography, and a calm visual hierarchy suitable for first-time and non-traditional buyers.",
       keyFeatures: [
-        "OpenAI-backed prompt generation with duplicate avoidance and per-topic history stored in `apps/api/data/challenge-history.json`.",
-        "Topic-driven themes that swap logos, accent colors, and badges whenever a new category is selected.",
-        "Alternate prompt penalty system that subtracts 30 seconds, forcing teams to weigh hint requests mid-turn.",
+        "Role-selection chips to route visitors into relevant co-buying pathways.",
+        "Structured FAQ blocks covering co-buying definitions, benefits, risks, legal structure, and cost-splitting decisions.",
+        "Mortgage calculator with slider-driven inputs, amortization assumptions, and payment composition visualization.",
+        "Brand-forward storytelling sections that explain mission, audience, and long-term value proposition.",
       ],
       howBuilt: [
-        "React 18 + Vite + TypeScript frontend paired with an Express + TypeScript API, both sharing Topic/Difficulty types via workspace aliases.",
-        "GameContext centralizes prompts, countdown timers, wheel spins, and scoreboard logic for predictable state updates.",
-        "API route `apps/api/src/routes.ts` calls `gpt-4o-mini` with strict difficulty rules and deduped history files before returning prompts.",
+        "React + TypeScript + Vite foundation for fast iteration on page flows and interactive finance components.",
+        "Firebase/Auth integration supports account entry points and role-aware navigation.",
+        "Calculator logic computes monthly payment outputs from adjustable principal, rate, and term inputs, then renders a split chart for principal vs. interest.",
+        "Design system uses reusable sections and content cards to keep narrative, FAQ, and calculator modules consistent across pages.",
+        "Built as a demo for early startup feedback. Co-Founders Jen Jue-Steuck, Tracy Falba, and Aamber Hickman"
       ],
     },
     liveUrl: "https://castles-and-hearts.web.app/",
@@ -288,5 +299,43 @@ export const projects: Project[] = [
     githubUrl: "https://github.com/tfalba/portfolio-site",
     images: karaokeNight.desktop,
     imagesPhone: karaokeNight.phone,
+  },
+  {
+    id: "8",
+    name: "Recipe Genius",
+    role: "design, front-end, back-end",
+    techStack:
+      "React + TypeScript, Tailwind CSS, Express, OpenAI API, PDF parsing, pnpm monorepo",
+    summary:
+      "An ADHD-friendly recipe assistant that turns pasted or uploaded recipes into structured ingredients and short, focus-first cooking steps with timers and recovery cues.",
+    description: {
+      overview:
+        "Recipe Genius transforms any recipe text into a calm, guided cooking flow optimized for attention management in the kitchen.",
+      steps: [
+        "Users paste recipe text, provide a URL, or upload a file, then trigger a transform request to parse and structure the recipe.",
+        "The app rewrites output into chunked, step-by-step guidance with ingredient callouts and cleaner visual hierarchy.",
+        "A review/edit stage lets cooks simplify language, check ingredients, and make quick fixes before cooking.",
+        "Cook mode surfaces one clear step at a time with visible progress, timers, and a rescue pattern for regaining context.",
+      ],
+    },
+    details: {
+      summary:
+        "The web app centers accessibility and cognitive load reduction with focus mode, large tap targets, timer visibility, and line-spacing/theme controls. Backend endpoints convert raw recipe input into structured steps and ingredients using OpenAI, while the frontend organizes the flow across inbox, review, and cook panels.",
+      keyFeatures: [
+        "Recipe transformation pipeline (`POST /api/transform`) that returns structured ingredients and steps from raw recipe text.",
+        "PDF-to-text ingestion (`POST /api/parse`) to support recipes that start as uploaded documents.",
+        "ADHD-aware UX patterns: one-step screens, distraction rescue, adjustable text/contrast, and persistent progress cues.",
+        "Multi-stage workflow across paste/import, review/edit, and cook mode to reduce kitchen decision fatigue.",
+      ],
+      howBuilt: [
+        "Monorepo architecture with `apps/web` (Vite + React + Tailwind) and `apps/api` (Express + TypeScript + OpenAI integration).",
+        "Frontend state management coordinates recipe source, parsed output, progress state, timers, and accessibility toggles.",
+        "Environment-based deployment split: web on Vercel and API on Render with CORS/URL config via env vars.",
+      ],
+    },
+    liveUrl: "https://recipe-curation-genius.vercel.app",
+    githubUrl: "https://github.com/tfalba/recipe-curation-adhd",
+    images: recipeGenius.desktop,
+    imagesPhone: recipeGenius.phone,
   },
 ];

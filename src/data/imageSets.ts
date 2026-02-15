@@ -80,6 +80,20 @@ import karaokeNight4 from "@/assets/karaoke-night/karaoke-night4.png";
 import karaokeNight5 from "@/assets/karaoke-night/karaoke-night5.png";
 import karaokeNight6 from "@/assets/karaoke-night/karaoke-night6.png";
 import karaokeNight7 from "@/assets/karaoke-night/karaoke-night7.png";
+import recipeGenius1 from "@/assets/recipe-genius/recipe-1.png";
+import recipeGenius2 from "@/assets/recipe-genius/recipe-2.png";
+import recipeGenius3 from "@/assets/recipe-genius/recipe-3.png";
+import recipeGenius4 from "@/assets/recipe-genius/recipe-4.png";
+import recipeGenius5 from "@/assets/recipe-genius/recipe-5.png";
+import recipeGenius6 from "@/assets/recipe-genius/recipe-6.png";
+import recipeGenius7 from "@/assets/recipe-genius/recipe-7.png";
+import recipeGenius1b from "@/assets/recipe-genius/recipe-1b.png";
+import recipeGenius2b from "@/assets/recipe-genius/recipe-2b.png";
+import recipeGenius3b from "@/assets/recipe-genius/recipe-3b.png";
+import recipeGenius4b from "@/assets/recipe-genius/recipe-4b.png";
+import recipeGenius5b from "@/assets/recipe-genius/recipe-5b.png";
+import recipeGenius6b from "@/assets/recipe-genius/recipe-6b.png";
+import recipeGenius7b from "@/assets/recipe-genius/recipe-7b.png";
 
 
 type AltFormatter = (index: number) => string | undefined;
@@ -150,6 +164,27 @@ export const imageSets = {
     prefix: "kn",
     desktop: [karaokeNight1, karaokeNight2, karaokeNight3, karaokeNight4, karaokeNight5, karaokeNight6, karaokeNight7],
     phone: [undefined, undefined, undefined, undefined, undefined, undefined, undefined],
+  }),
+  recipeGenius: createImageSet({
+    prefix: "rg",
+    desktop: [
+      recipeGenius1,
+      recipeGenius2,
+      recipeGenius3,
+      recipeGenius4,
+      recipeGenius5,
+      recipeGenius6,
+      recipeGenius7,
+    ],
+    phone: [
+      recipeGenius1b,
+      recipeGenius2b,
+      recipeGenius3b,
+      recipeGenius4b,
+      recipeGenius5b,
+      recipeGenius6b,
+      recipeGenius7b,
+    ],
   }),
 } as const;
 
