@@ -14,7 +14,7 @@ const App: React.FC = () => {
               Tracy Falba, Ph.D.
             </h1>
           </div>
-          <nav className="flex flex-wrap ml-auto max-w-[78vw] md:max-w-full justify-end gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
+          <nav className="flex flex-wrap ml-auto max-w-[96vw] md:max-w-full justify-end gap-2 md:gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-white/70">
             <a
               href="#hero"
               className="cta-link text-sm border-white/40 bg-white/5 hover:border-white hover:bg-white/80"
